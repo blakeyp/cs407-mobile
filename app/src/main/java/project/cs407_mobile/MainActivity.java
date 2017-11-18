@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText ipField;
     private Button buttonConnect;
 
+    private Button buttonControlla;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {   // on opening the app
         super.onCreate(savedInstanceState);
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         ipField = (EditText) findViewById(R.id.editText);   // reference to the IP address text field
         buttonConnect = (Button) findViewById(R.id.buttonConnect);   // reference to the connect button
+
+        buttonControlla = (Button) findViewById(R.id.buttonControlla);
 
         // on clicking connect button
         buttonConnect.setOnClickListener(new View.OnClickListener() {
@@ -38,12 +42,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonControlla.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startFullscreen();
+            }
+        });
+
     }
 
     protected void openController(String address) {
         Log.d(DEBUG_TAG, "Starting Controller Activity");
         Intent intent = new Intent(this, ControllerActivity.class);
         intent.putExtra("ip",  address);
+        startActivity(intent);
+    }
+
+    protected void startFullscreen() {
+        Intent intent = new Intent(this, BasicControllerActivity.class);
         startActivity(intent);
     }
 
