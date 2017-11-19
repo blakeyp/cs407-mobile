@@ -56,8 +56,8 @@ public class BasicControllerActivity extends AppCompatActivity {
         }
     };
 
-    private ImageButton ctrlLeft;
-    private ImageButton ctrlRight;
+    private Button ctrlLeft;
+    private Button ctrlRight;
     private Button ctrlShoot;
 
     @Override
@@ -69,8 +69,8 @@ public class BasicControllerActivity extends AppCompatActivity {
         //mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
-        ctrlLeft = (ImageButton) findViewById(R.id.ctrlLeft);
-        ctrlRight = (ImageButton) findViewById(R.id.ctrlRight);
+        ctrlLeft = (Button) findViewById(R.id.ctrlLeft);
+        ctrlRight = (Button) findViewById(R.id.ctrlRight);
         ctrlShoot = (Button) findViewById(R.id.ctrlShoot);
 
         // button press event listener
@@ -80,9 +80,11 @@ public class BasicControllerActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        v.setPressed(true);
                         Log.d(DEBUG_TAG, "Pressed Left button");
                         return true; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
+                        v.setPressed(false);
                         Log.d(DEBUG_TAG, "Released Left button");
                         return true; // if you want to handle the touch event
                 }
@@ -97,9 +99,11 @@ public class BasicControllerActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        v.setPressed(true);
                         Log.d(DEBUG_TAG, "Pressed right button");
                         return true; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
+                        v.setPressed(false);
                         Log.d(DEBUG_TAG, "Released right button");
                         return true; // if you want to handle the touch event
                 }
@@ -114,9 +118,11 @@ public class BasicControllerActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        v.setPressed(true);
                         Log.d(DEBUG_TAG, "Pressed shoot button");
                         return true; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
+                        v.setPressed(false);
                         Log.d(DEBUG_TAG, "Released shoot button");
                         return true; // if you want to handle the touch event
                 }
