@@ -5,8 +5,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+
+import static project.cs407_mobile.MainActivity.DEBUG_TAG;
 
 public class BasicControllerActivity extends AppCompatActivity {
 
@@ -31,7 +36,7 @@ public class BasicControllerActivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
     };
-    private View mControlsView;
+    //private View mControlsView;
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
@@ -40,7 +45,7 @@ public class BasicControllerActivity extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-            mControlsView.setVisibility(View.VISIBLE);
+            //mControlsView.setVisibility(View.VISIBLE);
         }
     };
 
@@ -51,14 +56,73 @@ public class BasicControllerActivity extends AppCompatActivity {
         }
     };
 
+    private ImageButton ctrlLeft;
+    private ImageButton ctrlRight;
+    private Button ctrlShoot;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_basic_controller);
 
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
+        //mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
+
+        ctrlLeft = (ImageButton) findViewById(R.id.ctrlLeft);
+        ctrlRight = (ImageButton) findViewById(R.id.ctrlRight);
+        ctrlShoot = (Button) findViewById(R.id.ctrlShoot);
+
+        // button press event listener
+        ctrlLeft.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d(DEBUG_TAG, "Pressed Left button");
+                        return true; // if you want to handle the touch event
+                    case MotionEvent.ACTION_UP:
+                        Log.d(DEBUG_TAG, "Released Left button");
+                        return true; // if you want to handle the touch event
+                }
+                return false;
+            }
+        });
+
+        // button press event listener
+        ctrlRight.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d(DEBUG_TAG, "Pressed right button");
+                        return true; // if you want to handle the touch event
+                    case MotionEvent.ACTION_UP:
+                        Log.d(DEBUG_TAG, "Released right button");
+                        return true; // if you want to handle the touch event
+                }
+                return false;
+            }
+        });
+
+        // button press event listener
+        ctrlShoot.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d(DEBUG_TAG, "Pressed shoot button");
+                        return true; // if you want to handle the touch event
+                    case MotionEvent.ACTION_UP:
+                        Log.d(DEBUG_TAG, "Released shoot button");
+                        return true; // if you want to handle the touch event
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -77,7 +141,7 @@ public class BasicControllerActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        mControlsView.setVisibility(View.GONE);
+        //mControlsView.setVisibility(View.GONE);
 
         // Schedule a runnable to remove the status and navigation bar after a delay
         mHideHandler.removeCallbacks(mShowPart2Runnable);
@@ -99,4 +163,6 @@ public class BasicControllerActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
+
 }
