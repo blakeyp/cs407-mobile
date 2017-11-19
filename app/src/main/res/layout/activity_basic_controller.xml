@@ -23,16 +23,26 @@
     <!-- This FrameLayout insets its children based on system windows using
      android:fitsSystemWindows. -->
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/fullscreen_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
