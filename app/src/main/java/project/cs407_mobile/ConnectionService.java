@@ -1,5 +1,6 @@
 package project.cs407_mobile;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,13 +14,13 @@ import static project.cs407_mobile.MainActivity.DEBUG_TAG;
 
 class ConnectionService {
 
-    private ControllerActivity controller;
+    private Activity controller;
     private MakeConnection connection;
 
     private PrintWriter printwriter;
 
 
-    void connectToIP(String ipAddr, ControllerActivity ctrl) {
+    void connectToIP(String ipAddr, Activity ctrl) {
         controller = ctrl;
         connection = new MakeConnection(ipAddr);
         connection.execute();
@@ -72,11 +73,11 @@ class ConnectionService {
 
         protected void onPostExecute(Void result) {
             Log.d(DEBUG_TAG, "Finished connecting");
-            controller.setConnectStatus("Connected to: " + ipAddr);
-            controller.buttonJump.setClickable(true);
-            controller.buttonJump.setAlpha(1);
-            controller.buttonDisconnect.setClickable(true);
-            controller.buttonDisconnect.setAlpha(1);
+//            controller.setConnectStatus("Connected to: " + ipAddr);
+//            controller.buttonJump.setClickable(true);
+//            controller.buttonJump.setAlpha(1);
+//            controller.buttonDisconnect.setClickable(true);
+//            controller.buttonDisconnect.setAlpha(1);
         }
 
         protected void onCancelled(Void result) {

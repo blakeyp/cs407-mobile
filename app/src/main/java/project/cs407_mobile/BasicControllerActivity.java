@@ -1,6 +1,7 @@
 package project.cs407_mobile;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import static project.cs407_mobile.MainActivity.DEBUG_TAG;
 
 public class BasicControllerActivity extends AppCompatActivity {
 
+    private ConnectionService connectionService;
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
@@ -69,6 +71,12 @@ public class BasicControllerActivity extends AppCompatActivity {
         //mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
+        Intent intent = getIntent();
+        String ipAddr = intent.getStringExtra("ip");   // get input IP address
+
+        connectionService = new ConnectionService();
+        connectionService.connectToIP(ipAddr, this);
+
         ctrlLeft = (Button) findViewById(R.id.ctrlLeft);
         ctrlRight = (Button) findViewById(R.id.ctrlRight);
         ctrlShoot = (Button) findViewById(R.id.ctrlShoot);
@@ -82,10 +90,12 @@ public class BasicControllerActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
                         v.setPressed(true);
                         Log.d(DEBUG_TAG, "Pressed Left button");
+                        connectionService.sendMessage("left");
                         return true; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
                         v.setPressed(false);
                         Log.d(DEBUG_TAG, "Released Left button");
+                        connectionService.sendMessage("leftr");
                         return true; // if you want to handle the touch event
                 }
                 return false;
@@ -101,10 +111,12 @@ public class BasicControllerActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
                         v.setPressed(true);
                         Log.d(DEBUG_TAG, "Pressed right button");
+                        connectionService.sendMessage("right");
                         return true; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
                         v.setPressed(false);
                         Log.d(DEBUG_TAG, "Released right button");
+                        connectionService.sendMessage("rightr");
                         return true; // if you want to handle the touch event
                 }
                 return false;
@@ -120,10 +132,12 @@ public class BasicControllerActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
                         v.setPressed(true);
                         Log.d(DEBUG_TAG, "Pressed shoot button");
+                        connectionService.sendMessage("fire");
                         return true; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
                         v.setPressed(false);
                         Log.d(DEBUG_TAG, "Released shoot button");
+                        connectionService.sendMessage("firer");
                         return true; // if you want to handle the touch event
                 }
                 return false;

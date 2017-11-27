@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void openController(String address) {
         Log.d(DEBUG_TAG, "Starting Controller Activity");
-        Intent intent = new Intent(this, ControllerActivity.class);
+        Intent intent = new Intent(this, BasicControllerActivity.class);
         intent.putExtra("ip",  address);
         startActivity(intent);
     }
