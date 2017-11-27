@@ -32,16 +32,23 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"/>
 
+    <project.cs407_mobile.TouchPad
+        android:layout_width="252dp"
+        android:layout_height="222dp"
+        android:layout_marginLeft="79dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="43dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonControlla" />
+
     <Button
         android:id="@+id/buttonControlla"
         android:layout_width="161dp"
         android:layout_height="79dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="CONTROLLER"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

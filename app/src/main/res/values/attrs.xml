@@ -8,5 +8,9 @@
         <attr name="metaButtonBarStyle" format="reference" />
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
+    <declare-styleable name="TouchPad">
+        <attr name="mWidth" format="integer" />
+        <attr name="mHeight" format="integer"/>
+    </declare-styleable>
 
 </resources>
