@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -61,6 +62,7 @@ public class BasicControllerActivity extends AppCompatActivity {
     private Button ctrlLeft;
     private Button ctrlRight;
     private Button ctrlShoot;
+    private TouchPad touchPad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,9 @@ public class BasicControllerActivity extends AppCompatActivity {
         ctrlLeft = (Button) findViewById(R.id.ctrlLeft);
         ctrlRight = (Button) findViewById(R.id.ctrlRight);
         ctrlShoot = (Button) findViewById(R.id.ctrlShoot);
+        touchPad = (TouchPad) findViewById(R.id.touchPad);
+
+        touchPad.setDetector(new GestureDetector(touchPad.getContext(), new scrollListener()));
 
         // button press event listener
         ctrlLeft.setOnTouchListener(new View.OnTouchListener() {
@@ -183,6 +188,21 @@ public class BasicControllerActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
+    class scrollListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
+            Log.d(DEBUG_TAG, dx + "," + dy);
+            connectionService.sendMessage(dx + "," +dy );
+            return true;
+        }
+    }
+
 
 
 }

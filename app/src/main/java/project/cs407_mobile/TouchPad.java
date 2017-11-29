@@ -63,6 +63,10 @@ public class TouchPad extends View {
 
     }
 
+    public void setDetector(GestureDetector ges) {
+        mDetector = ges;
+    }
+
     class mListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onDown(MotionEvent e) {
