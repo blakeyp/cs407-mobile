@@ -25,7 +25,8 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="7dp" />
+        android:layout_marginRight="7dp"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <Button
         android:id="@+id/ctrlRight"
