@@ -76,7 +76,7 @@ public class TouchPad extends View {
         @Override
         public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
             boolean consume = false;
-            int sens = 10;
+            int sens = 50;
             if (dx > sens) {
                 Log.d(TouchPad.class.getName(), "LEFT");
                 consume = true;
