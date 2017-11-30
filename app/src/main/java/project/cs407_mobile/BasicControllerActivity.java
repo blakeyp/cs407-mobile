@@ -79,75 +79,9 @@ public class BasicControllerActivity extends AppCompatActivity {
         connectionService = new ConnectionService();
         connectionService.connectToIP(ipAddr, this);
 
-        ctrlLeft = (Button) findViewById(R.id.ctrlLeft);
-        ctrlRight = (Button) findViewById(R.id.ctrlRight);
-        ctrlShoot = (Button) findViewById(R.id.ctrlShoot);
         touchPad = (TouchPad) findViewById(R.id.touchPad);
 
         touchPad.setDetector(new GestureDetector(touchPad.getContext(), new scrollListener()));
-
-        // button press event listener
-        ctrlLeft.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        v.setPressed(true);
-                        Log.d(DEBUG_TAG, "Pressed Left button");
-                        connectionService.sendMessage("left");
-                        return true; // if you want to handle the touch event
-                    case MotionEvent.ACTION_UP:
-                        v.setPressed(false);
-                        Log.d(DEBUG_TAG, "Released Left button");
-                        connectionService.sendMessage("leftr");
-                        return true; // if you want to handle the touch event
-                }
-                return false;
-            }
-        });
-
-        // button press event listener
-        ctrlRight.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        v.setPressed(true);
-                        Log.d(DEBUG_TAG, "Pressed right button");
-                        connectionService.sendMessage("right");
-                        return true; // if you want to handle the touch event
-                    case MotionEvent.ACTION_UP:
-                        v.setPressed(false);
-                        Log.d(DEBUG_TAG, "Released right button");
-                        connectionService.sendMessage("rightr");
-                        return true; // if you want to handle the touch event
-                }
-                return false;
-            }
-        });
-
-        // button press event listener
-        ctrlShoot.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        v.setPressed(true);
-                        Log.d(DEBUG_TAG, "Pressed shoot button");
-                        connectionService.sendMessage("fire");
-                        return true; // if you want to handle the touch event
-                    case MotionEvent.ACTION_UP:
-                        v.setPressed(false);
-                        Log.d(DEBUG_TAG, "Released shoot button");
-                        connectionService.sendMessage("firer");
-                        return true; // if you want to handle the touch event
-                }
-                return false;
-            }
-        });
     }
 
     @Override
