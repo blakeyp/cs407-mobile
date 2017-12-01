@@ -38,10 +38,10 @@
         android:layout_marginLeft="79dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginBottom="43dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonControlla" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonController" />
 
     <Button
-        android:id="@+id/buttonControlla"
+        android:id="@+id/buttonController"
         android:layout_width="161dp"
         android:layout_height="79dp"
         android:layout_marginBottom="16dp"

@@ -2,6 +2,8 @@ package project.cs407_mobile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ToggleButton;
 
 import static project.cs407_mobile.MainActivity.DEBUG_TAG;
 
@@ -64,6 +67,8 @@ public class BasicControllerActivity extends AppCompatActivity {
     private Button ctrlShoot;
     private TouchPad touchPad;
 
+    private ToggleButton eraserButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,14 +79,36 @@ public class BasicControllerActivity extends AppCompatActivity {
         mContentView = findViewById(R.id.fullscreen_content);
 
         Intent intent = getIntent();
-        String ipAddr = intent.getStringExtra("ip");   // get input IP address
 
-        connectionService = new ConnectionService();
-        connectionService.connectToIP(ipAddr, this);
+        if (intent.hasExtra("ip")) {
 
-        touchPad = (TouchPad) findViewById(R.id.touchPad);
+            String ipAddr = intent.getStringExtra("ip");   // get input IP address
 
-        touchPad.setDetector(new GestureDetector(touchPad.getContext(), new scrollListener()));
+            connectionService = new ConnectionService();
+            connectionService.connectToIP(ipAddr, this);
+
+            touchPad = (TouchPad) findViewById(R.id.touchPad);
+            touchPad.setDetector(new GestureDetector(touchPad.getContext(), new scrollListener()));
+
+        }
+
+        eraserButton = (ToggleButton) findViewById(R.id.eraserButton);
+
+        eraserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eraserButton.setBackgroundTintList(new ColorStateList(
+                        new int[][]{
+                                new int[]{android.R.attr.state_checked} //1
+                        },
+                        new int[] {
+                                Color.BLUE, //1
+                        })
+                );
+                eraserButton.invalidate();
+            }
+        });
+
     }
 
     @Override

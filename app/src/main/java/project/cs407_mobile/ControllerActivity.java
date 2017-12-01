@@ -22,6 +22,7 @@ public class ControllerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_controller);
 
         Intent intent = getIntent();
+
         String ipAddr = intent.getStringExtra("ip");   // get input IP address
 
         connectionService = new ConnectionService();
