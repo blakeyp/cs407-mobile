@@ -3,6 +3,7 @@ package project.cs407_mobile;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.*;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -18,9 +19,14 @@ public class TouchPad extends View {
     private int mHeight;
     private int mWidth;
 
+    private int offsetX;
+    private int offsetY;
+
     private Paint mPanelPaint;
 
-    private RectF mBoundingBox;
+    private Bitmap mPattern;
+
+    private Rect mBoundingBox;
 
     private GestureDetector mDetector;
 
@@ -34,14 +40,25 @@ public class TouchPad extends View {
             arr.recycle();
         }
 
+        mPattern = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.sample_tile);
+
+
         init();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        final int bmWidth = mPattern.getWidth();
+        final int bmHeight = mPattern.getHeight();
 
-        canvas.drawRoundRect(mBoundingBox, 15.0f, 15.0f, mPanelPaint);
+        for (int y = offsetY-mPattern.getHeight(), height = mBoundingBox.height(); y < height; y += bmHeight) {
+            for (int x = offsetX-mPattern.getWidth(), width = mBoundingBox.width(); x < width; x += bmWidth) {
+                canvas.drawBitmap(mPattern, x, y, null);
+            }
+        }
+        //canvas.drawRoundRect(mBoundingBox, 15.0f, 15.0f, mPanelPaint);
     }
 
     @Override
@@ -49,7 +66,8 @@ public class TouchPad extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         mHeight = h;
         mWidth = w;
-        mBoundingBox = new RectF(0, 0, w, h);
+        mBoundingBox = new Rect(0, 0, w, h);
+        invalidate();
     }
 
     protected void init() {
@@ -58,6 +76,9 @@ public class TouchPad extends View {
         mPanelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPanelPaint.setStyle(Paint.Style.FILL);
         mPanelPaint.setColor(0xffafafaf);
+
+        offsetX = 0;
+        offsetY = 0;
 
         mDetector = new GestureDetector(TouchPad.this.getContext(), new mListener());
 
@@ -75,26 +96,12 @@ public class TouchPad extends View {
 
         @Override
         public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
-            boolean consume = false;
-            int sens = 50;
-            if (dx > sens) {
-                Log.d(TouchPad.class.getName(), "LEFT");
-                consume = true;
-            }
-            if (dx < -(sens)) {
-                Log.d(TouchPad.class.getName(), "RIGHT");
-                consume = true;
-            }
-            if (dy > sens) {
-                Log.d(TouchPad.class.getName(), "UP");
-                consume = true;
-            }
-            if (dy < -(sens)) {
-                Log.d(TouchPad.class.getName(), "DOWN");
-                consume = true;
-            }
 
-            return consume;
+            offsetX = Math.round((offsetX - dx)%mPattern.getWidth());
+            offsetY = Math.round((offsetY - dy)%mPattern.getHeight());
+            invalidate();
+            Log.d("DEBUG", offsetX+", "+offsetY);
+            return true;
         }
     }
 

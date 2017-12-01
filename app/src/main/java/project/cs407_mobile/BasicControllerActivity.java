@@ -14,8 +14,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ToggleButton;
+
+import java.util.ArrayList;
 
 import static project.cs407_mobile.MainActivity.DEBUG_TAG;
 
@@ -68,6 +72,8 @@ public class BasicControllerActivity extends AppCompatActivity {
     private ToggleButton eraserButton;
     private ToggleButton pencilButton;
 
+    private ArrayList<ToggleButton> tilePalette;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +99,26 @@ public class BasicControllerActivity extends AppCompatActivity {
 
         eraserButton = (ToggleButton) findViewById(R.id.eraserButton);
         pencilButton = (ToggleButton) findViewById(R.id.pencilButton);
+
+        GridLayout paletteGrid = (GridLayout) findViewById(R.id.paletteGrid);
+
+        tilePalette = new ArrayList(paletteGrid.getChildCount());
+        for (int i = 0; i < paletteGrid.getChildCount(); i++) {
+            tilePalette.add((ToggleButton) paletteGrid.getChildAt(i));
+            //Log.d(this.getClass().getName(), tilePalette.get(i).toString());
+            tilePalette.get(i).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        buttonView.setAlpha(1);
+                        Log.d(buttonView.getClass().getName(), "checked");
+                    } else {
+                        buttonView.setAlpha(0.5f);
+                        Log.d(buttonView.getClass().getName(), "not checked");
+                    }
+                }
+            });
+        }
 
 //        eraserButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 //            @Override
