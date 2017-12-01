@@ -13,6 +13,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
@@ -62,12 +63,10 @@ public class BasicControllerActivity extends AppCompatActivity {
         }
     };
 
-    private Button ctrlLeft;
-    private Button ctrlRight;
-    private Button ctrlShoot;
     private TouchPad touchPad;
 
     private ToggleButton eraserButton;
+    private ToggleButton pencilButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,21 +92,35 @@ public class BasicControllerActivity extends AppCompatActivity {
         }
 
         eraserButton = (ToggleButton) findViewById(R.id.eraserButton);
+        pencilButton = (ToggleButton) findViewById(R.id.pencilButton);
 
-        eraserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                eraserButton.setBackgroundTintList(new ColorStateList(
-                        new int[][]{
-                                new int[]{android.R.attr.state_checked} //1
-                        },
-                        new int[] {
-                                Color.BLUE, //1
-                        })
-                );
-                eraserButton.invalidate();
-            }
-        });
+//        eraserButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//
+//                } else {
+//
+//                }
+//            }
+//        }
+
+        ColorStateList p = new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_checked},//1
+                        new int[]{-android.R.attr.state_checked} //1
+                },
+                new int[] {
+                        Color.BLUE, //1
+                        Color.WHITE
+                });
+
+        eraserButton.setBackgroundTintList(p);
+        eraserButton.invalidate();
+        pencilButton.setBackgroundTintList(p);
+        pencilButton.invalidate();
+
+
 
     }
 

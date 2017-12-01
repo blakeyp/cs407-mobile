@@ -32,14 +32,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"/>
 
-    <project.cs407_mobile.TouchPad
-        android:layout_width="252dp"
-        android:layout_height="222dp"
-        android:layout_marginLeft="79dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginBottom="43dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonController" />
-
     <Button
         android:id="@+id/buttonController"
         android:layout_width="161dp"
