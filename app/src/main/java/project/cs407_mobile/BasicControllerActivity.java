@@ -88,7 +88,7 @@ public class BasicControllerActivity extends AppCompatActivity {
             connectionService.connectToIP(ipAddr, this);
 
             touchPad = (TouchPad) findViewById(R.id.touchPad);
-            touchPad.setDetector(new GestureDetector(touchPad.getContext(), new scrollListener()));
+            touchPad.setDetector(new GestureDetector(touchPad.getContext(), new scrollListener(touchPad)));
 
         }
 
@@ -151,6 +151,13 @@ public class BasicControllerActivity extends AppCompatActivity {
     }
 
     class scrollListener extends GestureDetector.SimpleOnGestureListener {
+
+        View mView;
+
+        public scrollListener(View v) {
+            mView = v;
+        }
+
         @Override
         public boolean onDown(MotionEvent e) {
             return true;
@@ -158,8 +165,8 @@ public class BasicControllerActivity extends AppCompatActivity {
 
         @Override
         public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
-            Log.d(DEBUG_TAG, dx + "," + dy);
-            connectionService.sendMessage(dx + "," +dy );
+            Log.d(DEBUG_TAG, dx/mView.getWidth() + "," + dy/mView.getHeight());
+            connectionService.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
             return true;
         }
     }
