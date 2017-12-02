@@ -18,9 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ControllerActivity" />
         <activity
-            android:name=".BasicControllerActivity"
+            android:name=".ControllerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_basic_controller"
             android:theme="@style/FullscreenTheme"
