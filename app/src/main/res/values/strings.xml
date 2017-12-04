@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Mobile-Desktop Game</string>
+    <string name="app_name">Patchworks</string>
     <string name="ip_addr_input">Enter IP address</string>
-    <string name="connect_btn">Connect</string>
+    <string name="connect_btn">Connect to Patchworks</string>
 
     <string name="title_activity_basic_controller">BasicControllerActivity</string>
     <string name="dummy_button">Dummy Button</string>

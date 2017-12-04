@@ -1,9 +1,11 @@
 package project.cs407_mobile;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.NinePatchDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -21,6 +23,8 @@ public class TouchPad extends View {
 
     public int offsetX;
     public int offsetY;
+
+    private NinePatchDrawable mNpd;
 
     private Paint mPanelPaint;
 
@@ -58,6 +62,10 @@ public class TouchPad extends View {
                 canvas.drawBitmap(mPattern, x, y, null);
             }
         }
+
+        mNpd.setBounds(mBoundingBox);
+        mNpd.draw(canvas);
+
         //canvas.drawRoundRect(mBoundingBox, 15.0f, 15.0f, mPanelPaint);
     }
 
@@ -81,6 +89,9 @@ public class TouchPad extends View {
         offsetY = 0;
 
         mDetector = new GestureDetector(TouchPad.this.getContext(), new mListener());
+
+        mNpd = (NinePatchDrawable) getResources().getDrawable(R.drawable.tx_ui_stitchbox);
+
 
     }
 

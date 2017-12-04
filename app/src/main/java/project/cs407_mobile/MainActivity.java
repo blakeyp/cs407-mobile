@@ -1,6 +1,9 @@
 package project.cs407_mobile;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,18 +20,24 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonConnect;
 
     private Button buttonController;
+    private android.support.v7.app.ActionBar mActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {   // on opening the app
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mActionBar = getSupportActionBar();
+//for color
+        mActionBar.hide();
+//for image
+
         //System.loadLibrary("cs407_server");
 
         ipField = (EditText) findViewById(R.id.editText);   // reference to the IP address text field
         buttonConnect = (Button) findViewById(R.id.buttonConnect);   // reference to the connect button
 
-        buttonController = (Button) findViewById(R.id.buttonController);
+        buttonController = (Button) findViewById(R.id.debug_button);
 
         // on clicking connect button
         buttonConnect.setOnClickListener(new View.OnClickListener() {

@@ -4,24 +4,24 @@
     android:id="@+id/fullscreen_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/colorPressed"
     tools:context="project.cs407_mobile.ControllerActivity"
     tools:layout_editor_absoluteY="16dp"
     tools:layout_editor_absoluteX="16dp">
 
     <project.cs407_mobile.TouchPad
+        android:id="@+id/touchPad"
         android:layout_width="362dp"
         android:layout_height="0dp"
-        android:id="@+id/touchPad"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <ToggleButton
         android:id="@+id/paletteButton"
@@ -160,14 +160,14 @@
         android:layout_marginTop="16dp"
 
         android:background="@drawable/tx_ui_normalbox_small_white"
-        android:backgroundTint="@color/colorPressed"
+        android:backgroundTint="@color/colorPrimary"
         android:backgroundTintMode="multiply"
         android:elevation="1dp"
         android:paddingBottom="5dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingTop="5dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -185,7 +185,12 @@
                 android:paddingBottom="4dp"
                 android:paddingLeft="16dp"
                 android:paddingTop="20dp"
-                android:text="Basic" />
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:text="Basic"
+                android:textColor="@android:color/background_light" />
 
             <GridLayout
                 android:id="@+id/paletteGridBasic"
@@ -235,7 +240,12 @@
                 android:paddingBottom="4dp"
                 android:paddingLeft="16dp"
                 android:paddingTop="4dp"
-                android:text="Background" />
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:text="Background"
+                android:textColor="@android:color/background_light" />
 
             <GridLayout
                 android:id="@+id/paletteGridBackground"
@@ -305,7 +315,12 @@
                 android:paddingBottom="4dp"
                 android:paddingLeft="16dp"
                 android:paddingTop="4dp"
-                android:text="Technical" />
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:text="Technical"
+                android:textColor="@android:color/background_light" />
 
             <GridLayout
                 android:id="@+id/paletteGridTech"
