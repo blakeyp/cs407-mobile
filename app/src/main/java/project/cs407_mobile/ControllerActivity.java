@@ -128,20 +128,20 @@ public class ControllerActivity extends AppCompatActivity {
 //            }
 //        }
 
-        ColorStateList p = new ColorStateList(
-                new int[][]{
-                        new int[]{android.R.attr.state_checked},//1
-                        new int[]{-android.R.attr.state_checked} //1
-                },
-                new int[] {
-                        Color.BLUE, //1
-                        Color.WHITE
-                });
-
-        eraserButton.setBackgroundTintList(p);
-        eraserButton.invalidate();
-        pencilButton.setBackgroundTintList(p);
-        pencilButton.invalidate();
+//        ColorStateList p = new ColorStateList(
+//                new int[][]{
+//                        new int[]{android.R.attr.state_checked},//1
+//                        new int[]{-android.R.attr.state_checked} //1
+//                },
+//                new int[] {
+//                        Color.BLUE, //1
+//                        Color.WHITE
+//                });
+//
+//        eraserButton.setBackgroundTintList(p);
+//        eraserButton.invalidate();
+//        pencilButton.setBackgroundTintList(p);
+//        pencilButton.invalidate();
 
 
 
