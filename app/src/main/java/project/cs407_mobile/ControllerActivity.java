@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,11 +13,15 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.GridLayout;
+import android.widget.ScrollView;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static project.cs407_mobile.MainActivity.DEBUG_TAG;
 
@@ -69,7 +74,13 @@ public class ControllerActivity extends AppCompatActivity {
     private ToggleButton eraserButton;
     private ToggleButton pencilButton;
 
-    private ArrayList<ToggleButton> tilePalette;
+    private ScrollView tileDrawer;
+
+    private HashMap<Integer, Integer> paletteIcons;
+
+    private int mSelectedTile = 1;
+
+    private ArrayList<Button> tilePalette;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +92,17 @@ public class ControllerActivity extends AppCompatActivity {
         mContentView = findViewById(R.id.fullscreen_content);
 
         Intent intent = getIntent();
+
+        paletteIcons = new HashMap();
+        paletteIcons.put(0, R.drawable.tx_tile_solid);
+        paletteIcons.put(1, R.drawable.tx_tile_semisolid);
+        paletteIcons.put(2, R.drawable.tx_tile_ufo);
+        paletteIcons.put(3, R.drawable.tx_tile_bush_01);
+        paletteIcons.put(4, R.drawable.tx_tile_bush_02);
+        paletteIcons.put(5, R.drawable.tx_tile_cloud_01);
+        paletteIcons.put(6, R.drawable.tx_tile_cloud_02);
+        paletteIcons.put(7, R.drawable.tx_tile_mountain);
+
 
         if (intent.hasExtra("ip")) {
 
@@ -96,37 +118,85 @@ public class ControllerActivity extends AppCompatActivity {
 
         eraserButton = (ToggleButton) findViewById(R.id.eraserButton);
         pencilButton = (ToggleButton) findViewById(R.id.pencilButton);
+        final ToggleButton paletteButton = (ToggleButton) findViewById(R.id.paletteButton);
+        final Button undoButton = (Button) findViewById(R.id.undoButton);
+        final Button redoButton = (Button) findViewById(R.id.redoButton);
 
-        GridLayout paletteGrid = (GridLayout) findViewById(R.id.paletteGrid);
+        tileDrawer = (ScrollView) findViewById(R.id.tileDrawer);
 
-        tilePalette = new ArrayList(paletteGrid.getChildCount());
-        for (int i = 0; i < paletteGrid.getChildCount(); i++) {
-            tilePalette.add((ToggleButton) paletteGrid.getChildAt(i));
-            //Log.d(this.getClass().getName(), tilePalette.get(i).toString());
-            tilePalette.get(i).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        GridLayout paletteGridBasic = (GridLayout) findViewById(R.id.paletteGridBasic);
+        GridLayout paletteGridBackground = (GridLayout) findViewById(R.id.paletteGridBackground);
+        GridLayout paletteGridTech = (GridLayout) findViewById(R.id.paletteGridTech);
+
+        tilePalette = new ArrayList(paletteGridBasic.getChildCount());
+        for (int i = 0; i < paletteGridBasic.getChildCount(); i++) {
+            tilePalette.add((Button) paletteGridBasic.getChildAt(i));
+
+            final int tileId = i;
+            tilePalette.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        buttonView.setAlpha(1);
-                        Log.d(buttonView.getClass().getName(), "checked");
-                    } else {
-                        buttonView.setAlpha(0.5f);
-                        Log.d(buttonView.getClass().getName(), "not checked");
-                    }
+                public void onClick(View v) {
+                    mSelectedTile = tileId;
+                    paletteButton.setChecked(false);
+
+                    paletteButton.setBackgroundResource(paletteIcons.get(tileId));
+                    Log.d(v.getClass().getName(), "Setting tile to id "+tileId);
+                    connectionService.sendMessage("tile "+tileId);
+
                 }
             });
         }
 
-//        eraserButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//
-//                } else {
-//
-//                }
-//            }
-//        }
+        pencilButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tileDrawer.setVisibility(View.INVISIBLE);
+                    connectionService.sendMessage("pencil");
+                    eraserButton.setChecked(false);
+                } else {
+                    connectionService.sendMessage("pencil_end");
+                }
+            }
+        });
+
+        eraserButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tileDrawer.setVisibility(View.INVISIBLE);
+                    connectionService.sendMessage("eraser");
+                    pencilButton.setChecked(false);
+                } else {
+                    connectionService.sendMessage("eraser_end");
+                }
+            }
+        });
+
+        paletteButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tileDrawer.setVisibility(View.VISIBLE);
+                } else {
+                    tileDrawer.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connectionService.sendMessage("undo");
+            }
+        });
+
+        redoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connectionService.sendMessage("redo");
+            }
+        });
 
 //        ColorStateList p = new ColorStateList(
 //                new int[][]{
@@ -188,10 +258,10 @@ public class ControllerActivity extends AppCompatActivity {
 
     class scrollListener extends GestureDetector.SimpleOnGestureListener {
 
-        View mView;
+        TouchPad mView;
 
-        public scrollListener(View v) {
-            mView = v;
+        public scrollListener(TouchPad t) {
+            mView = t;
         }
 
         @Override
@@ -201,8 +271,14 @@ public class ControllerActivity extends AppCompatActivity {
 
         @Override
         public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
+
             Log.d(DEBUG_TAG, dx/mView.getWidth() + "," + dy/mView.getHeight());
             connectionService.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
+
+            mView.offsetX = Math.round((mView.offsetX - dx)%mView.mPattern.getWidth());
+            mView.offsetY = Math.round((mView.offsetY - dy)%mView.mPattern.getHeight());
+            mView.invalidate();
+
             return true;
         }
     }

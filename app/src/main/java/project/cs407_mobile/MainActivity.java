@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //System.loadLibrary("cs407_server");
+
         ipField = (EditText) findViewById(R.id.editText);   // reference to the IP address text field
         buttonConnect = (Button) findViewById(R.id.buttonConnect);   // reference to the connect button
 

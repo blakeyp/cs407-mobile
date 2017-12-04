@@ -19,12 +19,12 @@ public class TouchPad extends View {
     private int mHeight;
     private int mWidth;
 
-    private int offsetX;
-    private int offsetY;
+    public int offsetX;
+    public int offsetY;
 
     private Paint mPanelPaint;
 
-    private Bitmap mPattern;
+    public Bitmap mPattern;
 
     private Rect mBoundingBox;
 
