@@ -147,6 +147,44 @@ public class ControllerActivity extends AppCompatActivity {
             });
         }
 
+        tilePalette = new ArrayList(paletteGridBackground.getChildCount());
+        for (int i = 0; i < paletteGridBackground.getChildCount(); i++) {
+            tilePalette.add((Button) paletteGridBackground.getChildAt(i));
+
+            final int tileId = i+3;
+            tilePalette.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSelectedTile = tileId;
+                    paletteButton.setChecked(false);
+
+                    paletteButton.setBackgroundResource(paletteIcons.get(tileId));
+                    Log.d(v.getClass().getName(), "Setting tile to id "+tileId);
+                    connectionService.sendMessage("tile "+tileId);
+
+                }
+            });
+        }
+
+        tilePalette = new ArrayList(paletteGridTech.getChildCount());
+        for (int i = 0; i < paletteGridTech.getChildCount(); i++) {
+            tilePalette.add((Button) paletteGridTech.getChildAt(i));
+
+            final int tileId = i+7;
+            tilePalette.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSelectedTile = tileId;
+                    paletteButton.setChecked(false);
+
+                    paletteButton.setBackgroundResource(paletteIcons.get(tileId));
+                    Log.d(v.getClass().getName(), "Setting tile to id "+tileId);
+                    connectionService.sendMessage("tile "+tileId);
+
+                }
+            });
+        }
+
         pencilButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
