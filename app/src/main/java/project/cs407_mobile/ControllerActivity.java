@@ -76,7 +76,7 @@ public class ControllerActivity extends AppCompatActivity {
 
     private ScrollView tileDrawer;
 
-    private HashMap<Integer, Integer> paletteIcons;
+    private HashMap<String, Integer> paletteIcons;
 
     private int mSelectedTile = 1;
 
@@ -94,14 +94,18 @@ public class ControllerActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         paletteIcons = new HashMap();
-        paletteIcons.put(0, R.drawable.tx_tile_solid);
-        paletteIcons.put(1, R.drawable.tx_tile_semisolid);
-        paletteIcons.put(2, R.drawable.tx_tile_ufo);
-        paletteIcons.put(3, R.drawable.tx_tile_bush_01);
-        paletteIcons.put(4, R.drawable.tx_tile_bush_02);
-        paletteIcons.put(5, R.drawable.tx_tile_cloud_01);
-        paletteIcons.put(6, R.drawable.tx_tile_cloud_02);
-        paletteIcons.put(7, R.drawable.tx_tile_mountain);
+        paletteIcons.put("basic 0", R.drawable.tx_tile_solid);
+        paletteIcons.put("basic 1", R.drawable.tx_tile_semisolid);
+        paletteIcons.put("basic 2", R.drawable.tx_tile_ladder);
+        paletteIcons.put("basic 3", R.drawable.tx_tile_crate);
+        paletteIcons.put("bg 0", R.drawable.tx_tile_bush_01);
+        paletteIcons.put("bg 1", R.drawable.tx_tile_bush_02);
+        paletteIcons.put("bg 2", R.drawable.tx_tile_cloud_01);
+        paletteIcons.put("bg 3", R.drawable.tx_tile_cloud_02);
+        paletteIcons.put("bg 4", R.drawable.tx_tile_mountain);
+        paletteIcons.put("tech 0", R.drawable.tx_tile_startpoint);
+        paletteIcons.put("misc 0", R.drawable.tx_tile_ufo);
+        paletteIcons.put("misc 1", R.drawable.tx_tile_doughnut);
 
 
         if (intent.hasExtra("ip")) {
@@ -127,6 +131,7 @@ public class ControllerActivity extends AppCompatActivity {
         GridLayout paletteGridBasic = (GridLayout) findViewById(R.id.paletteGridBasic);
         GridLayout paletteGridBackground = (GridLayout) findViewById(R.id.paletteGridBackground);
         GridLayout paletteGridTech = (GridLayout) findViewById(R.id.paletteGridTech);
+        GridLayout paletteGridMisc = (GridLayout) findViewById(R.id.paletteGridMisc);
 
         tilePalette = new ArrayList(paletteGridBasic.getChildCount());
         for (int i = 0; i < paletteGridBasic.getChildCount(); i++) {
@@ -139,9 +144,9 @@ public class ControllerActivity extends AppCompatActivity {
                     mSelectedTile = tileId;
                     paletteButton.setChecked(false);
 
-                    paletteButton.setBackgroundResource(paletteIcons.get(tileId));
-                    Log.d(v.getClass().getName(), "Setting tile to id "+tileId);
-                    connectionService.sendMessage("tile "+tileId);
+                    paletteButton.setBackgroundResource(paletteIcons.get("basic "+tileId));
+                    Log.d(v.getClass().getName(), "Setting tile to basic "+tileId);
+                    connectionService.sendMessage("basic "+tileId);
 
                 }
             });
@@ -151,16 +156,16 @@ public class ControllerActivity extends AppCompatActivity {
         for (int i = 0; i < paletteGridBackground.getChildCount(); i++) {
             tilePalette.add((Button) paletteGridBackground.getChildAt(i));
 
-            final int tileId = i+3;
+            final int tileId = i;
             tilePalette.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mSelectedTile = tileId;
                     paletteButton.setChecked(false);
 
-                    paletteButton.setBackgroundResource(paletteIcons.get(tileId));
-                    Log.d(v.getClass().getName(), "Setting tile to id "+tileId);
-                    connectionService.sendMessage("tile "+tileId);
+                    paletteButton.setBackgroundResource(paletteIcons.get("bg "+tileId));
+                    Log.d(v.getClass().getName(), "Setting tile to bg "+tileId);
+                    connectionService.sendMessage("bg "+tileId);
 
                 }
             });
@@ -170,16 +175,35 @@ public class ControllerActivity extends AppCompatActivity {
         for (int i = 0; i < paletteGridTech.getChildCount(); i++) {
             tilePalette.add((Button) paletteGridTech.getChildAt(i));
 
-            final int tileId = i+7;
+            final int tileId = i;
             tilePalette.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mSelectedTile = tileId;
                     paletteButton.setChecked(false);
 
-                    paletteButton.setBackgroundResource(paletteIcons.get(tileId));
-                    Log.d(v.getClass().getName(), "Setting tile to id "+tileId);
-                    connectionService.sendMessage("tile "+tileId);
+                    paletteButton.setBackgroundResource(paletteIcons.get("tech "+tileId));
+                    Log.d(v.getClass().getName(), "Setting tile to tech "+tileId);
+                    connectionService.sendMessage("tech "+tileId);
+
+                }
+            });
+        }
+
+        tilePalette = new ArrayList(paletteGridMisc.getChildCount());
+        for (int i = 0; i < paletteGridMisc.getChildCount(); i++) {
+            tilePalette.add((Button) paletteGridMisc.getChildAt(i));
+
+            final int tileId = i;
+            tilePalette.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSelectedTile = tileId;
+                    paletteButton.setChecked(false);
+
+                    paletteButton.setBackgroundResource(paletteIcons.get("misc "+tileId));
+                    Log.d(v.getClass().getName(), "Setting tile to misc "+tileId);
+                    connectionService.sendMessage("misc "+tileId);
 
                 }
             });
