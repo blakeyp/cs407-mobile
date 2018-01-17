@@ -19,6 +19,10 @@ class ConnectionService {
 
     private PrintWriter printwriter;
 
+    void debug() {
+        Log.d(DEBUG_TAG, "It works!!!!!!!!");
+    }
+
     void connectToIP(String ipAddr, Activity ctrl) {
         controller = ctrl;
         connection = new MakeConnection(ipAddr);

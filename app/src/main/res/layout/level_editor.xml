@@ -1,0 +1,405 @@
+<android.support.constraint.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fullscreen_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPressed"
+    tools:context="project.cs407_mobile.ControllerActivity"
+    tools:layout_editor_absoluteY="16dp"
+    tools:layout_editor_absoluteX="16dp">
+
+    <project.cs407_mobile.TouchPad
+        android:id="@+id/touchPad"
+        android:layout_width="362dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <ToggleButton
+        android:id="@+id/paletteButton"
+        android:layout_width="70dp"
+
+        android:layout_height="70dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/tx_tile_solid"
+        android:backgroundTint="@drawable/toggle_selector"
+        android:backgroundTintMode="multiply"
+        android:checked="false"
+        android:scaleType="fitCenter"
+        android:textOff=""
+        android:textOn=""
+        android:tooltipText="Open Palette"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tileDrawer"
+        tools:alpha="1.0" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="236dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintRight_toLeftOf="@+id/tileDrawer"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp">
+
+        <ToggleButton
+            android:id="@+id/pencilButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/tx_ui_pencil"
+            android:backgroundTint="@drawable/toggle_selector"
+            android:backgroundTintMode="multiply"
+            android:checked="false"
+            android:scaleType="fitCenter"
+            android:textOff=""
+            android:textOn=""
+            android:tooltipText="Draw Tool"
+            app:layout_constraintRight_toLeftOf="@+id/eraserButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ToggleButton
+            android:id="@+id/eraserButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/tx_ui_eraser"
+            android:backgroundTint="@drawable/toggle_selector"
+            android:backgroundTintMode="multiply"
+            android:checked="false"
+            android:scaleType="fitCenter"
+            android:textOff=""
+            android:textOn=""
+            android:tooltipText="Eraser Tool"
+            app:layout_constraintRight_toLeftOf="@+id/touchPad"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:alpha="1.0" />
+
+        <ToggleButton
+            android:id="@+id/grabButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/tx_ui_grab"
+            android:backgroundTint="@drawable/toggle_selector"
+            android:backgroundTintMode="multiply"
+            android:checked="false"
+            android:scaleType="fitCenter"
+            android:textOff=""
+            android:textOn=""
+            android:tooltipText="Grab Tool"
+            app:layout_constraintRight_toLeftOf="@+id/touchPad"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:alpha="1.0" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp">
+
+        <Button
+            android:id="@+id/menuButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/tx_ui_hamburger"
+            android:checked="false"
+            android:scaleType="fitCenter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/undoButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/tx_ui_undo"
+            android:checked="false"
+            android:scaleType="fitCenter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:tooltipText="Undo"/>
+
+        <Button
+            android:id="@+id/redoButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/tx_ui_redo"
+            android:checked="false"
+            android:scaleType="fitCenter"
+            android:tooltipText="Redo"
+            app:layout_constraintLeft_toRightOf="@+id/undoButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/tileDrawer"
+        android:layout_width="361dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+
+        android:background="@drawable/tx_ui_normalbox_small_white"
+        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTintMode="multiply"
+        android:elevation="1dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="5dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/paletteHeaderBasic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="20dp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:text="Basic"
+                android:textColor="@android:color/background_light" />
+
+            <GridLayout
+                android:id="@+id/paletteGridBasic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="4"
+                android:elevation="0dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <Button
+                    android:id="@+id/palette_solid"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_solid"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Solid Block" />
+
+                <Button
+                    android:id="@+id/palette_semisolid"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_semisolid"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Semi-Solid Block" />
+
+                <Button
+                    android:id="@+id/palette_ladder"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_ladder"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Ladder" />
+
+                <Button
+                    android:id="@+id/palette_crate"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_crate"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Crate" />
+
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/paletteHeaderBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:text="Background"
+                android:textColor="@android:color/background_light" />
+
+            <GridLayout
+                android:id="@+id/paletteGridBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="4"
+                android:elevation="0dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <Button
+                    android:id="@+id/palette_bush1"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_bush_01"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Bush Type 1" />
+
+                <Button
+                    android:id="@+id/palette_bush2"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_bush_02"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Bush Type 2" />
+
+                <Button
+                    android:id="@+id/palette_cloud1"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_cloud_01"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Cloud Type 1" />
+
+                <Button
+                    android:id="@+id/palette_cloud2"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_cloud_02"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Cloud Type 2" />
+
+                <Button
+                    android:id="@+id/palette_mountain"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_mountain"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Mountain" />
+
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/paletteHeaderTech"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:text="Technical"
+                android:textColor="@android:color/background_light" />
+
+            <GridLayout
+                android:id="@+id/paletteGridTech"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="4"
+                android:elevation="0dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <Button
+                    android:id="@+id/palette_start"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_startpoint"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Starting Point" />
+
+
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/paletteHeaderMisc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:text="Miscellaneous"
+                android:textColor="@android:color/background_light" />
+
+            <GridLayout
+                android:id="@+id/paletteGridMisc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="4"
+                android:elevation="0dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <Button
+                    android:id="@+id/palette_doughnut"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_doughnut"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Doughnut" />
+
+                <Button
+                    android:id="@+id/palette_ufo"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_ufo"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="UFO" />
+
+            </GridLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
