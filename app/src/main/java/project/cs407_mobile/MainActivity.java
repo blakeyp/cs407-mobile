@@ -1,9 +1,9 @@
 package project.cs407_mobile;
 
-import android.app.ActionBar;
+//import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+//import android.graphics.drawable.ColorDrawable;
+//import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText ipField;
     private Button buttonConnect;
+    private Button buttonDebug;   // button to debug controller
 
-    private Button buttonController;
     private android.support.v7.app.ActionBar mActionBar;
 
     @Override
@@ -28,18 +28,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mActionBar = getSupportActionBar();
-//for color
-        mActionBar.hide();
-//for image
+        mActionBar.hide();   // hide action bar
 
         //System.loadLibrary("cs407_server");
 
-        ipField = (EditText) findViewById(R.id.editText);   // reference to the IP address text field
-        buttonConnect = (Button) findViewById(R.id.buttonConnect);   // reference to the connect button
+        ipField = (EditText) findViewById(R.id.editText);   // reference to IP address text field
+        buttonConnect = (Button) findViewById(R.id.buttonConnect);   // reference to connect button
+        buttonDebug = (Button) findViewById(R.id.buttonDebug);   // reference to debug button
 
-        buttonController = (Button) findViewById(R.id.debug_button);
-
-        // on clicking connect button
+        // on clicking connect button open controller with input IP address
         buttonConnect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(DEBUG_TAG, "Pressed Connect button");
@@ -53,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttonController.setOnClickListener(new View.OnClickListener() {
+        // on clicking debug button open controller to debug without connecting
+        buttonDebug.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 backdoorToController();
             }
@@ -61,14 +59,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // opens controller given IP address
     protected void openController(String address) {
-        Log.d(DEBUG_TAG, "Starting Controller Activity");
+        Log.d(DEBUG_TAG, "Connect Controller Activity");
         Intent intent = new Intent(this, ControllerActivity.class);
         intent.putExtra("ip",  address);
         startActivity(intent);
     }
 
+    // opens controller activity without connecting via IP
     protected void backdoorToController() {
+        Log.d(DEBUG_TAG, "Debug Controller Activity");
         Intent intent = new Intent(this, ControllerActivity.class);
         startActivity(intent);
     }

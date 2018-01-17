@@ -19,7 +19,6 @@ class ConnectionService {
 
     private PrintWriter printwriter;
 
-
     void connectToIP(String ipAddr, Activity ctrl) {
         controller = ctrl;
         connection = new MakeConnection(ipAddr);
@@ -73,11 +72,6 @@ class ConnectionService {
 
         protected void onPostExecute(Void result) {
             Log.d(DEBUG_TAG, "Finished connecting");
-//            controller.setConnectStatus("Connected to: " + ipAddr);
-//            controller.buttonJump.setClickable(true);
-//            controller.buttonJump.setAlpha(1);
-//            controller.buttonDisconnect.setClickable(true);
-//            controller.buttonDisconnect.setAlpha(1);
         }
 
         protected void onCancelled(Void result) {
