@@ -20,7 +20,7 @@ class ConnectionService {
     private PrintWriter printwriter;
 
     void debug() {
-        Log.d(DEBUG_TAG, "It works!!!!!!!!");
+        Log.d(DEBUG_TAG, "Fragment has connection");
     }
 
     void connectToIP(String ipAddr, Activity ctrl) {

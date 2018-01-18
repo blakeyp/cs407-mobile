@@ -1,13 +1,9 @@
 package project.cs407_mobile;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.os.Handler;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -24,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static project.cs407_mobile.MainActivity.DEBUG_TAG;
-
 
 public class LevelEditor extends Fragment {
 
@@ -66,34 +61,25 @@ public class LevelEditor extends Fragment {
     /****/
 
 
-
     private ConnectionService connectionService;
-    private static final int UI_ANIMATION_DELAY = 300;
-    private final Handler mHideHandler = new Handler();
-    private View mContentView;
     private TouchPad touchPad;
-
-    private Button fragmentButton;
-
     private ToggleButton eraserButton;
     private ToggleButton pencilButton;
-
     private ScrollView tileDrawer;
-
     private HashMap<String, Integer> paletteIcons;
-
-    private int mSelectedTile = 1;
-
     private ArrayList<Button> tilePalette;
+    private int mSelectedTile = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        // retrieve established connection from activity
         connectionService = ((ControllerActivity)getActivity()).getConnectionService();
         connectionService.debug();
 
@@ -129,14 +115,9 @@ public class LevelEditor extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.level_editor, container, false);
-
-
-        //setContentView(R.layout.activity_controller);
-
-        //mControlsView = view.findViewById(R.id.fullscreen_content_controls);
-        mContentView = view.findViewById(R.id.fullscreen_content);
 
         paletteIcons = new HashMap();
         paletteIcons.put("basic 0", R.drawable.tx_tile_solid);
@@ -149,17 +130,15 @@ public class LevelEditor extends Fragment {
         paletteIcons.put("bg 3", R.drawable.tx_tile_cloud_02);
         paletteIcons.put("bg 4", R.drawable.tx_tile_mountain);
         paletteIcons.put("tech 0", R.drawable.tx_tile_startpoint);
-        paletteIcons.put("misc 0", R.drawable.tx_tile_ufo);
-        paletteIcons.put("misc 1", R.drawable.tx_tile_doughnut);
-
-
+        paletteIcons.put("misc 0", R.drawable.tx_tile_doughnut);
+        paletteIcons.put("misc 1", R.drawable.tx_tile_ufo);
 
         touchPad = (TouchPad) view.findViewById(R.id.touchPad);
         touchPad.setDetector(new GestureDetector(touchPad.getContext(), new scrollListener(touchPad)));
 
-
         eraserButton = (ToggleButton) view.findViewById(R.id.eraserButton);
         pencilButton = (ToggleButton) view.findViewById(R.id.pencilButton);
+
         final ToggleButton paletteButton = (ToggleButton) view.findViewById(R.id.paletteButton);
         final Button undoButton = (Button) view.findViewById(R.id.undoButton);
         final Button redoButton = (Button) view.findViewById(R.id.redoButton);
@@ -299,6 +278,7 @@ public class LevelEditor extends Fragment {
         });
 
         return view;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -325,18 +305,9 @@ public class LevelEditor extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    // must be implemented by activity using this fragment
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
