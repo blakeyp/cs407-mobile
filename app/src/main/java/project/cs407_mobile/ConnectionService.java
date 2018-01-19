@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import static project.cs407_mobile.MainActivity.DEBUG_TAG;
+import static project.cs407_mobile.LoginActivity.DEBUG_TAG;
 
 class ConnectionService {
 

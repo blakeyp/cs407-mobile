@@ -12,8 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:name=".LoginActivity"
+            android:theme="@style/AppThemeLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,10 +29,10 @@
         <activity
             android:name=".LevelBrowserActivity"
             android:label="@string/title_activity_level_browser"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="project.cs407_mobile.MainActivity" />
+                android:value="project.cs407_mobile.LoginActivity" />
         </activity>
     </application>
 

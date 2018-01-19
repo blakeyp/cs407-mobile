@@ -19,7 +19,7 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static project.cs407_mobile.MainActivity.DEBUG_TAG;
+import static project.cs407_mobile.LoginActivity.DEBUG_TAG;
 
 public class LevelEditor extends Fragment {
 
