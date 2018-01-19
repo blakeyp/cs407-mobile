@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText ipField;
     private Button buttonConnect;
     private Button buttonDebug;   // button to debug controller
+    private Button buttonLevels;   // button to debug controller
 
     private android.support.v7.app.ActionBar mActionBar;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         ipField = (EditText) findViewById(R.id.editText);   // reference to IP address text field
         buttonConnect = (Button) findViewById(R.id.buttonConnect);   // reference to connect button
         buttonDebug = (Button) findViewById(R.id.buttonDebug);   // reference to debug button
+        buttonLevels = (Button) findViewById(R.id.buttonLevels);   // reference to levels button
 
         // on clicking connect button open controller with input IP address
         buttonConnect.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // on clicking levels button open level browser ui (currently incomplete)
+        buttonLevels.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                openLevelBrowser();
+            }
+        });
+
     }
 
     // opens controller given IP address
@@ -64,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Connect Controller Activity");
         Intent intent = new Intent(this, ControllerActivity.class);
         intent.putExtra("ip",  address);
+        startActivity(intent);
+    }
+
+    // opens controller given IP address
+    protected void openLevelBrowser() {
+        Log.d(DEBUG_TAG, "Level Browser Activity");
+        Intent intent = new Intent(this, LevelBrowserActivity.class);
         startActivity(intent);
     }
 
