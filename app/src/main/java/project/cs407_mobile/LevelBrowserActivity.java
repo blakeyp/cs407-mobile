@@ -20,6 +20,8 @@ public class LevelBrowserActivity extends AppCompatActivity {
     private Button mIPButton;
     private EditText mIPField;
 
+    private Button buttonDebug;   // button to debug controller
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -51,6 +53,15 @@ public class LevelBrowserActivity extends AppCompatActivity {
         mActionBar.setTitle("Patchworks");
         mActionBar.setDisplayHomeAsUpEnabled(false);
 
+        buttonDebug = (Button) findViewById(R.id.buttonDebug);   // reference to debug button
+
+        // on clicking debug button open controller to debug without connecting
+        buttonDebug.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                backdoorToController();
+            }
+        });
+
         mIPButton = (Button) findViewById(R.id.ButtonConnect);
         mIPField = (EditText) findViewById(R.id.ipAddressField);
 
@@ -76,6 +87,7 @@ public class LevelBrowserActivity extends AppCompatActivity {
     // opens controller activity without connecting via IP
     protected void backdoorToController() {
         Intent intent = new Intent(this, ControllerActivity.class);
+        intent.putExtra("debug", "debug");
         startActivity(intent);
     }
 

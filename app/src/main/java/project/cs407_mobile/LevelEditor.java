@@ -23,7 +23,20 @@ import static project.cs407_mobile.LoginActivity.DEBUG_TAG;
 
 public class LevelEditor extends Fragment {
 
+    private OnFragmentInteractionListener mListener;
+
+    private ConnectionService connectionService;
+    private TouchPad touchPad;
+    private ToggleButton eraserButton;
+    private ToggleButton pencilButton;
+    private Button actionButton;
+    private ScrollView tileDrawer;
+    private HashMap<String, Integer> paletteIcons;
+    private ArrayList<Button> tilePalette;
+    private int mSelectedTile = 1;
+
     /****/
+    // Can use this stuff if want to pass in parameters on creating fragment
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,13 +47,9 @@ public class LevelEditor extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    public LevelEditor() {}   // Required empty public constructor
 
-    public LevelEditor() {
-        // Required empty public constructor
-    }
-
-    /**
+    /*
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
@@ -57,59 +66,26 @@ public class LevelEditor extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     /****/
-
-
-    private ConnectionService connectionService;
-    private TouchPad touchPad;
-    private ToggleButton eraserButton;
-    private ToggleButton pencilButton;
-    private ScrollView tileDrawer;
-    private HashMap<String, Integer> paletteIcons;
-    private ArrayList<Button> tilePalette;
-    private int mSelectedTile = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        /*
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        */
 
         // retrieve established connection from activity
-        connectionService = ((ControllerActivity)getActivity()).getConnectionService();
-        connectionService.debug();
-
-    }
-
-    class scrollListener extends GestureDetector.SimpleOnGestureListener {
-
-        TouchPad mView;
-
-        public scrollListener(TouchPad t) {
-            mView = t;
+        if (!ControllerActivity.controllerDebug) {
+            connectionService = ((ControllerActivity) getActivity()).getConnectionService();
+            connectionService.debug();
         }
 
-        @Override
-        public boolean onDown(MotionEvent e) {
-            return true;
-        }
-
-        @Override
-        public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
-
-            Log.d(DEBUG_TAG, dx/mView.getWidth() + "," + dy/mView.getHeight());
-            connectionService.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
-
-            mView.offsetX = Math.round((mView.offsetX - dx)%mView.mPattern.getWidth());
-            mView.offsetY = Math.round((mView.offsetY - dy)%mView.mPattern.getHeight());
-            mView.invalidate();
-
-            return true;
-        }
     }
 
     @Override
@@ -139,6 +115,8 @@ public class LevelEditor extends Fragment {
         eraserButton = (ToggleButton) view.findViewById(R.id.eraserButton);
         pencilButton = (ToggleButton) view.findViewById(R.id.pencilButton);
 
+        actionButton = (Button) view.findViewById(R.id.actionButton);
+
         final ToggleButton paletteButton = (ToggleButton) view.findViewById(R.id.paletteButton);
         final Button undoButton = (Button) view.findViewById(R.id.undoButton);
         final Button redoButton = (Button) view.findViewById(R.id.redoButton);
@@ -163,7 +141,8 @@ public class LevelEditor extends Fragment {
 
                     paletteButton.setBackgroundResource(paletteIcons.get("basic "+tileId));
                     Log.d(v.getClass().getName(), "Setting tile to basic "+tileId);
-                    connectionService.sendMessage("basic "+tileId);
+                    if (!ControllerActivity.controllerDebug)
+                        connectionService.sendMessage("basic "+tileId);
 
                 }
             });
@@ -182,7 +161,8 @@ public class LevelEditor extends Fragment {
 
                     paletteButton.setBackgroundResource(paletteIcons.get("bg "+tileId));
                     Log.d(v.getClass().getName(), "Setting tile to bg "+tileId);
-                    connectionService.sendMessage("bg "+tileId);
+                    if (!ControllerActivity.controllerDebug)
+                        connectionService.sendMessage("bg "+tileId);
 
                 }
             });
@@ -201,7 +181,8 @@ public class LevelEditor extends Fragment {
 
                     paletteButton.setBackgroundResource(paletteIcons.get("tech "+tileId));
                     Log.d(v.getClass().getName(), "Setting tile to tech "+tileId);
-                    connectionService.sendMessage("tech "+tileId);
+                    if (!ControllerActivity.controllerDebug)
+                        connectionService.sendMessage("tech "+tileId);
 
                 }
             });
@@ -220,7 +201,8 @@ public class LevelEditor extends Fragment {
 
                     paletteButton.setBackgroundResource(paletteIcons.get("misc "+tileId));
                     Log.d(v.getClass().getName(), "Setting tile to misc "+tileId);
-                    connectionService.sendMessage("misc "+tileId);
+                    if (!ControllerActivity.controllerDebug)
+                        connectionService.sendMessage("misc "+tileId);
 
                 }
             });
@@ -231,10 +213,14 @@ public class LevelEditor extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     tileDrawer.setVisibility(View.INVISIBLE);
-                    connectionService.sendMessage("pencil");
+                    Log.d("touch", "pencil");
+                    if (!ControllerActivity.controllerDebug)
+                        connectionService.sendMessage("pencil");
                     eraserButton.setChecked(false);
                 } else {
-                    connectionService.sendMessage("pencil_end");
+                    Log.d("touch", "pencil_end");
+                    if (!ControllerActivity.controllerDebug)
+                        connectionService.sendMessage("pencil_end");
                 }
             }
         });
@@ -244,10 +230,12 @@ public class LevelEditor extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     tileDrawer.setVisibility(View.INVISIBLE);
-                    connectionService.sendMessage("eraser");
+                    if (!ControllerActivity.controllerDebug)
+                        connectionService.sendMessage("eraser");
                     pencilButton.setChecked(false);
                 } else {
-                    connectionService.sendMessage("eraser_end");
+                    if (!ControllerActivity.controllerDebug)
+                        connectionService.sendMessage("eraser_end");
                 }
             }
         });
@@ -266,14 +254,35 @@ public class LevelEditor extends Fragment {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                connectionService.sendMessage("undo");
+                if (!ControllerActivity.controllerDebug)
+                    connectionService.sendMessage("undo");
             }
         });
 
         redoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                connectionService.sendMessage("redo");
+                if (!ControllerActivity.controllerDebug)
+                    connectionService.sendMessage("redo");
+            }
+        });
+
+        actionButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d("touch", "action_start");
+                        if (!ControllerActivity.controllerDebug)
+                            connectionService.sendMessage("action_start");
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        Log.d("touch", "action_end");
+                        if (!ControllerActivity.controllerDebug)
+                            connectionService.sendMessage("action_end");
+                        return true;
+                }
+                return false;
             }
         });
 
@@ -308,6 +317,37 @@ public class LevelEditor extends Fragment {
     // must be implemented by activity using this fragment
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    class scrollListener extends GestureDetector.SimpleOnGestureListener {
+
+        TouchPad mView;
+
+        public scrollListener(TouchPad t) {
+            mView = t;
+        }
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
+
+            Log.d(DEBUG_TAG, dx/mView.getWidth() + "," + dy/mView.getHeight());
+            Log.d("touch", dx/mView.getWidth() + "," + dy/mView.getHeight());
+            if (!ControllerActivity.controllerDebug)
+                connectionService.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
+
+            mView.offsetX = Math.round((mView.offsetX - dx)%mView.mPattern.getWidth());
+            mView.offsetY = Math.round((mView.offsetY - dy)%mView.mPattern.getHeight());
+            mView.invalidate();
+
+            return true;
+
+        }
+
     }
 
 }

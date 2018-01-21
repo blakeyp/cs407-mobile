@@ -47,7 +47,6 @@ public class TouchPad extends View {
         mPattern = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.sample_tile);
 
-
         init();
     }
 

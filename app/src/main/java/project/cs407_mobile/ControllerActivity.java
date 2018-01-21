@@ -21,6 +21,8 @@ public class ControllerActivity extends AppCompatActivity
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
 
+    public static boolean controllerDebug = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -31,12 +33,16 @@ public class ControllerActivity extends AppCompatActivity
 
         Intent intent = getIntent();
 
-        if (intent.hasExtra("ip")) {
+        if ((intent.hasExtra("ip")) || (intent.hasExtra("debug"))) {
 
-            String ipAddr = intent.getStringExtra("ip");   // get input IP address
-
-            connectionService = new ConnectionService();
-            connectionService.connectToIP(ipAddr, this);   // establish connection
+            if (intent.hasExtra("ip")) {
+                String ipAddr = intent.getStringExtra("ip");   // get input IP address
+                connectionService = new ConnectionService();
+                connectionService.connectToIP(ipAddr, this);   // establish connection
+            }
+            else if (intent.hasExtra("debug")) {
+                controllerDebug = true;
+            }
 
             // load initial LevelEditor fragment (default controller)
             FragmentManager fragmentManager = getSupportFragmentManager();
