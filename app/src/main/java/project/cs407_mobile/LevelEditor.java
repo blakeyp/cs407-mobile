@@ -270,7 +270,7 @@ public class LevelEditor extends Fragment {
         actionButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
+                switch(event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
                         Log.d("touch", "action_start");
                         if (!ControllerActivity.controllerDebug)
@@ -329,11 +329,19 @@ public class LevelEditor extends Fragment {
 
         @Override
         public boolean onDown(MotionEvent e) {
+            Log.d("touch", "down on touchpad");
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float vx, float vy) {
+            Log.d("touch", "FLINGGGGG!!!!!");
             return true;
         }
 
         @Override
         public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
+            Log.d("touch", "scroll on touchpad");
 
             Log.d(DEBUG_TAG, dx/mView.getWidth() + "," + dy/mView.getHeight());
             Log.d("touch", dx/mView.getWidth() + "," + dy/mView.getHeight());

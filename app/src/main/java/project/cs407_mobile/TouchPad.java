@@ -118,6 +118,8 @@ public class TouchPad extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // Let the GestureDetector interpret this event
-        return mDetector.onTouchEvent(event);
+        boolean out = mDetector.onTouchEvent(event);
+        Log.d("touch", "event: "+event.toString()+" "+out);
+        return true;
     }
 }
