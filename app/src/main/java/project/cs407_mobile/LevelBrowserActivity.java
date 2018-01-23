@@ -2,10 +2,12 @@ package project.cs407_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +16,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.InetAddress;
+import java.util.ArrayList;
+
 public class LevelBrowserActivity extends AppCompatActivity {
 
     private android.support.v7.app.ActionBar mActionBar;
 
-    private CardView mgamesFoundContainer;
+    private RecyclerView recyclerView;
+    private GameAdapter adapter;
+    private ArrayList<Game> gameList;
+
 
     private Button mIPButton;
     private EditText mIPField;
@@ -56,8 +64,6 @@ public class LevelBrowserActivity extends AppCompatActivity {
         mActionBar.setTitle("Patchworks");
         mActionBar.setDisplayHomeAsUpEnabled(false);
 
-        mgamesFoundContainer = (CardView) findViewById(R.id.gamesFound);
-
         buttonDebug = (Button) findViewById(R.id.buttonDebug);   // reference to debug button
 
         // on clicking debug button open controller to debug without connecting
@@ -80,6 +86,23 @@ public class LevelBrowserActivity extends AppCompatActivity {
                 }
             }
         });
+
+        recyclerView = (RecyclerView) findViewById(R.id.gamesRecyclerView);
+
+        gameList = new ArrayList<>();
+        adapter = new GameAdapter(this, gameList);
+
+        recyclerView.setAdapter(adapter);
+
+        try {
+            InetAddress netAddress = InetAddress.getByName("127.0.0.1");
+            gameList.add(new Game(netAddress, "Game Name", "state", 2, true));
+        } catch (java.net.UnknownHostException e) {
+            Log.d("fuck ", "something bad happened");
+        }
+
+        adapter.notifyDataSetChanged();
+
     }
 
     // opens controller given IP address
