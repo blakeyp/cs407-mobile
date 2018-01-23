@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 public class LevelBrowserActivity extends AppCompatActivity {
 
     private android.support.v7.app.ActionBar mActionBar;
+
+    private CardView mgamesFoundContainer;
 
     private Button mIPButton;
     private EditText mIPField;
@@ -52,6 +55,8 @@ public class LevelBrowserActivity extends AppCompatActivity {
         mActionBar = getSupportActionBar();
         mActionBar.setTitle("Patchworks");
         mActionBar.setDisplayHomeAsUpEnabled(false);
+
+        mgamesFoundContainer = (CardView) findViewById(R.id.gamesFound);
 
         buttonDebug = (Button) findViewById(R.id.buttonDebug);   // reference to debug button
 
