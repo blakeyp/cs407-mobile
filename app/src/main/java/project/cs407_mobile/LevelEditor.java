@@ -19,8 +19,6 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static project.cs407_mobile.LoginActivity.DEBUG_TAG;
-
 public class LevelEditor extends Fragment {
 
     private OnFragmentInteractionListener mListener;
@@ -334,17 +332,10 @@ public class LevelEditor extends Fragment {
         }
 
         @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float vx, float vy) {
-            Log.d("touch", "FLINGGGGG!!!!!");
-            return true;
-        }
-
-        @Override
         public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
-            Log.d("touch", "scroll on touchpad");
 
-            Log.d(DEBUG_TAG, dx/mView.getWidth() + "," + dy/mView.getHeight());
-            Log.d("touch", dx/mView.getWidth() + "," + dy/mView.getHeight());
+            Log.d("touch", "scroll on touchpad: " + dx/mView.getWidth() + "," + dy/mView.getHeight());
+
             if (!ControllerActivity.controllerDebug)
                 connectionService.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
 

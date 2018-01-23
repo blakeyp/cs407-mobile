@@ -1,20 +1,14 @@
 package project.cs407_mobile;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.*;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-
-/**
- * Created by u1421499 on 27/11/17.
- */
 
 public class TouchPad extends View {
 
@@ -64,8 +58,6 @@ public class TouchPad extends View {
 
         mNpd.setBounds(mBoundingBox);
         mNpd.draw(canvas);
-
-        //canvas.drawRoundRect(mBoundingBox, 15.0f, 15.0f, mPanelPaint);
     }
 
     @Override
@@ -87,39 +79,17 @@ public class TouchPad extends View {
         offsetX = 0;
         offsetY = 0;
 
-        mDetector = new GestureDetector(TouchPad.this.getContext(), new mListener());
-
         mNpd = (NinePatchDrawable) getResources().getDrawable(R.drawable.tx_ui_stitchbox);
-
-
     }
 
     public void setDetector(GestureDetector ges) {
         mDetector = ges;
-    }
-
-    class mListener extends GestureDetector.SimpleOnGestureListener {
-        @Override
-        public boolean onDown(MotionEvent e) {
-            return true;
-        }
-
-        @Override
-        public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
-
-            offsetX = Math.round((offsetX - dx)%mPattern.getWidth());
-            offsetY = Math.round((offsetY - dy)%mPattern.getHeight());
-            invalidate();
-            Log.d("DEBUG", offsetX+", "+offsetY);
-            return true;
-        }
+        mDetector.setIsLongpressEnabled(false);   // don't consume long press events (otherwise scroll not consumed)
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // Let the GestureDetector interpret this event
-        boolean out = mDetector.onTouchEvent(event);
-        Log.d("touch", "event: "+event.toString()+" "+out);
-        return true;
+        return mDetector.onTouchEvent(event);   // let the GestureDetector interpret this event
     }
+
 }
