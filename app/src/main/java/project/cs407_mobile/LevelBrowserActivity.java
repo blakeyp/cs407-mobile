@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
@@ -92,6 +93,8 @@ public class LevelBrowserActivity extends AppCompatActivity {
         gameList = new ArrayList<>();
         adapter = new GameAdapter(this, gameList);
 
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
 
         try {
