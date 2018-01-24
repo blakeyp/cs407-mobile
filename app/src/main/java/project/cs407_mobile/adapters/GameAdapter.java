@@ -1,22 +1,21 @@
-package project.cs407_mobile;
+package project.cs407_mobile.adapters;
 
 /**
  * Created by ben on 23/01/18.
  */
 
 import android.content.Context;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
+
+import project.cs407_mobile.utils.Game;
+import project.cs407_mobile.R;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewHolder> {
 

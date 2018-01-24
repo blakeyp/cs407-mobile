@@ -1,12 +1,10 @@
-package project.cs407_mobile;
+package project.cs407_mobile.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,11 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+
+import project.cs407_mobile.utils.Game;
+import project.cs407_mobile.adapters.GameAdapter;
+import project.cs407_mobile.R;
 
 public class LevelBrowserActivity extends AppCompatActivity {
 

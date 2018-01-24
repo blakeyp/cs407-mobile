@@ -4,11 +4,11 @@
     android:id="@+id/fullscreen_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.cs407_mobile.ControllerActivity"
+    tools:context="project.cs407_mobile.activities.ControllerActivity"
     tools:layout_editor_absoluteX="16dp"
     tools:layout_editor_absoluteY="16dp">
 
-    <project.cs407_mobile.TouchPad
+    <project.cs407_mobile.views.TouchpadView
         android:id="@+id/touchPad"
         android:layout_width="362dp"
         android:layout_height="0dp"

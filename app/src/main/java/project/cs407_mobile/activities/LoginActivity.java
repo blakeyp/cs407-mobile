@@ -1,4 +1,4 @@
-package project.cs407_mobile;
+package project.cs407_mobile.activities;
 
 //import android.app.ActionBar;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import project.cs407_mobile.R;
+import project.cs407_mobile.activities.LevelBrowserActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

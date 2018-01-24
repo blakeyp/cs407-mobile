@@ -1,4 +1,4 @@
-package project.cs407_mobile;
+package project.cs407_mobile.utils;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -10,31 +10,31 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import static project.cs407_mobile.LoginActivity.DEBUG_TAG;
+import static project.cs407_mobile.activities.LoginActivity.DEBUG_TAG;
 
-class ConnectionService {
+public class Connection {
 
     private Activity controller;
     private MakeConnection connection;
 
     private PrintWriter printwriter;
 
-    void debug() {
+    public void debug() {
         Log.d(DEBUG_TAG, "Fragment has connection");
     }
 
-    void connectToIP(String ipAddr, Activity ctrl) {
+    public void connectToIP(String ipAddr, Activity ctrl) {
         controller = ctrl;
         connection = new MakeConnection(ipAddr);
         connection.execute();
     }
 
-    void sendMessage(String message) {
+    public void sendMessage(String message) {
         SendMessage newMessage = new SendMessage(message);
         newMessage.execute();
     }
 
-    void closeConnection() {
+    public void closeConnection() {
         Log.d(DEBUG_TAG, "Closing stuff");
         if (printwriter != null) {
             printwriter.close();

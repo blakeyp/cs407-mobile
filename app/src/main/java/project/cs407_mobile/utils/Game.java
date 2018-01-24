@@ -1,4 +1,4 @@
-package project.cs407_mobile;
+package project.cs407_mobile.utils;
 
 import java.net.InetAddress;
 

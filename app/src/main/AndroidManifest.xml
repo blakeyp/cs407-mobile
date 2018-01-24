@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:theme="@style/AppThemeLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,18 +21,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ControllerActivity"
+            android:name=".activities.ControllerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_basic_controller"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" />
         <activity
-            android:name=".LevelBrowserActivity"
+            android:name=".activities.LevelBrowserActivity"
             android:label="@string/title_activity_level_browser"
-            android:parentActivityName=".LoginActivity">
+            android:parentActivityName=".activities.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="project.cs407_mobile.LoginActivity" />
+                android:value="project.cs407_mobile.activities.LoginActivity" />
         </activity>
     </application>
 

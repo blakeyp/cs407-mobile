@@ -1,4 +1,4 @@
-package project.cs407_mobile;
+package project.cs407_mobile.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,11 +11,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+import project.cs407_mobile.fragments.LevelEditorFragment;
+import project.cs407_mobile.utils.Connection;
+import project.cs407_mobile.R;
+
 public class ControllerActivity extends AppCompatActivity
-        implements LevelEditor.OnFragmentInteractionListener {
+        implements LevelEditorFragment.OnFragmentInteractionListener {
 
     private View mContentView;
-    private ConnectionService connectionService;
+    private Connection connection;
 
     // for hiding UI elements/action bar for fullscreen mode
     private static final int UI_ANIMATION_DELAY = 300;
@@ -37,17 +41,17 @@ public class ControllerActivity extends AppCompatActivity
 
             if (intent.hasExtra("ip")) {
                 String ipAddr = intent.getStringExtra("ip");   // get input IP address
-                connectionService = new ConnectionService();
-                connectionService.connectToIP(ipAddr, this);   // establish connection
+                connection = new Connection();
+                connection.connectToIP(ipAddr, this);   // establish connection
             }
             else if (intent.hasExtra("debug")) {
                 controllerDebug = true;
             }
 
-            // load initial LevelEditor fragment (default controller)
+            // load initial LevelEditorFragment fragment (default controller)
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            LevelEditor fragment = new LevelEditor();
+            LevelEditorFragment fragment = new LevelEditorFragment();
 
             // overlay fragment onto activity
             fragmentTransaction.add(R.id.fullscreen_content, fragment);
@@ -58,8 +62,8 @@ public class ControllerActivity extends AppCompatActivity
     }
 
     // allow fragments to get established connection
-    public ConnectionService getConnectionService() {
-        return connectionService;
+    public Connection getConnection() {
+        return connection;
     }
 
     @Override
@@ -112,7 +116,6 @@ public class ControllerActivity extends AppCompatActivity
         if (actionBar != null) {
             actionBar.hide();
         }
-
         // Schedule a runnable to remove the status and navigation bar after a delay
         mHideHandler.removeCallbacks(mShowPart2Runnable);
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
@@ -121,6 +124,16 @@ public class ControllerActivity extends AppCompatActivity
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {   // re-hide action/nav bar after e.g. waking device
+            delayedHide(300);
+        } else {
+            mHideHandler.removeMessages(0);
+        }
     }
 
 }

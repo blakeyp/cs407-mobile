@@ -1,4 +1,4 @@
-package project.cs407_mobile;
+package project.cs407_mobile.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -19,12 +19,17 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LevelEditor extends Fragment {
+import project.cs407_mobile.R;
+import project.cs407_mobile.activities.ControllerActivity;
+import project.cs407_mobile.utils.Connection;
+import project.cs407_mobile.views.TouchpadView;
+
+public class LevelEditorFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private ConnectionService connectionService;
-    private TouchPad touchPad;
+    private Connection connection;
+    private TouchpadView touchpadView;
     private ToggleButton eraserButton;
     private ToggleButton pencilButton;
     private Button actionButton;
@@ -45,7 +50,7 @@ public class LevelEditor extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LevelEditor() {}   // Required empty public constructor
+    public LevelEditorFragment() {}   // Required empty public constructor
 
     /*
      * Use this factory method to create a new instance of
@@ -53,11 +58,11 @@ public class LevelEditor extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LevelEditor.
+     * @return A new instance of fragment LevelEditorFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LevelEditor newInstance(String param1, String param2) {
-        LevelEditor fragment = new LevelEditor();
+    public static LevelEditorFragment newInstance(String param1, String param2) {
+        LevelEditorFragment fragment = new LevelEditorFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -80,8 +85,8 @@ public class LevelEditor extends Fragment {
 
         // retrieve established connection from activity
         if (!ControllerActivity.controllerDebug) {
-            connectionService = ((ControllerActivity) getActivity()).getConnectionService();
-            connectionService.debug();
+            connection = ((ControllerActivity) getActivity()).getConnection();
+            connection.debug();
         }
 
     }
@@ -107,8 +112,8 @@ public class LevelEditor extends Fragment {
         paletteIcons.put("misc 0", R.drawable.tx_tile_doughnut);
         paletteIcons.put("misc 1", R.drawable.tx_tile_ufo);
 
-        touchPad = (TouchPad) view.findViewById(R.id.touchPad);
-        touchPad.setDetector(new GestureDetector(touchPad.getContext(), new scrollListener(touchPad)));
+        touchpadView = (TouchpadView) view.findViewById(R.id.touchPad);
+        touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new scrollListener(touchpadView)));
 
         eraserButton = (ToggleButton) view.findViewById(R.id.eraserButton);
         pencilButton = (ToggleButton) view.findViewById(R.id.pencilButton);
@@ -140,7 +145,7 @@ public class LevelEditor extends Fragment {
                     paletteButton.setBackgroundResource(paletteIcons.get("basic "+tileId));
                     Log.d(v.getClass().getName(), "Setting tile to basic "+tileId);
                     if (!ControllerActivity.controllerDebug)
-                        connectionService.sendMessage("basic "+tileId);
+                        connection.sendMessage("basic "+tileId);
 
                 }
             });
@@ -160,7 +165,7 @@ public class LevelEditor extends Fragment {
                     paletteButton.setBackgroundResource(paletteIcons.get("bg "+tileId));
                     Log.d(v.getClass().getName(), "Setting tile to bg "+tileId);
                     if (!ControllerActivity.controllerDebug)
-                        connectionService.sendMessage("bg "+tileId);
+                        connection.sendMessage("bg "+tileId);
 
                 }
             });
@@ -180,7 +185,7 @@ public class LevelEditor extends Fragment {
                     paletteButton.setBackgroundResource(paletteIcons.get("tech "+tileId));
                     Log.d(v.getClass().getName(), "Setting tile to tech "+tileId);
                     if (!ControllerActivity.controllerDebug)
-                        connectionService.sendMessage("tech "+tileId);
+                        connection.sendMessage("tech "+tileId);
 
                 }
             });
@@ -200,7 +205,7 @@ public class LevelEditor extends Fragment {
                     paletteButton.setBackgroundResource(paletteIcons.get("misc "+tileId));
                     Log.d(v.getClass().getName(), "Setting tile to misc "+tileId);
                     if (!ControllerActivity.controllerDebug)
-                        connectionService.sendMessage("misc "+tileId);
+                        connection.sendMessage("misc "+tileId);
 
                 }
             });
@@ -213,12 +218,12 @@ public class LevelEditor extends Fragment {
                     tileDrawer.setVisibility(View.INVISIBLE);
                     Log.d("touch", "pencil");
                     if (!ControllerActivity.controllerDebug)
-                        connectionService.sendMessage("pencil");
+                        connection.sendMessage("pencil");
                     eraserButton.setChecked(false);
                 } else {
                     Log.d("touch", "pencil_end");
                     if (!ControllerActivity.controllerDebug)
-                        connectionService.sendMessage("pencil_end");
+                        connection.sendMessage("pencil_end");
                 }
             }
         });
@@ -229,11 +234,11 @@ public class LevelEditor extends Fragment {
                 if (isChecked) {
                     tileDrawer.setVisibility(View.INVISIBLE);
                     if (!ControllerActivity.controllerDebug)
-                        connectionService.sendMessage("eraser");
+                        connection.sendMessage("eraser");
                     pencilButton.setChecked(false);
                 } else {
                     if (!ControllerActivity.controllerDebug)
-                        connectionService.sendMessage("eraser_end");
+                        connection.sendMessage("eraser_end");
                 }
             }
         });
@@ -253,7 +258,7 @@ public class LevelEditor extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!ControllerActivity.controllerDebug)
-                    connectionService.sendMessage("undo");
+                    connection.sendMessage("undo");
             }
         });
 
@@ -261,7 +266,7 @@ public class LevelEditor extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!ControllerActivity.controllerDebug)
-                    connectionService.sendMessage("redo");
+                    connection.sendMessage("redo");
             }
         });
 
@@ -272,12 +277,12 @@ public class LevelEditor extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         Log.d("touch", "action_start");
                         if (!ControllerActivity.controllerDebug)
-                            connectionService.sendMessage("action_start");
+                            connection.sendMessage("action_start");
                         return true;
                     case MotionEvent.ACTION_UP:
                         Log.d("touch", "action_end");
                         if (!ControllerActivity.controllerDebug)
-                            connectionService.sendMessage("action_end");
+                            connection.sendMessage("action_end");
                         return true;
                 }
                 return false;
@@ -319,9 +324,9 @@ public class LevelEditor extends Fragment {
 
     class scrollListener extends GestureDetector.SimpleOnGestureListener {
 
-        TouchPad mView;
+        TouchpadView mView;
 
-        public scrollListener(TouchPad t) {
+        public scrollListener(TouchpadView t) {
             mView = t;
         }
 
@@ -337,7 +342,7 @@ public class LevelEditor extends Fragment {
             Log.d("touch", "scroll on touchpad: " + dx/mView.getWidth() + "," + dy/mView.getHeight());
 
             if (!ControllerActivity.controllerDebug)
-                connectionService.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
+                connection.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
 
             mView.offsetX = Math.round((mView.offsetX - dx)%mView.mPattern.getWidth());
             mView.offsetY = Math.round((mView.offsetY - dy)%mView.mPattern.getHeight());

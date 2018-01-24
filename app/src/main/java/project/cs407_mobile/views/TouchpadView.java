@@ -1,4 +1,4 @@
-package project.cs407_mobile;
+package project.cs407_mobile.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +10,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class TouchPad extends View {
+import project.cs407_mobile.R;
+
+public class TouchpadView extends View {
 
     private int mHeight;
     private int mWidth;
@@ -28,12 +30,12 @@ public class TouchPad extends View {
 
     private GestureDetector mDetector;
 
-    public TouchPad(Context context, AttributeSet attrs) {
+    public TouchpadView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray arr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.TouchPad, 0, 0);
+        TypedArray arr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.TouchpadView, 0, 0);
         try {
-            mHeight = arr.getInteger(R.styleable.TouchPad_mHeight, 50);
-            mWidth = arr.getInteger(R.styleable.TouchPad_mWidth, 50);
+            mHeight = arr.getInteger(R.styleable.TouchpadView_mHeight, 50);
+            mWidth = arr.getInteger(R.styleable.TouchpadView_mWidth, 50);
         } finally {
             arr.recycle();
         }
@@ -70,7 +72,7 @@ public class TouchPad extends View {
     }
 
     protected void init() {
-        Log.d(TouchPad.class.getName(), "Constructed a TouchPad with parameters w="+mWidth+" h="+mHeight);
+        Log.d(TouchpadView.class.getName(), "Constructed a TouchPad with parameters w="+mWidth+" h="+mHeight);
 
         mPanelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPanelPaint.setStyle(Paint.Style.FILL);
