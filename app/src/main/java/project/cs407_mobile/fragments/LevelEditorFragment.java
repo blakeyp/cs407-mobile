@@ -22,6 +22,7 @@ import java.util.HashMap;
 import project.cs407_mobile.R;
 import project.cs407_mobile.activities.ControllerActivity;
 import project.cs407_mobile.utils.Connection;
+import project.cs407_mobile.utils.ScrollListener;
 import project.cs407_mobile.views.TouchpadView;
 
 public class LevelEditorFragment extends Fragment {
@@ -96,7 +97,7 @@ public class LevelEditorFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.level_editor, container, false);
+        View view = inflater.inflate(R.layout.fragment_level_editor, container, false);
 
         paletteIcons = new HashMap();
         paletteIcons.put("basic 0", R.drawable.tx_tile_solid);
@@ -113,7 +114,7 @@ public class LevelEditorFragment extends Fragment {
         paletteIcons.put("misc 1", R.drawable.tx_tile_ufo);
 
         touchpadView = (TouchpadView) view.findViewById(R.id.touchPad);
-        touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new scrollListener(touchpadView)));
+        touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new ScrollListener(touchpadView, connection)));
 
         eraserButton = (ToggleButton) view.findViewById(R.id.eraserButton);
         pencilButton = (ToggleButton) view.findViewById(R.id.pencilButton);
@@ -322,36 +323,36 @@ public class LevelEditorFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    class scrollListener extends GestureDetector.SimpleOnGestureListener {
-
-        TouchpadView mView;
-
-        public scrollListener(TouchpadView t) {
-            mView = t;
-        }
-
-        @Override
-        public boolean onDown(MotionEvent e) {
-            Log.d("touch", "down on touchpad");
-            return true;
-        }
-
-        @Override
-        public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
-
-            Log.d("touch", "scroll on touchpad: " + dx/mView.getWidth() + "," + dy/mView.getHeight());
-
-            if (!ControllerActivity.controllerDebug)
-                connection.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
-
-            mView.offsetX = Math.round((mView.offsetX - dx)%mView.mPattern.getWidth());
-            mView.offsetY = Math.round((mView.offsetY - dy)%mView.mPattern.getHeight());
-            mView.invalidate();
-
-            return true;
-
-        }
-
-    }
+//    class scrollListener extends GestureDetector.SimpleOnGestureListener {
+//
+//        TouchpadView mView;
+//
+//        public scrollListener(TouchpadView t) {
+//            mView = t;
+//        }
+//
+//        @Override
+//        public boolean onDown(MotionEvent e) {
+//            Log.d("touch", "down on touchpad");
+//            return true;
+//        }
+//
+//        @Override
+//        public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
+//
+//            Log.d("touch", "scroll on touchpad: " + dx/mView.getWidth() + "," + dy/mView.getHeight());
+//
+//            if (!ControllerActivity.controllerDebug)
+//                connection.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
+//
+//            mView.offsetX = Math.round((mView.offsetX - dx)%mView.mPattern.getWidth());
+//            mView.offsetY = Math.round((mView.offsetY - dy)%mView.mPattern.getHeight());
+//            mView.invalidate();
+//
+//            return true;
+//
+//        }
+//
+//    }
 
 }

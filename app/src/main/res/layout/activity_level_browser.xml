@@ -68,11 +68,14 @@
             android:layout_weight="1">
 
             <Button
-                android:id="@+id/buttonDebug"
+                android:id="@+id/buttonEditor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_weight="1"
-                android:text="Debug" />
+                android:text="Debug"
+                android:textSize="16sp" />
+
         </RelativeLayout>
 
     </LinearLayout>

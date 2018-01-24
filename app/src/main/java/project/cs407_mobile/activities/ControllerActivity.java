@@ -1,25 +1,36 @@
 package project.cs407_mobile.activities;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import project.cs407_mobile.fragments.LevelEditorFragment;
+import project.cs407_mobile.fragments.LevelRuntimeFragment;
+import project.cs407_mobile.fragments.SpikeTrapFragment;
 import project.cs407_mobile.utils.Connection;
 import project.cs407_mobile.R;
 
+import static project.cs407_mobile.activities.LoginActivity.DEBUG_TAG;
+
 public class ControllerActivity extends AppCompatActivity
-        implements LevelEditorFragment.OnFragmentInteractionListener {
+        implements LevelEditorFragment.OnFragmentInteractionListener, LevelRuntimeFragment.OnFragmentInteractionListener, SpikeTrapFragment.OnFragmentInteractionListener {
 
     private View mContentView;
     private Connection connection;
+
+    private Button menuButton;
 
     // for hiding UI elements/action bar for fullscreen mode
     private static final int UI_ANIMATION_DELAY = 300;
@@ -35,30 +46,64 @@ public class ControllerActivity extends AppCompatActivity
         setContentView(R.layout.activity_controller);
         mContentView = findViewById(R.id.fullscreen_content);
 
+        menuButton = (Button) findViewById(R.id.menuButton);
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(DEBUG_TAG, "clicked menu button shock horror");
+            }
+        });
+
         Intent intent = getIntent();
 
         if ((intent.hasExtra("ip")) || (intent.hasExtra("debug"))) {
 
             if (intent.hasExtra("ip")) {
                 String ipAddr = intent.getStringExtra("ip");   // get input IP address
+                load_fragment("editor");
                 connection = new Connection();
                 connection.connectToIP(ipAddr, this);   // establish connection
             }
             else if (intent.hasExtra("debug")) {
                 controllerDebug = true;
+
+                CharSequence controllers[] = new CharSequence[] {"Level Editor", "Level Runtime"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Choose controller to debug");
+                builder.setItems(controllers, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                load_fragment("editor"); break;
+                            case 1:
+                                load_fragment("runtime");
+                        }
+                    }
+                });
+                builder.show();
+
             }
-
-            // load initial LevelEditorFragment fragment (default controller)
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            LevelEditorFragment fragment = new LevelEditorFragment();
-
-            // overlay fragment onto activity
-            fragmentTransaction.add(R.id.fullscreen_content, fragment);
-            fragmentTransaction.commit();
 
         }
 
+    }
+
+    private void load_fragment(String controller) {
+        // load initial LevelEditorFragment fragment (default controller)
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment fragment = new LevelEditorFragment();
+
+        if (controller.equals("runtime"))
+            fragment = new LevelRuntimeFragment();
+
+        // overlay fragment onto activity
+        fragmentTransaction.add(R.id.fullscreen_content, fragment);
+        fragmentTransaction.commit();
     }
 
     // allow fragments to get established connection

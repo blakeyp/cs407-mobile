@@ -66,7 +66,7 @@ public class LevelBrowserActivity extends AppCompatActivity {
         mActionBar.setTitle("Patchworks");
         mActionBar.setDisplayHomeAsUpEnabled(false);
 
-        buttonDebug = (Button) findViewById(R.id.buttonDebug);   // reference to debug button
+        buttonDebug = (Button) findViewById(R.id.buttonEditor);   // reference to debug button
 
         // on clicking debug button open controller to debug without connecting
         buttonDebug.setOnClickListener(new View.OnClickListener() {

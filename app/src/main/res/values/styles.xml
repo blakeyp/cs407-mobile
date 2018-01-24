@@ -19,7 +19,7 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="FullscreenTheme" parent="AppThemeLogin">   <!-- set default full screen theme for layout editor preview -->
+    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">   <!-- set default full screen theme for layout editor preview -->
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
@@ -30,6 +30,5 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
-
 
 </resources>

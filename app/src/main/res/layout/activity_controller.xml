@@ -9,4 +9,17 @@
     tools:layout_editor_absoluteY="16dp"
     tools:layout_editor_absoluteX="16dp">
 
+    <Button
+        android:id="@+id/menuButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_weight="1"
+        android:background="@drawable/tx_ui_hamburger"
+        android:checked="false"
+        android:scaleType="fitCenter"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp" />
+
 </android.support.constraint.ConstraintLayout>
