@@ -23,15 +23,11 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonGuest;
 
 
-    private android.support.v7.app.ActionBar mActionBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {   // on opening the app
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mActionBar = getSupportActionBar();
-        mActionBar.hide();   // hide action bar
 
         //System.loadLibrary("cs407_server");
 
@@ -68,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // opens controller given IP address
     protected void login() {
-        Intent intent = new Intent(this, LevelBrowserActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

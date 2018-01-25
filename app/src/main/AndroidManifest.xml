@@ -27,7 +27,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" />
         <activity
-            android:name="patchworks.activities.LevelBrowserActivity"
+            android:name="patchworks.activities.MainActivity"
             android:label="@string/title_activity_level_browser"
             android:parentActivityName="patchworks.activities.LoginActivity">
             <meta-data
