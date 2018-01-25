@@ -1,4 +1,4 @@
-package project.cs407_mobile;
+package project.patchworks;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

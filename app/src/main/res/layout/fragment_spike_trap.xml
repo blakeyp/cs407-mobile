@@ -4,7 +4,7 @@
     android:id="@+id/fullscreen_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.cs407_mobile.activities.ControllerActivity"
+    tools:context="project.patchworks.activities.ControllerActivity"
     tools:layout_editor_absoluteX="16dp"
     tools:layout_editor_absoluteY="16dp">
 

@@ -1,11 +1,11 @@
-package project.cs407_mobile.utils;
+package project.patchworks.utils;
 
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import project.cs407_mobile.activities.ControllerActivity;
-import project.cs407_mobile.views.TouchpadView;
+import project.patchworks.activities.ControllerActivity;
+import project.patchworks.views.TouchpadView;
 
 public class ScrollListener extends GestureDetector.SimpleOnGestureListener {
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="project.cs407_mobile.activities.LevelBrowserActivity">
+    tools:context="project.patchworks.activities.LevelBrowserActivity">
 
     <LinearLayout
         android:id="@+id/content"

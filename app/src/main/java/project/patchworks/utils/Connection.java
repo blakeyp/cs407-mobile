@@ -1,4 +1,4 @@
-package project.cs407_mobile.utils;
+package project.patchworks.utils;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import static project.cs407_mobile.activities.LoginActivity.DEBUG_TAG;
+import static project.patchworks.activities.LoginActivity.DEBUG_TAG;
 
 public class Connection {
 
