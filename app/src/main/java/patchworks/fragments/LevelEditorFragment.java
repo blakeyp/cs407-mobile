@@ -1,4 +1,4 @@
-package project.patchworks.fragments;
+package patchworks.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -19,11 +19,11 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import project.patchworks.R;
-import project.patchworks.activities.ControllerActivity;
-import project.patchworks.utils.Connection;
-import project.patchworks.utils.ScrollListener;
-import project.patchworks.views.TouchpadView;
+import patchworks.R;
+import patchworks.activities.ControllerActivity;
+import patchworks.utils.Connection;
+import patchworks.utils.ScrollListener;
+import patchworks.views.TouchpadView;
 
 public class LevelEditorFragment extends Fragment {
 

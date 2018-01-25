@@ -1,4 +1,4 @@
-package project.patchworks.activities;
+package patchworks.activities;
 
 //import android.app.ActionBar;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import project.patchworks.R;
+import patchworks.R;
 
 public class LoginActivity extends AppCompatActivity {
 

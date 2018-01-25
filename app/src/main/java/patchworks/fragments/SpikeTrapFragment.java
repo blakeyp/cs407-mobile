@@ -1,4 +1,4 @@
-package project.patchworks.fragments;
+package patchworks.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import project.patchworks.R;
-import project.patchworks.activities.ControllerActivity;
-import project.patchworks.utils.Connection;
+import patchworks.R;
+import patchworks.activities.ControllerActivity;
+import patchworks.utils.Connection;
 
 public class SpikeTrapFragment extends Fragment {
 

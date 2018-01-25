@@ -1,4 +1,4 @@
-package project.patchworks.adapters;
+package patchworks.adapters;
 
 /**
  * Created by ben on 23/01/18.
@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import project.patchworks.utils.Game;
-import project.patchworks.R;
+import patchworks.utils.Game;
+import patchworks.R;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewHolder> {
 

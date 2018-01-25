@@ -1,4 +1,4 @@
-package project.patchworks.activities;
+package patchworks.activities;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -16,13 +16,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import project.patchworks.fragments.LevelEditorFragment;
-import project.patchworks.fragments.LevelRuntimeFragment;
-import project.patchworks.fragments.SpikeTrapFragment;
-import project.patchworks.utils.Connection;
-import project.patchworks.R;
+import patchworks.fragments.LevelEditorFragment;
+import patchworks.fragments.LevelRuntimeFragment;
+import patchworks.fragments.SpikeTrapFragment;
+import patchworks.utils.Connection;
+import patchworks.R;
 
-import static project.patchworks.activities.LoginActivity.DEBUG_TAG;
+import static patchworks.activities.LoginActivity.DEBUG_TAG;
 
 public class ControllerActivity extends AppCompatActivity
         implements LevelEditorFragment.OnFragmentInteractionListener, LevelRuntimeFragment.OnFragmentInteractionListener, SpikeTrapFragment.OnFragmentInteractionListener {

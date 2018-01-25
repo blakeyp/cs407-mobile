@@ -1,4 +1,4 @@
-package project.patchworks.fragments;
+package patchworks.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import project.patchworks.R;
-import project.patchworks.activities.ControllerActivity;
-import project.patchworks.utils.Connection;
-import project.patchworks.views.TouchpadView;
+import patchworks.R;
+import patchworks.activities.ControllerActivity;
+import patchworks.utils.Connection;
+import patchworks.views.TouchpadView;
 
 public class LevelRuntimeFragment extends Fragment {
 

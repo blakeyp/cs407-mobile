@@ -1,11 +1,11 @@
-package project.patchworks.utils;
+package patchworks.utils;
 
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import project.patchworks.activities.ControllerActivity;
-import project.patchworks.views.TouchpadView;
+import patchworks.activities.ControllerActivity;
+import patchworks.views.TouchpadView;
 
 public class ScrollListener extends GestureDetector.SimpleOnGestureListener {
 

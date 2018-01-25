@@ -1,4 +1,4 @@
-package project.patchworks;
+package patchworks;
 
 import org.junit.Test;
 

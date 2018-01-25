@@ -1,4 +1,4 @@
-package project.patchworks.activities;
+package patchworks.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +17,9 @@ import android.widget.Toast;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
-import project.patchworks.utils.Game;
-import project.patchworks.adapters.GameAdapter;
-import project.patchworks.R;
+import patchworks.utils.Game;
+import patchworks.adapters.GameAdapter;
+import patchworks.R;
 
 public class LevelBrowserActivity extends AppCompatActivity {
 

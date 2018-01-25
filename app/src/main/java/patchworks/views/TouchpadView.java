@@ -1,4 +1,4 @@
-package project.patchworks.views;
+package patchworks.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +10,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import project.patchworks.R;
+import patchworks.R;
 
 public class TouchpadView extends View {
 

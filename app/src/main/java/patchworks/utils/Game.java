@@ -1,4 +1,4 @@
-package project.patchworks.utils;
+package patchworks.utils;
 
 import java.net.InetAddress;
 

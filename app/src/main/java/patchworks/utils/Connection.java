@@ -1,4 +1,4 @@
-package project.patchworks.utils;
+package patchworks.utils;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import static project.patchworks.activities.LoginActivity.DEBUG_TAG;
+import static patchworks.activities.LoginActivity.DEBUG_TAG;
 
 public class Connection {
 

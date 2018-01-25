@@ -4,11 +4,11 @@
     android:id="@+id/fullscreen_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.patchworks.activities.ControllerActivity"
+    tools:context="patchworks.activities.ControllerActivity"
     tools:layout_editor_absoluteX="16dp"
     tools:layout_editor_absoluteY="16dp">
 
-    <project.patchworks.views.TouchpadView
+    <patchworks.views.TouchpadView
         android:id="@+id/touchPad"
         android:layout_width="362dp"
         android:layout_height="0dp"
