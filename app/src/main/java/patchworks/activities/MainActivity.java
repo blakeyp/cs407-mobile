@@ -2,9 +2,13 @@ package patchworks.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,17 +26,17 @@ import android.widget.Toast;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+import patchworks.fragments.GameFinderFragment;
+import patchworks.fragments.LevelEditorFragment;
+import patchworks.fragments.LevelRuntimeFragment;
 import patchworks.utils.Game;
 import patchworks.adapters.GameAdapter;
 import patchworks.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements GameFinderFragment.OnFragmentInteractionListener{
 
     private android.support.v7.app.ActionBar mActionBar;
-
-    private RecyclerView recyclerView;
-    private GameAdapter adapter;
-    private ArrayList<Game> gameList;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_levels:
                     return true;
                 case R.id.navigation_controller:
+                    load_fragment();
                     return true;
                 case R.id.navigation_settings:
                     return true;
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_controller);
+        navigation.setSelectedItemId(R.id.navigation_levels);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -67,29 +72,6 @@ public class MainActivity extends AppCompatActivity {
         mActionBar = getSupportActionBar();
         mActionBar.setTitle("Patchworks");
         mActionBar.setDisplayHomeAsUpEnabled(false);
-
-        recyclerView = (RecyclerView) findViewById(R.id.gamesRecyclerView);
-
-        gameList = new ArrayList<>();
-        adapter = new GameAdapter(this, gameList);
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(adapter);
-
-        try {
-            InetAddress netAddress = InetAddress.getByName("127.0.0.1");
-            gameList.add(new Game(netAddress, "Game1", "Playing Level", 2, true));
-            gameList.add(new Game(netAddress, "Game2", "Building a Level", 3, false));
-            gameList.add(new Game(netAddress, "Game3", "GameState", 1, false));
-            gameList.add(new Game(netAddress, "Game4", "GameState", 0, true));
-            gameList.add(new Game(netAddress, "Game5", "GameState", 0, true));
-            gameList.add(new Game(netAddress, "Game6", "GameState", 1, false));
-        } catch (java.net.UnknownHostException e) {
-            Log.d("fuck ", "something bad happened");
-        }
-
-        adapter.notifyDataSetChanged();
 
     }
 
@@ -156,4 +138,18 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void load_fragment() {
+        // load initial LevelEditorFragment fragment (default controller)
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment fragment = new GameFinderFragment();
+
+        // overlay fragment onto activity
+        fragmentTransaction.replace(R.id.fragment_space, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {}
 }

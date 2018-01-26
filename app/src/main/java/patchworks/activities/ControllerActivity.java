@@ -25,7 +25,9 @@ import patchworks.R;
 import static patchworks.activities.LoginActivity.DEBUG_TAG;
 
 public class ControllerActivity extends AppCompatActivity
-        implements LevelEditorFragment.OnFragmentInteractionListener, LevelRuntimeFragment.OnFragmentInteractionListener, SpikeTrapFragment.OnFragmentInteractionListener {
+        implements LevelEditorFragment.OnFragmentInteractionListener,
+        LevelRuntimeFragment.OnFragmentInteractionListener,
+        SpikeTrapFragment.OnFragmentInteractionListener {
 
     private View mContentView;
     private Connection connection;
