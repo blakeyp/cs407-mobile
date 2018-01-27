@@ -10,8 +10,8 @@
 
     <Button
         android:id="@+id/actionButton"
-        android:layout_width="176dp"
-        android:layout_height="153dp"
+        android:layout_width="254dp"
+        android:layout_height="191dp"
         android:text="Action"
         android:layout_marginRight="100dp"
         app:layout_constraintRight_toRightOf="parent"

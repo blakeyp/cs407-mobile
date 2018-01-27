@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 
 
+import it.sephiroth.android.library.tooltip.Tooltip;
 import patchworks.fragments.LevelEditorFragment;
 import patchworks.fragments.LevelRuntimeFragment;
 import patchworks.fragments.SpikeTrapFragment;
@@ -71,8 +72,25 @@ public class ControllerActivity extends AppCompatActivity
         });
 
         helpButton = (Button) findViewById(R.id.helpButton);
-
-
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Tooltip.make(ControllerActivity.this,
+                        new Tooltip.Builder(101)
+                                .anchor(helpButton, Tooltip.Gravity.RIGHT)
+                                .closePolicy(new Tooltip.ClosePolicy()
+                                    .insidePolicy(true, true)
+                                    .outsidePolicy(true, true), 0)
+                                .text("Some helpful help text inserted here explaining how this controller works")
+                                .maxWidth(900)
+                                .withArrow(true)
+                                .withOverlay(false)
+                                //.typeface(mYourCustomFont)
+                                .withStyleId(R.style.TooltipStyle)
+                                .build()
+                ).show();
+            }
+        });
 
 
         Intent intent = getIntent();
