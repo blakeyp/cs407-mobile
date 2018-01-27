@@ -9,16 +9,18 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme">
+        <activity
+            android:name="patchworks.activities.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="patchworks.activities.LoginActivity"
             android:theme="@style/AppThemeLogin">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="patchworks.activities.ControllerActivity"
@@ -26,14 +28,7 @@
             android:label="@string/title_activity_basic_controller"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" />
-        <activity
-            android:name="patchworks.activities.MainActivity"
-            android:label="@string/title_activity_level_browser"
-            android:parentActivityName="patchworks.activities.LoginActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="patchworks.activities.LoginActivity" />
-        </activity>
+
     </application>
 
 </manifest>
