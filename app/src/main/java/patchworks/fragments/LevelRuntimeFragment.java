@@ -48,6 +48,8 @@ public class LevelRuntimeFragment extends Fragment {
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_level_runtime, container, false);
 
+        ControllerActivity.backButton.setVisibility(View.GONE);
+
         touchpadView = (TouchpadView) view.findViewById(R.id.touchPad);
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new scrollListener(touchpadView)));
 
@@ -55,13 +57,11 @@ public class LevelRuntimeFragment extends Fragment {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                FragmentManager fragmentManager2 = getFragmentManager();
-                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-                SpikeTrapFragment fragment2 = new SpikeTrapFragment();
-                fragmentTransaction2.replace(R.id.fullscreen_content, fragment2);
-                fragmentTransaction2.commit();
-
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                SpikeTrapFragment fragment = new SpikeTrapFragment();
+                transaction.replace(R.id.fullscreen_content, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

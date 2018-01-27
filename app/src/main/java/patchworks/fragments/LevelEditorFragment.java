@@ -99,6 +99,9 @@ public class LevelEditorFragment extends Fragment {
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_level_editor, container, false);
 
+        ControllerActivity.backButton.setVisibility(View.GONE);   // hide back button
+        ControllerActivity.helpButton.setVisibility(View.GONE);
+
         paletteIcons = new HashMap();
         paletteIcons.put("basic 0", R.drawable.tx_tile_solid);
         paletteIcons.put("basic 1", R.drawable.tx_tile_semisolid);

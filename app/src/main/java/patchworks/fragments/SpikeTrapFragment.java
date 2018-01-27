@@ -4,13 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import patchworks.R;
 import patchworks.activities.ControllerActivity;
 import patchworks.utils.Connection;
+
+import static patchworks.activities.LoginActivity.DEBUG_TAG;
 
 public class SpikeTrapFragment extends Fragment {
 
@@ -37,6 +41,8 @@ public class SpikeTrapFragment extends Fragment {
 
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_spike_trap, container, false);
+
+        ControllerActivity.backButton.setVisibility(View.VISIBLE);
 
         return view;
 

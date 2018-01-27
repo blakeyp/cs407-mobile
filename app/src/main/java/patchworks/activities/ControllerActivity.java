@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+
 import patchworks.fragments.LevelEditorFragment;
 import patchworks.fragments.LevelRuntimeFragment;
 import patchworks.fragments.SpikeTrapFragment;
@@ -32,11 +33,15 @@ public class ControllerActivity extends AppCompatActivity
 
     private Button menuButton;
 
+    public static Button backButton;
+    public static Button helpButton;
+
     // for hiding UI elements/action bar for fullscreen mode
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
 
     public static boolean controllerDebug = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +52,26 @@ public class ControllerActivity extends AppCompatActivity
         mContentView = findViewById(R.id.fullscreen_content);
 
         menuButton = (Button) findViewById(R.id.menuButton);
-
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(DEBUG_TAG, "clicked menu button shock horror");
             }
         });
+
+        backButton = (Button) findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(DEBUG_TAG, "clicked back button shock horror");
+                onBackPressed();
+            }
+        });
+
+        helpButton = (Button) findViewById(R.id.helpButton);
+
+
+
 
         Intent intent = getIntent();
 
@@ -92,14 +110,15 @@ public class ControllerActivity extends AppCompatActivity
     }
 
     private void load_fragment(String controller) {
-        // load initial LevelEditorFragment fragment (default controller)
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        Fragment fragment = new LevelEditorFragment();
+        Fragment fragment = new LevelEditorFragment();   // default
 
-        if (controller.equals("runtime"))
-            fragment = new LevelRuntimeFragment();
+        switch (controller) {
+            case "runtime":
+                fragment = new LevelRuntimeFragment(); break;
+        }
 
         // overlay fragment onto activity
         fragmentTransaction.add(R.id.fullscreen_content, fragment);
@@ -115,6 +134,11 @@ public class ControllerActivity extends AppCompatActivity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         delayedHide(100);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -177,7 +201,7 @@ public class ControllerActivity extends AppCompatActivity
         if (hasFocus) {   // re-hide action/nav bar after e.g. waking device
             delayedHide(300);
         } else {
-            mHideHandler.removeMessages(0);
+            mHideHandler.removeCallbacks(mHideRunnable);
         }
     }
 
