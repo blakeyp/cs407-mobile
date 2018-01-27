@@ -27,4 +27,15 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <!-- tooltip text -->
+    <style name="TooltipFont" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <!-- tooltip custom style -->
+    <style name="TooltipStyle" parent="ToolTipLayoutDefaultStyle">
+        <item name="ttlm_backgroundColor">@color/colorSecondary</item>
+        <item name="android:textAppearance">@style/TooltipFont</item>
+    </style>
+
 </resources>
