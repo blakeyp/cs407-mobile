@@ -133,6 +133,11 @@ public class MainActivity extends AppCompatActivity
                 backdoorToController();
                 return true;
 
+            case R.id.action_gyroscope:
+                Intent intent = new Intent(this, GyroscopeActivity.class);
+                startActivity(intent);
+                return true;
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

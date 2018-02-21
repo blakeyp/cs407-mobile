@@ -3,6 +3,7 @@
     package="patchworks">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -11,24 +12,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity
-            android:name="patchworks.activities.MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="patchworks.activities.LoginActivity"
-            android:theme="@style/AppThemeLogin">
-        </activity>
+            android:name=".activities.LoginActivity"
+            android:theme="@style/AppThemeLogin" />
         <activity
-            android:name="patchworks.activities.ControllerActivity"
+            android:name=".activities.ControllerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_basic_controller"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" />
-
+        <activity
+            android:name=".activities.GyroscopeActivity"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>
