@@ -21,15 +21,13 @@ import it.sephiroth.android.library.tooltip.Tooltip;
 import patchworks.fragments.LevelEditorFragment;
 import patchworks.fragments.LevelRuntimeFragment;
 import patchworks.fragments.SpikeTrapFragment;
+import patchworks.fragments.UFOFragment;
 import patchworks.utils.Connection;
 import patchworks.R;
 
 import static patchworks.activities.LoginActivity.DEBUG_TAG;
 
-public class ControllerActivity extends AppCompatActivity
-        implements LevelEditorFragment.OnFragmentInteractionListener,
-        LevelRuntimeFragment.OnFragmentInteractionListener,
-        SpikeTrapFragment.OnFragmentInteractionListener {
+public class ControllerActivity extends AppCompatActivity {
 
     private View mContentView;
     private Connection connection;
@@ -160,9 +158,6 @@ public class ControllerActivity extends AppCompatActivity
     public void onDestroy() {
         super.onDestroy();
     }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {}   // for handling fragments
 
 
     // for hiding UI elements/action bar for fullscreen mode

@@ -1,7 +1,6 @@
 package patchworks.fragments;
 
-import android.content.Context;
-import android.net.Uri;
+import android.graphics.Outline;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.GridLayout;
@@ -26,8 +26,6 @@ import patchworks.utils.ScrollListener;
 import patchworks.views.TouchpadView;
 
 public class LevelEditorFragment extends Fragment {
-
-    private OnFragmentInteractionListener mListener;
 
     private Connection connection;
     private TouchpadView touchpadView;
@@ -119,6 +117,16 @@ public class LevelEditorFragment extends Fragment {
         touchpadView = (TouchpadView) view.findViewById(R.id.touchPad);
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new ScrollListener(touchpadView, connection)));
 
+//        ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {   // attempted clipping - doesn't work
+//            @Override
+//            public void getOutline(View view, Outline outline) {
+//                outline.setRoundRect(0, 0, view.getHeight(), view.getWidth(), 50f);
+//            }
+//        };
+//
+//        touchpadView.setOutlineProvider(viewOutlineProvider);
+//        touchpadView.setClipToOutline(true);
+
         eraserButton = (ToggleButton) view.findViewById(R.id.eraserButton);
         pencilButton = (ToggleButton) view.findViewById(R.id.pencilButton);
 
@@ -128,7 +136,7 @@ public class LevelEditorFragment extends Fragment {
         final Button undoButton = (Button) view.findViewById(R.id.undoButton);
         final Button redoButton = (Button) view.findViewById(R.id.redoButton);
 
-        tileDrawer = (ScrollView) view.findViewById(R.id.tileDrawer);
+        tileDrawer = view.findViewById(R.id.tileDrawer);
 
         GridLayout paletteGridBasic = (GridLayout) view.findViewById(R.id.paletteGridBasic);
         GridLayout paletteGridBackground = (GridLayout) view.findViewById(R.id.paletteGridBackground);
@@ -297,33 +305,9 @@ public class LevelEditorFragment extends Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    // must be implemented by activity using this fragment
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 
 //    class scrollListener extends GestureDetector.SimpleOnGestureListener {

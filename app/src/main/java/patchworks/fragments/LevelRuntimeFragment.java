@@ -1,10 +1,7 @@
 package patchworks.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -20,8 +17,6 @@ import patchworks.utils.Connection;
 import patchworks.views.TouchpadView;
 
 public class LevelRuntimeFragment extends Fragment {
-
-    private OnFragmentInteractionListener mListener;
 
     private Connection connection;
     private TouchpadView touchpadView;
@@ -58,7 +53,7 @@ public class LevelRuntimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SpikeTrapFragment fragment = new SpikeTrapFragment();
+                UFOFragment fragment = new UFOFragment();
                 transaction.replace(R.id.fullscreen_content, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -67,35 +62,6 @@ public class LevelRuntimeFragment extends Fragment {
 
         return view;
 
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    // must be implemented by activity using this fragment
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 
     class scrollListener extends GestureDetector.SimpleOnGestureListener {

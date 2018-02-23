@@ -359,6 +359,7 @@
                 android:id="@+id/paletteGridMisc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/tx_ui_normalbox_small_white"
                 android:columnCount="4"
                 android:elevation="0dp"
                 tools:layout_editor_absoluteX="8dp"

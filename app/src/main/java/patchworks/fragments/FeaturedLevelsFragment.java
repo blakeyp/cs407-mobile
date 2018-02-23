@@ -8,10 +8,6 @@ import android.view.ViewGroup;
 
 import patchworks.R;
 
-/**
- * Created by u1421499 on 29/01/18.
- */
-
 public class FeaturedLevelsFragment extends Fragment {
 
     public FeaturedLevelsFragment() {

@@ -25,8 +25,7 @@ import patchworks.fragments.GameFinderFragment;
 import patchworks.R;
 import patchworks.fragments.LevelBrowserFragment;
 
-public class MainActivity extends AppCompatActivity
-        implements GameFinderFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity {
 
     private android.support.v7.app.ActionBar mActionBar;
     private DrawerLayout mDrawerLayout;
@@ -133,11 +132,6 @@ public class MainActivity extends AppCompatActivity
                 backdoorToController();
                 return true;
 
-            case R.id.action_gyroscope:
-                Intent intent = new Intent(this, GyroscopeActivity.class);
-                startActivity(intent);
-                return true;
-
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -182,6 +176,4 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {}
 }
