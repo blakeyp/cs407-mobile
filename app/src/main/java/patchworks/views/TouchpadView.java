@@ -5,14 +5,11 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.*;
 import android.graphics.drawable.NinePatchDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewOutlineProvider;
 
 import patchworks.R;
 
@@ -57,7 +54,7 @@ public class TouchpadView extends View {
     protected void onDraw(Canvas canvas) {
 
         Path path = new Path();
-        path.addRoundRect(new RectF(canvas.getClipBounds()), 40f, 40f, Path.Direction.CCW);
+        path.addRoundRect(new RectF(canvas.getClipBounds()), 35, 35, Path.Direction.CCW);
         canvas.clipPath(path);   // give touchpad rounded corners
 
         super.onDraw(canvas);
@@ -93,7 +90,7 @@ public class TouchpadView extends View {
         offsetX = 0;
         offsetY = 0;
 
-        mNpd = (NinePatchDrawable) getResources().getDrawable(R.drawable.tx_ui_stitchbox);
+        mNpd = (NinePatchDrawable) getResources().getDrawable(R.drawable.tx_ui_roundstitchbox);
     }
 
     public void setDetector(GestureDetector ges) {

@@ -1,6 +1,5 @@
 package patchworks.fragments;
 
-import android.graphics.Outline;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewOutlineProvider;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.GridLayout;
@@ -113,19 +111,15 @@ public class LevelEditorFragment extends Fragment {
         paletteIcons.put("tech 0", R.drawable.tx_tile_startpoint);
         paletteIcons.put("misc 0", R.drawable.tx_tile_doughnut);
         paletteIcons.put("misc 1", R.drawable.tx_tile_ufo);
+        paletteIcons.put("misc 2", R.drawable.tx_tile_toffee);
+        paletteIcons.put("misc 3", R.drawable.tx_tile_strawberry);
+        paletteIcons.put("misc 4", R.drawable.tx_tile_lollipop);
+        paletteIcons.put("misc 5", R.drawable.tx_tile_cupcake);
+        paletteIcons.put("misc 6", R.drawable.tx_tile_icecream);
+        paletteIcons.put("misc 7", R.drawable.tx_tile_candycane);
 
         touchpadView = (TouchpadView) view.findViewById(R.id.touchPad);
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new ScrollListener(touchpadView, connection)));
-
-//        ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {   // attempted clipping - doesn't work
-//            @Override
-//            public void getOutline(View view, Outline outline) {
-//                outline.setRoundRect(0, 0, view.getHeight(), view.getWidth(), 50f);
-//            }
-//        };
-//
-//        touchpadView.setOutlineProvider(viewOutlineProvider);
-//        touchpadView.setClipToOutline(true);
 
         eraserButton = (ToggleButton) view.findViewById(R.id.eraserButton);
         pencilButton = (ToggleButton) view.findViewById(R.id.pencilButton);
@@ -309,37 +303,5 @@ public class LevelEditorFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
-//    class scrollListener extends GestureDetector.SimpleOnGestureListener {
-//
-//        TouchpadView mView;
-//
-//        public scrollListener(TouchpadView t) {
-//            mView = t;
-//        }
-//
-//        @Override
-//        public boolean onDown(MotionEvent e) {
-//            Log.d("touch", "down on touchpad");
-//            return true;
-//        }
-//
-//        @Override
-//        public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
-//
-//            Log.d("touch", "scroll on touchpad: " + dx/mView.getWidth() + "," + dy/mView.getHeight());
-//
-//            if (!ControllerActivity.controllerDebug)
-//                connection.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
-//
-//            mView.offsetX = Math.round((mView.offsetX - dx)%mView.mPattern.getWidth());
-//            mView.offsetY = Math.round((mView.offsetY - dy)%mView.mPattern.getHeight());
-//            mView.invalidate();
-//
-//            return true;
-//
-//        }
-//
-//    }
 
 }
