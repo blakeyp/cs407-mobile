@@ -17,4 +17,12 @@
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
     <string name="title_activity_gyroscope">GyroscopeActivity</string>
+
+    <string-array name="nav_item_activity_titles">
+        <item>Home</item>
+        <item>Levels</item>
+        <item>My Queue</item>
+        <item>Notifications</item>
+        <item>Settings</item>
+    </string-array>
 </resources>

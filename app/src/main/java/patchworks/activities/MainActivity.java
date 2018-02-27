@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -29,58 +30,72 @@ public class MainActivity extends AppCompatActivity
         implements GameFinderFragment.OnFragmentInteractionListener{
 
     private android.support.v7.app.ActionBar mActionBar;
-    private DrawerLayout mDrawerLayout;
+    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private int navIndex;
+    private String[] activityTitles;
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_levels:
-                    load_fragment("levels");
-                    return true;
-                case R.id.navigation_controller:
-                    load_fragment("games");
-                    return true;
-                case R.id.navigation_settings:
-                    return true;
-            }
-            return false;
-        }
+    // tags used to attach the fragments
+    private static final String TAG_HOME = "home";
+    private static final String TAG_LEVELS = "levels";
+    private static final String TAG_QUEUE = "queue";
+    private static final String TAG_NOTIFICATIONS = "notifications";
+    private static final String TAG_SETTINGS = "settings";
+    public static String CURRENT_TAG = TAG_HOME;
 
-    };
+    private NavigationView navigationView;
+
+//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+//            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+//
+//        @Override
+//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//            switch (item.getItemId()) {
+//                case R.id.navigation_levels:
+//                    load_fragment("levels");
+//                    return true;
+//                case R.id.navigation_controller:
+//                    load_fragment("games");
+//                    return true;
+//                case R.id.navigation_settings:
+//                    return true;
+//            }
+//            return false;
+//        }
+//
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_levels);
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        navIndex = 0;
 
         mActionBar = getSupportActionBar();
         mActionBar.setTitle("Patchworks");
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.navigation_menu);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
+                drawerLayout,         /* DrawerLayout object */
                 R.string.drawer_open,  /* "open drawer" description */
                 R.string.drawer_close  /* "close drawer" description */
         );
 
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-
-
+        drawerLayout.addDrawerListener(mDrawerToggle);
+        setupNavigationView();
+        loadFragment();
 
     }
 
@@ -160,26 +175,94 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    private void load_fragment(String fragmentTag) {
-        // load initial LevelEditorFragment fragment (default controller)
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    private void loadFragment() {
+        navigationView.getMenu().getItem(navIndex).setChecked(true);
+        setToolbarTitle();
 
-        Fragment fragment;
-
-        switch (fragmentTag) {
-            case "levels":
-                fragment = new LevelBrowserFragment();
-                fragmentTransaction.replace(R.id.fragment_space, fragment);
-                fragmentTransaction.commit();
-                break;
-
-            case "games":
-                fragment = new GameFinderFragment();
-                fragmentTransaction.replace(R.id.fragment_space, fragment);
-                fragmentTransaction.commit();
+        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
+            drawerLayout.closeDrawers();
+            return;
         }
 
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Fragment fragment = getFragment();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+        //        android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.fragment_space, fragment, CURRENT_TAG);
+        fragmentTransaction.commitAllowingStateLoss();
+
+        drawerLayout.closeDrawers();
+
+    }
+
+    private Fragment getFragment() {
+        switch (navIndex) {
+            case 0:
+                // home
+                GameFinderFragment gameFinderFragment = new GameFinderFragment();
+                return gameFinderFragment;
+            case 1:
+                // levels
+                LevelBrowserFragment levelBrowserFragment = new LevelBrowserFragment();
+                return levelBrowserFragment;
+            default:
+                return new GameFinderFragment();
+        }
+    }
+
+    private void setupNavigationView() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_home:
+                        navIndex = 0;
+                        CURRENT_TAG = TAG_HOME;
+                        break;
+                    case R.id.nav_levels:
+                        navIndex = 1;
+                        CURRENT_TAG = TAG_LEVELS;
+                        break;
+                    case R.id.nav_queue:
+                        navIndex = 2;
+                        CURRENT_TAG = TAG_QUEUE;
+                        break;
+                    case R.id.nav_notifications:
+                        navIndex = 3;
+                        CURRENT_TAG = TAG_NOTIFICATIONS;
+                        break;
+                    case R.id.nav_settings:
+                        navIndex = 4;
+                        CURRENT_TAG = TAG_SETTINGS;
+                        break;
+                    default:
+                        navIndex = 0;
+                }
+
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if (menuItem.isChecked()) {
+                    menuItem.setChecked(false);
+                } else {
+                    menuItem.setChecked(true);
+                }
+                menuItem.setChecked(true);
+
+                loadFragment();
+
+                return true;
+            }
+        });
+
+    }
+
+    private void setToolbarTitle() {
+        getSupportActionBar().setTitle(activityTitles[navIndex]);
     }
 
     @Override
