@@ -139,16 +139,13 @@
 
     <ScrollView
         android:id="@+id/tileDrawer"
-        android:layout_width="361dp"
+        android:layout_width="362dp"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-
-        android:background="@drawable/tx_ui_normalbox_small_white"
-        android:backgroundTint="@color/colorPrimary"
-        android:backgroundTintMode="multiply"
+        android:background="@drawable/rounded_stitchbox"
         android:elevation="1dp"
         android:paddingBottom="5dp"
         android:paddingLeft="4dp"
@@ -171,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="4dp"
                 android:paddingLeft="16dp"
-                android:paddingTop="20dp"
+                android:paddingTop="6dp"
                 android:shadowColor="#000000"
                 android:shadowDx="1"
                 android:shadowDy="1"
@@ -361,8 +358,19 @@
                 android:layout_height="match_parent"
                 android:columnCount="4"
                 android:elevation="0dp"
+                android:paddingBottom="15dp"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="8dp">
+
+                <Button
+                    android:id="@+id/palette_ufo"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_ufo"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="UFO" />
 
                 <Button
                     android:id="@+id/palette_doughnut"
@@ -375,14 +383,54 @@
                     android:tooltipText="Doughnut" />
 
                 <Button
-                    android:id="@+id/palette_ufo"
+                    android:id="@+id/palette_toffee"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:layout_margin="10dp"
-                    android:background="@drawable/tx_tile_ufo"
+                    android:background="@drawable/tx_tile_toffee"
                     android:textOff="@null"
                     android:textOn="@null"
-                    android:tooltipText="UFO" />
+                    android:tooltipText="Toffee" />
+
+                <Button
+                    android:id="@+id/palette_strawberry"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_strawberry"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Strawberry" />
+
+                <Button
+                    android:id="@+id/palette_lollipop"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_lollipop"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Lollipop" />
+
+                <Button
+                    android:id="@+id/palette_icecream"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_icecream"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Ice cream" />
+
+                <Button
+                    android:id="@+id/palette_candycane"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_candycane"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Candy cane" />
 
             </GridLayout>
 

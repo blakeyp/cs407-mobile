@@ -16,10 +16,6 @@ import patchworks.adapters.LevelAdapter;
 import patchworks.utils.Game;
 import patchworks.utils.Level;
 
-/**
- * Created by u1421499 on 29/01/18.
- */
-
 public class FeaturedLevelsFragment extends Fragment {
 
     private RecyclerView recyclerView;

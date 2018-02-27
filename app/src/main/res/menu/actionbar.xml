@@ -15,10 +15,4 @@
         android:title="IP Connect..."
         app:showAsAction="never"/>
 
-    <item
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/action_gyroscope"
-        android:title="Gyroscope!"
-        app:showAsAction="never"/>
-
 </menu>

@@ -15,10 +15,6 @@ import java.util.ArrayList;
 
 import patchworks.R;
 
-/**
- * Created by u1421499 on 27/01/18.
- */
-
 public class LevelBrowserFragment extends Fragment {
 
     private Toolbar toolbar;

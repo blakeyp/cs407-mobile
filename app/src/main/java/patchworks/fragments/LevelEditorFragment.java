@@ -1,7 +1,5 @@
 package patchworks.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -26,8 +24,6 @@ import patchworks.utils.ScrollListener;
 import patchworks.views.TouchpadView;
 
 public class LevelEditorFragment extends Fragment {
-
-    private OnFragmentInteractionListener mListener;
 
     private Connection connection;
     private TouchpadView touchpadView;
@@ -115,6 +111,12 @@ public class LevelEditorFragment extends Fragment {
         paletteIcons.put("tech 0", R.drawable.tx_tile_startpoint);
         paletteIcons.put("misc 0", R.drawable.tx_tile_doughnut);
         paletteIcons.put("misc 1", R.drawable.tx_tile_ufo);
+        paletteIcons.put("misc 2", R.drawable.tx_tile_toffee);
+        paletteIcons.put("misc 3", R.drawable.tx_tile_strawberry);
+        paletteIcons.put("misc 4", R.drawable.tx_tile_lollipop);
+        paletteIcons.put("misc 5", R.drawable.tx_tile_cupcake);
+        paletteIcons.put("misc 6", R.drawable.tx_tile_icecream);
+        paletteIcons.put("misc 7", R.drawable.tx_tile_candycane);
 
         touchpadView = (TouchpadView) view.findViewById(R.id.touchPad);
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new ScrollListener(touchpadView, connection)));
@@ -128,7 +130,7 @@ public class LevelEditorFragment extends Fragment {
         final Button undoButton = (Button) view.findViewById(R.id.undoButton);
         final Button redoButton = (Button) view.findViewById(R.id.redoButton);
 
-        tileDrawer = (ScrollView) view.findViewById(R.id.tileDrawer);
+        tileDrawer = view.findViewById(R.id.tileDrawer);
 
         GridLayout paletteGridBasic = (GridLayout) view.findViewById(R.id.paletteGridBasic);
         GridLayout paletteGridBackground = (GridLayout) view.findViewById(R.id.paletteGridBackground);
@@ -297,65 +299,9 @@ public class LevelEditorFragment extends Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
-
-    // must be implemented by activity using this fragment
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-    }
-
-//    class scrollListener extends GestureDetector.SimpleOnGestureListener {
-//
-//        TouchpadView mView;
-//
-//        public scrollListener(TouchpadView t) {
-//            mView = t;
-//        }
-//
-//        @Override
-//        public boolean onDown(MotionEvent e) {
-//            Log.d("touch", "down on touchpad");
-//            return true;
-//        }
-//
-//        @Override
-//        public boolean onScroll(MotionEvent eDown, MotionEvent eMove, float dx, float dy) {
-//
-//            Log.d("touch", "scroll on touchpad: " + dx/mView.getWidth() + "," + dy/mView.getHeight());
-//
-//            if (!ControllerActivity.controllerDebug)
-//                connection.sendMessage(dx/mView.getWidth() + "," +dy/mView.getHeight() );
-//
-//            mView.offsetX = Math.round((mView.offsetX - dx)%mView.mPattern.getWidth());
-//            mView.offsetY = Math.round((mView.offsetY - dy)%mView.mPattern.getHeight());
-//            mView.invalidate();
-//
-//            return true;
-//
-//        }
-//
-//    }
 
 }
