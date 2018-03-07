@@ -18,6 +18,7 @@
     <string name="drawer_close">Drawer Close</string>
     <string name="title_activity_gyroscope">GyroscopeActivity</string>
 
+    <string name="blind">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna odio, suscipit quis tellus condimentum, tempor dapibus dolor. Vestibulum in laoreet dolor. Sed nec finibus sapien, id lacinia nunc. Donec ac suscipit leo. Morbi commodo tortor non vulputate interdum. Ut euismod finibus tortor, vel tempor risus elementum at. Ut dignissim erat et sodales malesuada. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce iaculis ligula quis felis tincidunt, at euismod metus tempus. Pellentesque condimentum neque nec bibendum vehicula</string>
     <string-array name="nav_item_activity_titles">
         <item>Home</item>
         <item>Levels</item>

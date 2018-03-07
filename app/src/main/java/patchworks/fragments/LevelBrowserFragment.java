@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -83,5 +84,10 @@ public class LevelBrowserFragment extends Fragment {
             fragmentList.add(frag);
             pageTitleList.add(title);
         }
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+
     }
 }

@@ -7,4 +7,5 @@
     <color name="black_overlay">#66000000</color>
     <color name="colorDefault">#CFD8DC</color>
     <color name="colorPressed">#9adceb</color>
+    <color name="text1">#323232</color>
 </resources>

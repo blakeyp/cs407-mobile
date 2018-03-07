@@ -11,6 +11,8 @@ import patchworks.R;
 
 public class LevelDetailActivity extends AppCompatActivity {
 
+    FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,13 +26,22 @@ public class LevelDetailActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        getSupportActionBar().setTitle("Level Title");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
+
+            class RemoveListener implements View.OnClickListener {
+                public void onClick(View v) {
+                    fab.show();
+                }
+            }
+
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                fab.hide();
+                Snackbar.make(view, "Added to Queue!", Snackbar.LENGTH_LONG)
+                        .setAction("Undo", new RemoveListener()).show();
             }
         });
 

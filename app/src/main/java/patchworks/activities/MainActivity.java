@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -151,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_debug:
                 backdoorToController();
+                return true;
+
+            case R.id.action_search:
                 return true;
 
             default:
