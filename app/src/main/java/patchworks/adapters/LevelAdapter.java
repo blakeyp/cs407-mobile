@@ -5,6 +5,7 @@ package patchworks.adapters;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import patchworks.R;
-import patchworks.utils.Game;
+import patchworks.activities.LevelDetailActivity;
 import patchworks.utils.Level;
 
 public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.MyViewHolder> {
@@ -30,11 +31,18 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.MyViewHolder
         public TextView name, author;
         public RatingBar stars;
 
-        public MyViewHolder(View view) {
+        public MyViewHolder(View view, final Context context) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
             author = (TextView) view.findViewById(R.id.author);
             stars = (RatingBar) view.findViewById(R.id.rating);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    // item clicked
+                    Intent intent = new Intent(context, LevelDetailActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -55,7 +63,7 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.MyViewHolder
                 )
         );
 
-        return new MyViewHolder(itemView);
+        return new MyViewHolder(itemView, mContext);
     }
 
     @Override

@@ -28,6 +28,15 @@
             android:label="@string/title_activity_basic_controller"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".activities.LevelDetailActivity"
+            android:label="@string/title_activity_level_detail"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="patchworks.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
