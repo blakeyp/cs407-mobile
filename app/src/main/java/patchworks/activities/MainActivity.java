@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
         }
         switch (item.getItemId()) {
             case R.id.action_connect:
+
+                /*
                 //create alert dialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -141,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 builder.show();
+                */
+
+                openController("172.31.53.248");
+
                 return true;
 
             case R.id.action_debug:
@@ -177,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.closeDrawers();
             return;
         }
-
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 

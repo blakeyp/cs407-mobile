@@ -57,7 +57,7 @@ public class LevelRuntimeFragment extends Fragment {
                     connection.sendMessage("capture");
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                UFOFragment fragment = new UFOFragment();
+                SlimeFragment fragment = new SlimeFragment();
                 transaction.replace(R.id.fullscreen_content, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();

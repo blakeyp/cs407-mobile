@@ -3,7 +3,6 @@ package patchworks.activities;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,8 +19,6 @@ import android.widget.Button;
 import it.sephiroth.android.library.tooltip.Tooltip;
 import patchworks.fragments.LevelEditorFragment;
 import patchworks.fragments.LevelRuntimeFragment;
-import patchworks.fragments.SpikeTrapFragment;
-import patchworks.fragments.UFOFragment;
 import patchworks.utils.Connection;
 import patchworks.R;
 
@@ -65,7 +62,8 @@ public class ControllerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(DEBUG_TAG, "clicked back button shock horror");
-                connection.sendMessage("leave");
+                if (!ControllerActivity.controllerDebug)
+                    connection.sendMessage("leave");
                 onBackPressed();
             }
         });
