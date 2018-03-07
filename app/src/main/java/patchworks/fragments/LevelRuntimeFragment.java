@@ -21,7 +21,7 @@ public class LevelRuntimeFragment extends Fragment {
     private Connection connection;
     private TouchpadView touchpadView;
 
-    private Button actionButton;
+    private Button captureButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,15 +48,20 @@ public class LevelRuntimeFragment extends Fragment {
         touchpadView = (TouchpadView) view.findViewById(R.id.touchPad);
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new scrollListener(touchpadView)));
 
-        actionButton = (Button) view.findViewById(R.id.actionButton);
-        actionButton.setOnClickListener(new View.OnClickListener() {
+        captureButton = (Button) view.findViewById(R.id.captureButton);
+        captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!ControllerActivity.controllerDebug)
+                    connection.sendMessage("capture");
+
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 UFOFragment fragment = new UFOFragment();
                 transaction.replace(R.id.fullscreen_content, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+
             }
         });
 

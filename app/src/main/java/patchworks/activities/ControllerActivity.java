@@ -65,6 +65,7 @@ public class ControllerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(DEBUG_TAG, "clicked back button shock horror");
+                connection.sendMessage("leave");
                 onBackPressed();
             }
         });
@@ -97,9 +98,28 @@ public class ControllerActivity extends AppCompatActivity {
 
             if (intent.hasExtra("ip")) {
                 String ipAddr = intent.getStringExtra("ip");   // get input IP address
-                load_fragment("editor");
+                //load_fragment("editor");
+
                 connection = new Connection();
                 connection.connectToIP(ipAddr, this);   // establish connection
+
+                CharSequence controllers[] = new CharSequence[] {"Level Editor", "Level Runtime"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Choose game mode");
+                builder.setItems(controllers, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                load_fragment("editor"); break;
+                            case 1:
+                                load_fragment("runtime");
+                        }
+                    }
+                });
+                builder.show();
+
             }
             else if (intent.hasExtra("debug")) {
                 controllerDebug = true;

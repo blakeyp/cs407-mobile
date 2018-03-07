@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.ToggleButton;
 
@@ -29,6 +30,7 @@ public class LevelEditorFragment extends Fragment {
     private TouchpadView touchpadView;
     private ToggleButton eraserButton;
     private ToggleButton pencilButton;
+    private ToggleButton grabButton;
     private Button actionButton;
     private ScrollView tileDrawer;
     private HashMap<String, Integer> paletteIcons;
@@ -109,8 +111,8 @@ public class LevelEditorFragment extends Fragment {
         paletteIcons.put("bg 3", R.drawable.tx_tile_cloud_02);
         paletteIcons.put("bg 4", R.drawable.tx_tile_mountain);
         paletteIcons.put("tech 0", R.drawable.tx_tile_startpoint);
-        paletteIcons.put("misc 0", R.drawable.tx_tile_doughnut);
-        paletteIcons.put("misc 1", R.drawable.tx_tile_ufo);
+        paletteIcons.put("misc 0", R.drawable.tx_tile_ufo);
+        paletteIcons.put("misc 1", R.drawable.tx_tile_doughnut);
         paletteIcons.put("misc 2", R.drawable.tx_tile_toffee);
         paletteIcons.put("misc 3", R.drawable.tx_tile_strawberry);
         paletteIcons.put("misc 4", R.drawable.tx_tile_lollipop);
@@ -123,8 +125,10 @@ public class LevelEditorFragment extends Fragment {
 
         eraserButton = (ToggleButton) view.findViewById(R.id.eraserButton);
         pencilButton = (ToggleButton) view.findViewById(R.id.pencilButton);
+        pencilButton.setChecked(true);   // on by default
+        grabButton = (ToggleButton) view.findViewById(R.id.grabButton);
 
-        actionButton = (Button) view.findViewById(R.id.actionButton);
+        actionButton = view.findViewById(R.id.actionButton);
 
         final ToggleButton paletteButton = (ToggleButton) view.findViewById(R.id.paletteButton);
         final Button undoButton = (Button) view.findViewById(R.id.undoButton);
@@ -226,6 +230,7 @@ public class LevelEditorFragment extends Fragment {
                     if (!ControllerActivity.controllerDebug)
                         connection.sendMessage("pencil");
                     eraserButton.setChecked(false);
+                    grabButton.setChecked(false);
                 } else {
                     Log.d("touch", "pencil_end");
                     if (!ControllerActivity.controllerDebug)
@@ -242,9 +247,26 @@ public class LevelEditorFragment extends Fragment {
                     if (!ControllerActivity.controllerDebug)
                         connection.sendMessage("eraser");
                     pencilButton.setChecked(false);
+                    grabButton.setChecked(false);
                 } else {
                     if (!ControllerActivity.controllerDebug)
                         connection.sendMessage("eraser_end");
+                }
+            }
+        });
+
+        grabButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tileDrawer.setVisibility(View.INVISIBLE);
+                    if (!ControllerActivity.controllerDebug)
+                        connection.sendMessage("grab");
+                    pencilButton.setChecked(false);
+                    eraserButton.setChecked(false);
+                } else {
+                    if (!ControllerActivity.controllerDebug)
+                        connection.sendMessage("grab_end");
                 }
             }
         });
@@ -281,11 +303,13 @@ public class LevelEditorFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
+                        actionButton.setPressed(true);
                         Log.d("touch", "action_start");
                         if (!ControllerActivity.controllerDebug)
                             connection.sendMessage("action_start");
                         return true;
                     case MotionEvent.ACTION_UP:
+                        actionButton.setPressed(false);
                         Log.d("touch", "action_end");
                         if (!ControllerActivity.controllerDebug)
                             connection.sendMessage("action_end");

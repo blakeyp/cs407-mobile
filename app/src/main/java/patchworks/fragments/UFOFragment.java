@@ -93,14 +93,17 @@ public class UFOFragment extends Fragment {
 
                 if(orientations[2] > 15) {
                     Log.d("GYRO", "right");
+                    connection.sendMessage("right");
                     //getWindow().getDecorView().setBackgroundColor(Color.YELLOW);   // right
                     //ufoView.setRotation(30f);
                 } else if(orientations[2] < -15) {
                     Log.d("GYRO", "left");
+                    connection.sendMessage("left");
                     //getWindow().getDecorView().setBackgroundColor(Color.BLUE);   // left
                     //ufoView.setRotation(-30f);
                 } else {
                     Log.d("GYRO", "stop");
+                    connection.sendMessage("stop");
                     //getWindow().getDecorView().setBackgroundColor(Color.WHITE);
                     //ufoView.setRotation(0f);
                 }

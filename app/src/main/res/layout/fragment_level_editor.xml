@@ -413,6 +413,16 @@
                     android:tooltipText="Lollipop" />
 
                 <Button
+                    android:id="@+id/palette_cupcake"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/tx_tile_cupcake"
+                    android:textOff="@null"
+                    android:textOn="@null"
+                    android:tooltipText="Cupcake" />
+
+                <Button
                     android:id="@+id/palette_icecream"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
@@ -439,13 +449,14 @@
 
     <Button
         android:id="@+id/actionButton"
-        android:layout_width="155dp"
-        android:layout_height="93dp"
-        android:layout_marginBottom="9dp"
-        android:layout_marginLeft="8dp"
-        android:text="Action"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:background="@drawable/tx_actionpad"
+        android:backgroundTint="@drawable/action_toggle"
+        android:backgroundTintMode="multiply"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteY="284dp" />
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
