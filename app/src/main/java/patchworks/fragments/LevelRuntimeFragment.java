@@ -18,10 +18,12 @@ import patchworks.views.TouchpadView;
 
 public class LevelRuntimeFragment extends Fragment {
 
+    public static String captured = null;
+
     private Connection connection;
     private TouchpadView touchpadView;
 
-    private Button captureButton;
+    public static Button captureButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,11 @@ public class LevelRuntimeFragment extends Fragment {
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new scrollListener(touchpadView)));
 
         captureButton = (Button) view.findViewById(R.id.captureButton);
+        //captureButton.setVisibility(View.VISIBLE);
+
+//        if (!ControllerActivity.controllerDebug)
+//            connection.sendMessage("capture");
+
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +64,12 @@ public class LevelRuntimeFragment extends Fragment {
                     connection.sendMessage("capture");
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SlimeFragment fragment = new SlimeFragment();
+
+                Fragment fragment = new SlimeFragment();
+
+                if (captured.equals("ufo"))
+                    fragment = new UFOFragment();
+
                 transaction.replace(R.id.fullscreen_content, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();

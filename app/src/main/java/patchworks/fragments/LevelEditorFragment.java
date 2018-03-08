@@ -86,6 +86,7 @@ public class LevelEditorFragment extends Fragment {
         if (!ControllerActivity.controllerDebug) {
             connection = ((ControllerActivity) getActivity()).getConnection();
             connection.debug();
+            Log.d("MYDEBUG", "has connection");
         }
 
     }
@@ -154,8 +155,10 @@ public class LevelEditorFragment extends Fragment {
 
                     paletteButton.setBackgroundResource(paletteIcons.get("basic "+tileId));
                     Log.d(v.getClass().getName(), "Setting tile to basic "+tileId);
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("basic "+tileId);
+                    if (!ControllerActivity.controllerDebug) {
+                        Log.d("MYDEBUG", "sending message");
+                        connection.sendMessage("basic " + tileId);
+                    }
 
                 }
             });

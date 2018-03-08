@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.io.PrintWriter;
 
 public class DummyServer {
 
@@ -35,10 +36,19 @@ public class DummyServer {
 		try {
 			clientSocket = serverSocket.accept();
 			System.out.println("Connected!\nWaiting for messages...\n");
+
+			PrintWriter printwriter = new PrintWriter(clientSocket.getOutputStream(), true);
+			printwriter.println("Hello back");
+			printwriter.flush();
+			printwriter.println("Hello back again!!!");
+	        printwriter.flush();
+
 			inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
 			bufferedReader = new BufferedReader(inputStreamReader);
 			while ((message = bufferedReader.readLine()) != null) {
     			System.out.println(message);
+    			// printwriter.println(message);
+    			// printwriter.flush();
 			}
 			inputStreamReader.close();
 			clientSocket.close();
