@@ -25,7 +25,7 @@
                 android:id="@+id/header"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/placeholder"
+                android:src="@drawable/preview1"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"

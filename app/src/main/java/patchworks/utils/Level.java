@@ -1,5 +1,7 @@
 package patchworks.utils;
 
+import android.graphics.drawable.Drawable;
+
 import java.net.InetAddress;
 
 /**
@@ -10,11 +12,13 @@ public class Level {
 
     private final String name, author; //game display information
     private final float stars; //current players in the game
+    private final int thumbnail; //drawable index for thumbanil
 
-    public Level(String name, String author, float stars) {
+    public Level(String name, String author, float stars, int thumbnail) {
         this.name = name;
         this.author = author;
         this.stars = stars;
+        this.thumbnail = thumbnail;
     }
 
     public String getName() {
@@ -26,5 +30,7 @@ public class Level {
     }
 
     public float getStars() { return stars; }
+
+    public int getThumbnail() { return thumbnail; }
 
 }

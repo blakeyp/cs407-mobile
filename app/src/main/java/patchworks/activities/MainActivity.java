@@ -26,6 +26,7 @@ import android.widget.Toast;
 import patchworks.fragments.GameFinderFragment;
 import patchworks.R;
 import patchworks.fragments.LevelBrowserFragment;
+import patchworks.fragments.QueueFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -212,6 +213,10 @@ public class MainActivity extends AppCompatActivity {
                 // levels
                 LevelBrowserFragment levelBrowserFragment = new LevelBrowserFragment();
                 return levelBrowserFragment;
+            case 2:
+                // queue
+                QueueFragment queueFragment = new QueueFragment();
+                return queueFragment;
             default:
                 return new GameFinderFragment();
         }
