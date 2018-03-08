@@ -47,8 +47,8 @@ public class DummyServer {
 			bufferedReader = new BufferedReader(inputStreamReader);
 			while ((message = bufferedReader.readLine()) != null) {
     			System.out.println(message);
-    			// printwriter.println(message);
-    			// printwriter.flush();
+    			printwriter.println(message);
+    			printwriter.flush();
 			}
 			inputStreamReader.close();
 			clientSocket.close();

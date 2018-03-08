@@ -1,6 +1,7 @@
 package patchworks.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -23,7 +24,7 @@ public class LevelRuntimeFragment extends Fragment {
     private Connection connection;
     private TouchpadView touchpadView;
 
-    public static Button captureButton;
+    private static Button captureButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,10 +52,6 @@ public class LevelRuntimeFragment extends Fragment {
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new scrollListener(touchpadView)));
 
         captureButton = (Button) view.findViewById(R.id.captureButton);
-        //captureButton.setVisibility(View.VISIBLE);
-
-//        if (!ControllerActivity.controllerDebug)
-//            connection.sendMessage("capture");
 
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
