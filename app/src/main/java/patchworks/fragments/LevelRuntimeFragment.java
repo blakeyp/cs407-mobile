@@ -1,6 +1,7 @@
 package patchworks.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -18,10 +19,12 @@ import patchworks.views.TouchpadView;
 
 public class LevelRuntimeFragment extends Fragment {
 
+    public static String captured = null;
+
     private Connection connection;
     private TouchpadView touchpadView;
 
-    private Button captureButton;
+    private static Button captureButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class LevelRuntimeFragment extends Fragment {
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new scrollListener(touchpadView)));
 
         captureButton = (Button) view.findViewById(R.id.captureButton);
+
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +61,12 @@ public class LevelRuntimeFragment extends Fragment {
                     connection.sendMessage("capture");
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SlimeFragment fragment = new SlimeFragment();
+
+                Fragment fragment = new SlimeFragment();
+
+                if (captured.equals("ufo"))
+                    fragment = new UFOFragment();
+
                 transaction.replace(R.id.fullscreen_content, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
