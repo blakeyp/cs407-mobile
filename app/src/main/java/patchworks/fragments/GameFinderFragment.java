@@ -51,7 +51,7 @@ public class GameFinderFragment extends Fragment {
             gameList.add(new Game(netAddress, "Game5", "GameState", 0, true));
             gameList.add(new Game(netAddress, "Game6", "GameState", 1, false));
         } catch (java.net.UnknownHostException e) {
-            Log.d("fuck ", "something bad happened");
+            Log.d("GameFinder", "something bad happened");
         }
 
         adapter.notifyDataSetChanged();
