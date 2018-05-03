@@ -12,28 +12,15 @@
         android:title="Levels" />
     <item
         android:id="@+id/nav_queue"
-        android:icon="@drawable/ic_queue_black_24dp"
-        android:title="My Queue" />
-    <item
-        android:id="@+id/nav_notifications"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="Notifications" />
+        android:title="My Queue" />
 
-    <item
-        android:id="@+id/nav_settings"
-        android:icon="@drawable/ic_settings_black_24dp"
-        android:title="Settings" />
 </group>
 
-<item android:title="Other">
-    <menu>
-        <item
-            android:id="@+id/nav_about_us"
-            android:title="About Us" />
-        <item
-            android:id="@+id/nav_privacy_policy"
-            android:title="Privacy Policy" />
-    </menu>
-</item>
+<group android:id="@+id/nav_other_grp">
+    <item
+        android:id="@+id/nav_settings"
+        android:title="Settings" />
+</group>
 
 </menu>

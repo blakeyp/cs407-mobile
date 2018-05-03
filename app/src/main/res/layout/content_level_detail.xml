@@ -38,7 +38,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:textColor="#000000"
-                android:text="@string/blind"
+                android:text="@string/exampleLevel"
                 android:textSize="12dp" />
 
 
@@ -101,7 +101,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:textColor="#000000"
-                android:text="dude_who_made_this"
+                android:text="a_user"
                 android:textSize="16sp" />
 
             <TextView

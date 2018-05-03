@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_QUEUE = "queue";
     private static final String TAG_NOTIFICATIONS = "notifications";
     private static final String TAG_SETTINGS = "settings";
+    private static final String TAG_LOGIN = "login";
+    private static final String TAG_LOGOUT = "logout";
     public static String CURRENT_TAG = TAG_HOME;
 
     private NavigationView navigationView;
@@ -224,6 +226,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupNavigationView() {
+
+        navigationView.getMenu().add(R.id.nav_other_grp, 101, Menu.NONE, "Sign In");
+        //navigationView.getMenu().add(R.id.nav_other_grp, 102, Menu.NONE, "Sign Out");
+        navigationView.invalidate();
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -242,13 +249,17 @@ public class MainActivity extends AppCompatActivity {
                         navIndex = 2;
                         CURRENT_TAG = TAG_QUEUE;
                         break;
-                    case R.id.nav_notifications:
-                        navIndex = 3;
-                        CURRENT_TAG = TAG_NOTIFICATIONS;
-                        break;
                     case R.id.nav_settings:
                         navIndex = 4;
                         CURRENT_TAG = TAG_SETTINGS;
+                        break;
+                    case 101:
+                        navIndex = 5;
+                        CURRENT_TAG = TAG_LOGIN;
+                        break;
+                    case 102:
+                        navIndex = 6;
+                        CURRENT_TAG = TAG_LOGOUT;
                         break;
                     default:
                         navIndex = 0;
@@ -262,8 +273,15 @@ public class MainActivity extends AppCompatActivity {
                 }
                 menuItem.setChecked(true);
 
-                loadFragment();
-
+                if (navIndex == 4) {
+                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                } else if (navIndex == 5) {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    loadFragment();
+                }
                 return true;
             }
         });
