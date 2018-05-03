@@ -78,7 +78,7 @@ public class ControllerActivity extends AppCompatActivity {
                                 .closePolicy(new Tooltip.ClosePolicy()
                                     .insidePolicy(true, true)
                                     .outsidePolicy(true, true), 0)
-                                .text("Some helpful help text inserted here explaining how this controller works")
+                                .text("Tilt your device left/right to control the UFO!")
                                 .maxWidth(900)
                                 .withArrow(true)
                                 .withOverlay(false)
