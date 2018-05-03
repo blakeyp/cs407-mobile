@@ -19,6 +19,8 @@ import android.widget.Button;
 import it.sephiroth.android.library.tooltip.Tooltip;
 import patchworks.fragments.LevelEditorFragment;
 import patchworks.fragments.LevelRuntimeFragment;
+import patchworks.fragments.SlimeFragment;
+import patchworks.fragments.UFOFragment;
 import patchworks.utils.Connection;
 import patchworks.R;
 
@@ -33,6 +35,10 @@ public class ControllerActivity extends AppCompatActivity {
 
     public static Button backButton;
     public static Button helpButton;
+
+    private String helpText = "Default help text";
+    private it.sephiroth.android.library.tooltip.Tooltip.Gravity helpGravity = Tooltip.Gravity.RIGHT;
+    private int helpWidth = 1500;
 
     // for hiding UI elements/action bar for fullscreen mode
     private static final int UI_ANIMATION_DELAY = 300;
@@ -62,6 +68,7 @@ public class ControllerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(DEBUG_TAG, "clicked back button shock horror");
+                helpText = "Default help text";
                 if (!ControllerActivity.controllerDebug)
                     connection.sendMessage("leave");
                 onBackPressed();
@@ -72,14 +79,32 @@ public class ControllerActivity extends AppCompatActivity {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fullscreen_content);
+                if (f instanceof LevelRuntimeFragment) {
+                    helpText = "Hover over an object and press the Capture Button to take control!";
+                    helpGravity = Tooltip.Gravity.BOTTOM;
+                    helpWidth = 850;
+                }
+                else if (f instanceof UFOFragment) {
+                    helpText = "Tilt your device left/right to move the UFO and press to fire!";
+                    helpGravity = Tooltip.Gravity.RIGHT;
+                    helpWidth = 1500;
+                }
+                else if (f instanceof SlimeFragment) {
+                    helpText = "slime controller help text here";
+                    helpGravity = Tooltip.Gravity.RIGHT;
+                    helpWidth = 1500;
+                }
+
                 Tooltip.make(ControllerActivity.this,
                         new Tooltip.Builder(101)
-                                .anchor(helpButton, Tooltip.Gravity.RIGHT)
+                                .anchor(helpButton, helpGravity)
                                 .closePolicy(new Tooltip.ClosePolicy()
                                     .insidePolicy(true, true)
                                     .outsidePolicy(true, true), 0)
-                                .text("Tilt your device left/right to control the UFO!")
-                                .maxWidth(900)
+                                .text(helpText)
+                                .maxWidth(helpWidth)
                                 .withArrow(true)
                                 .withOverlay(false)
                                 //.typeface(mYourCustomFont)
@@ -88,7 +113,6 @@ public class ControllerActivity extends AppCompatActivity {
                 ).show();
             }
         });
-
 
         Intent intent = getIntent();
 
@@ -157,7 +181,7 @@ public class ControllerActivity extends AppCompatActivity {
         }
 
         // overlay fragment onto activity
-        fragmentTransaction.add(R.id.fullscreen_content, fragment);
+        fragmentTransaction.add(R.id.fullscreen_content, fragment, controller);
         fragmentTransaction.commit();
     }
 

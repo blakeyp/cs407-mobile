@@ -29,8 +29,6 @@
         android:layout_marginBottom="16dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/tx_tile_solid"
-        android:backgroundTint="@drawable/toggle_selector"
-        android:backgroundTintMode="multiply"
         android:checked="false"
         android:scaleType="fitCenter"
         android:textOff=""
@@ -113,11 +111,12 @@
         app:layout_constraintRight_toLeftOf="@+id/linearLayout2"
         android:layout_marginRight="16dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/undoButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/tx_ui_undo"
+            android:src="@drawable/tx_ui_undo"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:checked="false"
             android:scaleType="fitCenter"
             android:tooltipText="Undo"
@@ -129,6 +128,8 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@drawable/tx_ui_redo"
+            android:backgroundTint="@drawable/toggle_selector"
+            android:backgroundTintMode="multiply"
             android:checked="false"
             android:scaleType="fitCenter"
             android:tooltipText="Redo"

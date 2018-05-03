@@ -1,8 +1,12 @@
 package patchworks.fragments;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,7 @@ import android.widget.ImageButton;
 import patchworks.R;
 import patchworks.activities.ControllerActivity;
 import patchworks.utils.Connection;
+import patchworks.utils.ShakeDetector;
 
 public class SlimeFragment extends Fragment {
 
@@ -19,6 +24,10 @@ public class SlimeFragment extends Fragment {
 
     private ImageButton leftButton;
     private ImageButton rightButton;
+
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,23 @@ public class SlimeFragment extends Fragment {
             connection = ((ControllerActivity) getActivity()).getConnection();
             connection.debug();
         }
+
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+
+            @Override
+            public void onShake(int count) {
+				Log.d("SHAKE", "shakey shake");
+                if (!ControllerActivity.controllerDebug)
+                    connection.sendMessage("jump");
+            }
+
+        });
 
     }
 
@@ -62,6 +88,20 @@ public class SlimeFragment extends Fragment {
 
         return view;
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 
 }

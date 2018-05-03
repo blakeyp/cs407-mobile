@@ -6,13 +6,18 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import it.sephiroth.android.library.tooltip.Tooltip;
 import patchworks.R;
 import patchworks.activities.ControllerActivity;
 import patchworks.utils.Connection;
@@ -25,7 +30,13 @@ public class UFOFragment extends Fragment {
     private Sensor rotationVectorSensor;
     private SensorEventListener rvListener;
 
+    private long lastFireTime;
+
     private ImageView ufoView;
+
+    ProgressBar progressBar;
+
+    CooldownTimer cooldownTimer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +63,26 @@ public class UFOFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ufo, container, false);
 
         ufoView = view.findViewById(R.id.ufo);
+
+        progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+
+        ufoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final long now = System.currentTimeMillis();
+                if (lastFireTime + 1000 > now)   // ignore fires less than 1 second apart
+                    return;
+                lastFireTime = now;
+                Log.d("UFO", "fire!");
+                if (!ControllerActivity.controllerDebug)
+                    connection.sendMessage("fire");
+
+                progressBar.setProgress(0);
+                cooldownTimer = new CooldownTimer(1000, 5);
+                cooldownTimer.start();
+
+            }
+        });
 
         ControllerActivity.backButton.setVisibility(View.VISIBLE);
 
@@ -137,6 +168,25 @@ public class UFOFragment extends Fragment {
     public void onPause() {
         super.onPause();
         sensorManager.unregisterListener(rvListener);
+    }
+
+    class CooldownTimer extends CountDownTimer {
+
+        public CooldownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            int progress = (int) (millisUntilFinished/10);
+            progressBar.setProgress(100-progress);
+        }
+
+        @Override
+        public void onFinish() {
+            progressBar.setProgress(100);
+        }
+
     }
 
 }

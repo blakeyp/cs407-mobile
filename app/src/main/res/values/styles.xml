@@ -47,6 +47,7 @@
     <!-- tooltip text -->
     <style name="TooltipFont" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/colorAccent</item>
+        <!--<item name="android:textSize">16sp</item>-->
     </style>
 
     <!-- tooltip custom style -->

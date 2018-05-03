@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.ToggleButton;
@@ -132,7 +133,7 @@ public class LevelEditorFragment extends Fragment {
         actionButton = view.findViewById(R.id.actionButton);
 
         final ToggleButton paletteButton = (ToggleButton) view.findViewById(R.id.paletteButton);
-        final Button undoButton = (Button) view.findViewById(R.id.undoButton);
+        final ImageButton undoButton = view.findViewById(R.id.undoButton);
         final Button redoButton = (Button) view.findViewById(R.id.redoButton);
 
         tileDrawer = view.findViewById(R.id.tileDrawer);
