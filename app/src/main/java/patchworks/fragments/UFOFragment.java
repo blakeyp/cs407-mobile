@@ -70,15 +70,15 @@ public class UFOFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final long now = System.currentTimeMillis();
-                if (lastFireTime + 1000 > now)   // ignore fires less than 1 second apart
+                if (lastFireTime + 2000 > now)   // ignore fires less than 1 second apart
                     return;
                 lastFireTime = now;
                 Log.d("UFO", "fire!");
                 if (!ControllerActivity.controllerDebug)
                     connection.sendMessage("fire");
-
+                ufoView.setImageResource(R.drawable.ufo_off);
                 progressBar.setProgress(0);
-                cooldownTimer = new CooldownTimer(1000, 5);
+                cooldownTimer = new CooldownTimer(2000, 5);
                 cooldownTimer.start();
 
             }
@@ -178,13 +178,14 @@ public class UFOFragment extends Fragment {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            int progress = (int) (millisUntilFinished/10);
+            int progress = (int) (millisUntilFinished/20);
             progressBar.setProgress(100-progress);
         }
 
         @Override
         public void onFinish() {
             progressBar.setProgress(100);
+            ufoView.setImageResource(R.drawable.ufo2);
         }
 
     }

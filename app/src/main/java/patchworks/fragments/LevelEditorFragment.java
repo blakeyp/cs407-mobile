@@ -133,8 +133,8 @@ public class LevelEditorFragment extends Fragment {
         actionButton = view.findViewById(R.id.actionButton);
 
         final ToggleButton paletteButton = (ToggleButton) view.findViewById(R.id.paletteButton);
-        final ImageButton undoButton = view.findViewById(R.id.undoButton);
-        final Button redoButton = (Button) view.findViewById(R.id.redoButton);
+        final Button undoButton = view.findViewById(R.id.undoButton);
+        final Button redoButton = view.findViewById(R.id.redoButton);
 
         tileDrawer = view.findViewById(R.id.tileDrawer);
 

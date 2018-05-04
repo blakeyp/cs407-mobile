@@ -68,9 +68,17 @@ public class ControllerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(DEBUG_TAG, "clicked back button shock horror");
-                helpText = "Default help text";
+
+                String leave_msg = "leave_";
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fullscreen_content);
+                if (f instanceof UFOFragment)
+                    leave_msg += "ufo";
+                else if (f instanceof SlimeFragment)
+                    leave_msg += "slime";
+
                 if (!ControllerActivity.controllerDebug)
-                    connection.sendMessage("leave");
+                    connection.sendMessage(leave_msg);
+
                 onBackPressed();
             }
         });
@@ -92,7 +100,7 @@ public class ControllerActivity extends AppCompatActivity {
                     helpWidth = 1500;
                 }
                 else if (f instanceof SlimeFragment) {
-                    helpText = "slime controller help text here";
+                    helpText = "Press left/right to move and shake your device to jump!";
                     helpGravity = Tooltip.Gravity.RIGHT;
                     helpWidth = 1500;
                 }

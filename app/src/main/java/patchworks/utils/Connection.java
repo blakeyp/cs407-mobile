@@ -1,7 +1,9 @@
 package patchworks.utils;
 
-import android.app.Activity;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +18,14 @@ import java.net.Socket;
 
 import patchworks.R;
 import patchworks.fragments.LevelRuntimeFragment;
+import patchworks.fragments.SlimeFragment;
+import patchworks.fragments.UFOFragment;
 
 import static patchworks.activities.LoginActivity.DEBUG_TAG;
 
 public class Connection {
 
-    private Activity controller;
+    private AppCompatActivity controller;
     private MakeConnection connection;
 
     private PrintWriter printwriter;
@@ -30,7 +34,7 @@ public class Connection {
         Log.d(DEBUG_TAG, "Fragment has connection");
     }
 
-    public void connectToIP(String ipAddr, Activity ctrl) {
+    public void connectToIP(String ipAddr, AppCompatActivity ctrl) {
         controller = ctrl;
         connection = new MakeConnection(ipAddr);
         connection.execute();
@@ -54,6 +58,8 @@ public class Connection {
         }
         Log.d(DEBUG_TAG, "Closed stuff");
     }
+
+
 
     private class MakeConnection extends AsyncTask<Void, Void, Void> {
 
@@ -116,6 +122,8 @@ public class Connection {
 
     }
 
+
+    // for receiving messages
     private class Listen extends AsyncTask<Void, String, Void> {
 
         private Socket client;
@@ -131,7 +139,7 @@ public class Connection {
                 BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 while ((message = in.readLine()) != null) {
                     Log.d("readr", "Incoming message: "+message);
-                    publishProgress(message);
+                    publishProgress(message);   // submit message to be handled
                 }
             } catch (IOException ex) {}
 
@@ -140,25 +148,22 @@ public class Connection {
             return null;
         }
 
+        // handle incoming messages on the UI thread
         protected void onProgressUpdate(String... values) {
-//            if (values[0].equals("capture")) {
-//                Button captureButton = controller.findViewById(R.id.captureButton);
-//                Log.d(DEBUG_TAG, "going going gone");
-//                //LevelRuntimeFragment.captureButton.setVisibility(View.GONE);
-//                captureButton.setBackgroundResource(R.drawable.tx_capture);
-//                captureButton.setEnabled(true);
-//            }
 
-            Button captureButton = controller.findViewById(R.id.captureButton);
-            Log.d(DEBUG_TAG, values[0]);
+            String message = values[0];   // assume only one message at a time
+            Log.d(DEBUG_TAG, message);
 
-            switch (values[0]) {
-                case "ufo_on":
+            Button captureButton = (Button) controller.findViewById(R.id.captureButton);
+
+            switch (message) {
+
+                case "pobj_UFO":
                     captureButton.setBackgroundResource(R.drawable.tx_capture);
                     captureButton.setEnabled(true);
                     LevelRuntimeFragment.captured = "ufo";
                     break;
-                case "slime_on":
+                case "pobj_Slime":
                     captureButton.setBackgroundResource(R.drawable.tx_capture);
                     captureButton.setEnabled(true);
                     LevelRuntimeFragment.captured = "slime";
@@ -167,6 +172,15 @@ public class Connection {
                     captureButton.setBackgroundResource(R.drawable.tx_capture_off);
                     captureButton.setEnabled(false);
                     break;
+
+                case "runtime":   // switch from level editor to runtime controller
+                    FragmentTransaction transaction = controller.getSupportFragmentManager().beginTransaction();
+                    Fragment fragment = new LevelRuntimeFragment();
+                    transaction.replace(R.id.fullscreen_content, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    break;
+
             }
 
         }

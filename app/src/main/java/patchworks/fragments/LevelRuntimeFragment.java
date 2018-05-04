@@ -19,7 +19,7 @@ import patchworks.views.TouchpadView;
 
 public class LevelRuntimeFragment extends Fragment {
 
-    public static String captured = "uo";   // should be null
+    public static String captured = "ufo";   // should be null
 
     private Connection connection;
     private TouchpadView touchpadView;
@@ -62,7 +62,7 @@ public class LevelRuntimeFragment extends Fragment {
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                Fragment fragment = new SlimeFragment();
+                Fragment fragment = new SlimeFragment();   // default
 
                 if (captured.equals("ufo"))
                     fragment = new UFOFragment();

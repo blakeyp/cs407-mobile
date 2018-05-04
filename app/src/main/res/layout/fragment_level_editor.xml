@@ -111,12 +111,13 @@
         app:layout_constraintRight_toLeftOf="@+id/linearLayout2"
         android:layout_marginRight="16dp">
 
-        <ImageButton
+        <Button
             android:id="@+id/undoButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/tx_ui_undo"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@drawable/tx_ui_undo"
+            android:backgroundTint="@drawable/button_selector"
+            android:backgroundTintMode="multiply"
             android:checked="false"
             android:scaleType="fitCenter"
             android:tooltipText="Undo"
@@ -128,7 +129,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@drawable/tx_ui_redo"
-            android:backgroundTint="@drawable/toggle_selector"
+            android:backgroundTint="@drawable/button_selector"
             android:backgroundTintMode="multiply"
             android:checked="false"
             android:scaleType="fitCenter"

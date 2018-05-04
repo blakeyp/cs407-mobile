@@ -52,7 +52,7 @@ public class SlimeFragment extends Fragment {
             public void onShake(int count) {
 				Log.d("SHAKE", "shakey shake");
                 if (!ControllerActivity.controllerDebug)
-                    connection.sendMessage("jump");
+                    connection.sendMessage("shake");
             }
 
         });
@@ -73,7 +73,7 @@ public class SlimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!ControllerActivity.controllerDebug)
-                    connection.sendMessage("left");
+                    connection.sendMessage("slime_left");
             }
         });
 
@@ -82,7 +82,7 @@ public class SlimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!ControllerActivity.controllerDebug)
-                    connection.sendMessage("right");
+                    connection.sendMessage("slime_right");
             }
         });
 
