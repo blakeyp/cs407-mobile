@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.GridLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.ToggleButton;
@@ -32,6 +31,7 @@ public class LevelEditorFragment extends Fragment {
     private ToggleButton eraserButton;
     private ToggleButton pencilButton;
     private ToggleButton grabButton;
+    private ImageView actionButtonIndicator;
     private Button actionButton;
     private ScrollView tileDrawer;
     private HashMap<String, Integer> paletteIcons;
@@ -128,6 +128,7 @@ public class LevelEditorFragment extends Fragment {
         eraserButton = (ToggleButton) view.findViewById(R.id.eraserButton);
         pencilButton = (ToggleButton) view.findViewById(R.id.pencilButton);
         pencilButton.setChecked(true);   // on by default
+        actionButtonIndicator = (ImageView) view.findViewById(R.id.actionButtonIndicator);
         grabButton = (ToggleButton) view.findViewById(R.id.grabButton);
 
         actionButton = view.findViewById(R.id.actionButton);
@@ -235,6 +236,7 @@ public class LevelEditorFragment extends Fragment {
                         connection.sendMessage("pencil");
                     eraserButton.setChecked(false);
                     grabButton.setChecked(false);
+                    actionButtonIndicator.setImageResource(R.drawable.tx_ui_pencil2);
                 } else {
                     Log.d("touch", "pencil_end");
                     if (!ControllerActivity.controllerDebug)
@@ -252,6 +254,7 @@ public class LevelEditorFragment extends Fragment {
                         connection.sendMessage("eraser");
                     pencilButton.setChecked(false);
                     grabButton.setChecked(false);
+                    actionButtonIndicator.setImageResource(R.drawable.tx_ui_eraser2);
                 } else {
                     if (!ControllerActivity.controllerDebug)
                         connection.sendMessage("eraser_end");
@@ -268,6 +271,7 @@ public class LevelEditorFragment extends Fragment {
                         connection.sendMessage("grab");
                     pencilButton.setChecked(false);
                     eraserButton.setChecked(false);
+                    actionButtonIndicator.setImageResource(R.drawable.tx_ui_grab2);
                 } else {
                     if (!ControllerActivity.controllerDebug)
                         connection.sendMessage("grab_end");

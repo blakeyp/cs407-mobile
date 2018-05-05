@@ -33,6 +33,8 @@ public class UFOFragment extends Fragment {
     private long lastFireTime;
 
     private ImageView ufoView;
+    private TextView laser_status;
+    private Button fireButton;
 
     ProgressBar progressBar;
 
@@ -63,10 +65,12 @@ public class UFOFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ufo, container, false);
 
         ufoView = view.findViewById(R.id.ufo);
+        fireButton = view.findViewById(R.id.fire_button);
+        laser_status = view.findViewById(R.id.laser_status);
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 
-        ufoView.setOnClickListener(new View.OnClickListener() {
+        fireButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final long now = System.currentTimeMillis();
@@ -76,8 +80,9 @@ public class UFOFragment extends Fragment {
                 Log.d("UFO", "fire!");
                 if (!ControllerActivity.controllerDebug)
                     connection.sendMessage("fire");
-                ufoView.setImageResource(R.drawable.ufo_off);
+                //ufoView.setImageResource(R.drawable.ufo_off);
                 progressBar.setProgress(0);
+                laser_status.setText("Charging!");
                 cooldownTimer = new CooldownTimer(2000, 5);
                 cooldownTimer.start();
 
@@ -185,7 +190,8 @@ public class UFOFragment extends Fragment {
         @Override
         public void onFinish() {
             progressBar.setProgress(100);
-            ufoView.setImageResource(R.drawable.ufo2);
+            laser_status.setText("Ready!");
+            //ufoView.setImageResource(R.drawable.ufo2);
         }
 
     }
