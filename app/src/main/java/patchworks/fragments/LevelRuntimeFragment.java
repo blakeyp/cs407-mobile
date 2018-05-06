@@ -19,7 +19,7 @@ import patchworks.views.TouchpadView;
 
 public class LevelRuntimeFragment extends Fragment {
 
-    public static String captured = "ufo";   // should be null
+    public static String captured = "spike";   // should be null
 
     private Connection connection;
     private TouchpadView touchpadView;
@@ -66,6 +66,8 @@ public class LevelRuntimeFragment extends Fragment {
 
                 if (captured.equals("ufo"))
                     fragment = new UFOFragment();
+                else if (captured.equals("spike"))
+                    fragment = new SpikeFragment();
 
                 transaction.replace(R.id.fullscreen_content, fragment);
                 transaction.addToBackStack(null);

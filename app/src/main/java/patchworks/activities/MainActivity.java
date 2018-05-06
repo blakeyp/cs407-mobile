@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
                 */
 
-                openController("172.31.50.120");
+                openController("172.31.52.139");
 
                 return true;
 

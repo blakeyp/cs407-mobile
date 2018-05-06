@@ -55,5 +55,4 @@ public class FeaturedLevelsFragment extends Fragment {
 
         return view;
     }
-
 }

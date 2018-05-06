@@ -30,14 +30,12 @@ public class UFOFragment extends Fragment {
     private Sensor rotationVectorSensor;
     private SensorEventListener rvListener;
 
-    private long lastFireTime;
-
     private ImageView ufoView;
     private TextView laser_status;
     private Button fireButton;
 
+    private long lastFireTime;
     ProgressBar progressBar;
-
     CooldownTimer cooldownTimer;
 
     @Override

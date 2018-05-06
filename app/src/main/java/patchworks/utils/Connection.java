@@ -168,6 +168,11 @@ public class Connection {
                     captureButton.setEnabled(true);
                     LevelRuntimeFragment.captured = "slime";
                     break;
+                case "pobj_SpikeTrap":
+                    captureButton.setBackgroundResource(R.drawable.tx_capture);
+                    captureButton.setEnabled(true);
+                    LevelRuntimeFragment.captured = "spike";
+                    break;
                 case "capture_off":
                     captureButton.setBackgroundResource(R.drawable.tx_capture_off);
                     captureButton.setEnabled(false);

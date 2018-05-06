@@ -20,6 +20,7 @@ import it.sephiroth.android.library.tooltip.Tooltip;
 import patchworks.fragments.LevelEditorFragment;
 import patchworks.fragments.LevelRuntimeFragment;
 import patchworks.fragments.SlimeFragment;
+import patchworks.fragments.SpikeFragment;
 import patchworks.fragments.UFOFragment;
 import patchworks.utils.Connection;
 import patchworks.R;
@@ -75,6 +76,8 @@ public class ControllerActivity extends AppCompatActivity {
                     leave_msg += "ufo";
                 else if (f instanceof SlimeFragment)
                     leave_msg += "slime";
+                else if (f instanceof SpikeFragment)
+                    leave_msg += "spike";
 
                 if (!ControllerActivity.controllerDebug)
                     connection.sendMessage(leave_msg);
@@ -100,7 +103,7 @@ public class ControllerActivity extends AppCompatActivity {
                     helpWidth = 1500;
                 }
                 else if (f instanceof SlimeFragment) {
-                    helpText = "Press left/right to move and shake your device to jump!";
+                    helpText = "Press left/right to move and shake your device for turbo!";
                     helpGravity = Tooltip.Gravity.RIGHT;
                     helpWidth = 1500;
                 }
@@ -133,22 +136,24 @@ public class ControllerActivity extends AppCompatActivity {
                 connection = new Connection();
                 connection.connectToIP(ipAddr, this);   // establish connection
 
-                CharSequence controllers[] = new CharSequence[] {"Level Editor", "Level Runtime"};
+                load_fragment("runtime");
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Choose game mode");
-                builder.setItems(controllers, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                load_fragment("editor"); break;
-                            case 1:
-                                load_fragment("runtime");
-                        }
-                    }
-                });
-                builder.show();
+//                CharSequence controllers[] = new CharSequence[] {"Level Editor", "Level Runtime"};
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                builder.setTitle("Choose game mode");
+//                builder.setItems(controllers, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        switch (which) {
+//                            case 0:
+//                                load_fragment("editor"); break;
+//                            case 1:
+//                                load_fragment("runtime");
+//                        }
+//                    }
+//                });
+//                builder.show();
 
             }
             else if (intent.hasExtra("debug")) {
