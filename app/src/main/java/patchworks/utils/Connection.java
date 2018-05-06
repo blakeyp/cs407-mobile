@@ -159,22 +159,26 @@ public class Connection {
             switch (message) {
 
                 case "pobj_UFO":
-                    captureButton.setBackgroundResource(R.drawable.tx_capture);
+                    //captureButton.setBackgroundResource(R.drawable.tx_capture);
+                    captureButton.setAlpha(1.0f);
                     captureButton.setEnabled(true);
                     LevelRuntimeFragment.captured = "ufo";
                     break;
                 case "pobj_Slime":
-                    captureButton.setBackgroundResource(R.drawable.tx_capture);
+                    //captureButton.setBackgroundResource(R.drawable.tx_capture);
+                    captureButton.setAlpha(1.0f);
                     captureButton.setEnabled(true);
                     LevelRuntimeFragment.captured = "slime";
                     break;
                 case "pobj_SpikeTrap":
-                    captureButton.setBackgroundResource(R.drawable.tx_capture);
+                    //captureButton.setBackgroundResource(R.drawable.tx_capture);
+                    captureButton.setAlpha(1.0f);
                     captureButton.setEnabled(true);
                     LevelRuntimeFragment.captured = "spike";
                     break;
                 case "capture_off":
-                    captureButton.setBackgroundResource(R.drawable.tx_capture_off);
+                    //captureButton.setBackgroundResource(R.drawable.tx_capture_off);
+                    captureButton.setAlpha(0.2f);
                     captureButton.setEnabled(false);
                     break;
 

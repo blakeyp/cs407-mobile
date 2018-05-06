@@ -83,7 +83,6 @@ public class UFOFragment extends Fragment {
                 laser_status.setText("Charging!");
                 cooldownTimer = new CooldownTimer(2000, 5);
                 cooldownTimer.start();
-
             }
         });
 
