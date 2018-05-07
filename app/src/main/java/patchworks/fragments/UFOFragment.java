@@ -81,6 +81,7 @@ public class UFOFragment extends Fragment {
                 //ufoView.setImageResource(R.drawable.ufo_off);
                 progressBar.setProgress(0);
                 laser_status.setText("Charging!");
+                fireButton.setAlpha(0.2f);
                 cooldownTimer = new CooldownTimer(2000, 5);
                 cooldownTimer.start();
             }
@@ -188,6 +189,7 @@ public class UFOFragment extends Fragment {
         public void onFinish() {
             progressBar.setProgress(100);
             laser_status.setText("Ready!");
+            fireButton.setAlpha(1);
             //ufoView.setImageResource(R.drawable.ufo2);
         }
 

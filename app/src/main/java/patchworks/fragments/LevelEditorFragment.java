@@ -100,7 +100,7 @@ public class LevelEditorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_level_editor, container, false);
 
         ControllerActivity.backButton.setVisibility(View.GONE);   // hide back button
-        ControllerActivity.helpButton.setVisibility(View.GONE);
+        //ControllerActivity.helpButton.setVisibility(View.GONE);
 
         paletteIcons = new HashMap();
         paletteIcons.put("basic 0", R.drawable.tx_tile_solid);
@@ -108,19 +108,13 @@ public class LevelEditorFragment extends Fragment {
         paletteIcons.put("basic 2", R.drawable.tx_tile_ladder);
         paletteIcons.put("basic 3", R.drawable.tx_tile_crate);
         paletteIcons.put("bg 0", R.drawable.tx_tile_bush_01);
-        paletteIcons.put("bg 1", R.drawable.tx_tile_bush_02);
-        paletteIcons.put("bg 2", R.drawable.tx_tile_cloud_01);
-        paletteIcons.put("bg 3", R.drawable.tx_tile_cloud_02);
-        paletteIcons.put("bg 4", R.drawable.tx_tile_mountain);
+        paletteIcons.put("bg 1", R.drawable.tx_tile_cloud_01);
+        paletteIcons.put("bg 2", R.drawable.tx_tile_flower);
+        paletteIcons.put("bg 3", R.drawable.tx_tile_mountain);
         paletteIcons.put("tech 0", R.drawable.tx_tile_startpoint);
-        paletteIcons.put("misc 0", R.drawable.tx_tile_ufo);
-        paletteIcons.put("misc 1", R.drawable.tx_tile_doughnut);
-        paletteIcons.put("misc 2", R.drawable.tx_tile_toffee);
-        paletteIcons.put("misc 3", R.drawable.tx_tile_strawberry);
-        paletteIcons.put("misc 4", R.drawable.tx_tile_lollipop);
-        paletteIcons.put("misc 5", R.drawable.tx_tile_cupcake);
-        paletteIcons.put("misc 6", R.drawable.tx_tile_icecream);
-        paletteIcons.put("misc 7", R.drawable.tx_tile_candycane);
+        paletteIcons.put("tech 1", R.drawable.tx_tile_doughnut);
+        paletteIcons.put("tech 2", R.drawable.tx_tile_ufo);
+        paletteIcons.put("tech 3", R.drawable.tx_tile_spikes);
 
         touchpadView = (TouchpadView) view.findViewById(R.id.touchPad);
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new ScrollListener(touchpadView, connection)));
@@ -142,7 +136,6 @@ public class LevelEditorFragment extends Fragment {
         GridLayout paletteGridBasic = (GridLayout) view.findViewById(R.id.paletteGridBasic);
         GridLayout paletteGridBackground = (GridLayout) view.findViewById(R.id.paletteGridBackground);
         GridLayout paletteGridTech = (GridLayout) view.findViewById(R.id.paletteGridTech);
-        GridLayout paletteGridMisc = (GridLayout) view.findViewById(R.id.paletteGridMisc);
 
         tilePalette = new ArrayList(paletteGridBasic.getChildCount());
         for (int i = 0; i < paletteGridBasic.getChildCount(); i++) {
@@ -201,26 +194,6 @@ public class LevelEditorFragment extends Fragment {
                     Log.d(v.getClass().getName(), "Setting tile to tech "+tileId);
                     if (!ControllerActivity.controllerDebug)
                         connection.sendMessage("tech "+tileId);
-
-                }
-            });
-        }
-
-        tilePalette = new ArrayList(paletteGridMisc.getChildCount());
-        for (int i = 0; i < paletteGridMisc.getChildCount(); i++) {
-            tilePalette.add((Button) paletteGridMisc.getChildAt(i));
-
-            final int tileId = i;
-            tilePalette.get(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSelectedTile = tileId;
-                    paletteButton.setChecked(false);
-
-                    paletteButton.setBackgroundResource(paletteIcons.get("misc "+tileId));
-                    Log.d(v.getClass().getName(), "Setting tile to misc "+tileId);
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("misc "+tileId);
 
                 }
             });

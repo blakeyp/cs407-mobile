@@ -107,6 +107,11 @@ public class ControllerActivity extends AppCompatActivity {
                     helpGravity = Tooltip.Gravity.RIGHT;
                     helpWidth = 1500;
                 }
+                else if (f instanceof LevelEditorFragment) {
+                    helpText = "Click the tools to select them, and use them with the green action button.";
+                    helpGravity = Tooltip.Gravity.RIGHT;
+                    helpWidth = 1500;
+                }
 
                 Tooltip.make(ControllerActivity.this,
                         new Tooltip.Builder(101)

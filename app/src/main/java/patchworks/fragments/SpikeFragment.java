@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import patchworks.R;
 import patchworks.activities.ControllerActivity;
@@ -23,6 +25,8 @@ public class SpikeFragment extends Fragment {
 
     private Connection connection;
     private ImageView spikeView;
+    private TextView laser_status;
+    private Button fireButton;
 
     private long lastFireTime;
     ProgressBar progressBar;
@@ -49,10 +53,12 @@ public class SpikeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_spike, container, false);
 
         spikeView = view.findViewById(R.id.spike);
+        fireButton = view.findViewById(R.id.fire_button);
+        laser_status = view.findViewById(R.id.laser_status);
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 
-        spikeView.setOnClickListener(new View.OnClickListener() {
+        fireButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final long now = System.currentTimeMillis();
@@ -61,7 +67,8 @@ public class SpikeFragment extends Fragment {
                 lastFireTime = now;
                 if (!ControllerActivity.controllerDebug)
                     connection.sendMessage("spike");
-                spikeView.setAlpha(0.2f);
+                fireButton.setAlpha(0.2f);
+                laser_status.setText("Charging!");
                 progressBar.setProgress(0);
                 cooldownTimer = new CooldownTimer(2000, 5);
                 cooldownTimer.start();
@@ -89,7 +96,8 @@ public class SpikeFragment extends Fragment {
         @Override
         public void onFinish() {
             progressBar.setProgress(100);
-            spikeView.setAlpha(1.0f);
+            laser_status.setText("Ready!");
+            fireButton.setAlpha(1.0f);
         }
 
     }
