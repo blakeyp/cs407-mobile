@@ -154,7 +154,7 @@
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingTop="5dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
