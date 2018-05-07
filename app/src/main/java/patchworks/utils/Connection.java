@@ -17,6 +17,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import patchworks.R;
+import patchworks.fragments.LevelEditorFragment;
 import patchworks.fragments.LevelRuntimeFragment;
 import patchworks.fragments.SlimeFragment;
 import patchworks.fragments.UFOFragment;
@@ -154,44 +155,57 @@ public class Connection {
             String message = values[0];   // assume only one message at a time
             Log.d(DEBUG_TAG, message);
 
-            Button captureButton = (Button) controller.findViewById(R.id.captureButton);
+            try {
+                Button captureButton = (Button) controller.findViewById(R.id.captureButton);
 
-            switch (message) {
+                switch (message) {
 
-                case "pobj_UFO":
-                    //captureButton.setBackgroundResource(R.drawable.tx_capture);
-                    captureButton.setAlpha(1.0f);
-                    captureButton.setEnabled(true);
-                    LevelRuntimeFragment.captured = "ufo";
-                    break;
-                case "pobj_Slime":
-                    //captureButton.setBackgroundResource(R.drawable.tx_capture);
-                    captureButton.setAlpha(1.0f);
-                    captureButton.setEnabled(true);
-                    LevelRuntimeFragment.captured = "slime";
-                    break;
-                case "pobj_SpikeTrap":
-                    //captureButton.setBackgroundResource(R.drawable.tx_capture);
-                    captureButton.setAlpha(1.0f);
-                    captureButton.setEnabled(true);
-                    LevelRuntimeFragment.captured = "spike";
-                    break;
-                case "capture_off":
-                    //captureButton.setBackgroundResource(R.drawable.tx_capture_off);
-                    captureButton.setAlpha(0.2f);
-                    captureButton.setEnabled(false);
-                    break;
+                    case "pobj_UFO":
+                        //captureButton.setBackgroundResource(R.drawable.tx_capture);
+                        captureButton.setAlpha(1.0f);
+                        captureButton.setEnabled(true);
+                        LevelRuntimeFragment.captured = "ufo";
+                        break;
+                    case "pobj_Slime":
+                        //captureButton.setBackgroundResource(R.drawable.tx_capture);
+                        captureButton.setAlpha(1.0f);
+                        captureButton.setEnabled(true);
+                        LevelRuntimeFragment.captured = "slime";
+                        break;
+                    case "pobj_SpikeTrap":
+                        //captureButton.setBackgroundResource(R.drawable.tx_capture);
+                        captureButton.setAlpha(1.0f);
+                        captureButton.setEnabled(true);
+                        LevelRuntimeFragment.captured = "spike";
+                        break;
+                    case "capture_off":
+                        //captureButton.setBackgroundResource(R.drawable.tx_capture_off);
+                        captureButton.setAlpha(0.2f);
+                        captureButton.setEnabled(false);
+                        break;
 
-                case "runtime":   // switch from level editor to runtime controller
-                    FragmentTransaction transaction = controller.getSupportFragmentManager().beginTransaction();
-                    Fragment fragment = new LevelRuntimeFragment();
-                    transaction.replace(R.id.fullscreen_content, fragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                    break;
+                    case "leave":
 
+                    case "runtime":   // switch from level editor to runtime controller
+                        FragmentTransaction transaction = controller.getSupportFragmentManager().beginTransaction();
+                        Fragment fragment = new LevelRuntimeFragment();
+                        transaction.replace(R.id.fullscreen_content, fragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                        break;
+
+                    case "editor":   // switch from level editor to runtime controller
+                        FragmentTransaction transaction2 = controller.getSupportFragmentManager().beginTransaction();
+                        Fragment fragment2 = new LevelEditorFragment();
+                        transaction2.replace(R.id.fullscreen_content, fragment2);
+                        transaction2.addToBackStack(null);
+                        transaction2.commit();
+                        break;
+
+                }
+            } catch (java.lang.NullPointerException e) {
+                Log.d("WOOOOOOO", "NULL POINTER FUCKERRRRRRRRRRRRRRRRRRRRRRRS");
             }
-
         }
 
     }

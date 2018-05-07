@@ -146,7 +146,7 @@ public class ControllerActivity extends AppCompatActivity {
                 connection = new Connection();
                 connection.connectToIP(ipAddr, this);   // establish connection
 
-                load_fragment("runtime");
+                load_fragment("editor");
 
 //                CharSequence controllers[] = new CharSequence[] {"Level Editor", "Level Runtime"};
 //
