@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d("TESTS", "clicked action_connect");
 
-                /*
+
                 //create alert dialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -150,9 +150,8 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 builder.show();
-                */
 
-                openController("172.31.48.35");
+                //openController("172.31.48.35");
 
                 return true;
 

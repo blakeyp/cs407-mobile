@@ -107,8 +107,13 @@ public class ControllerActivity extends AppCompatActivity {
                     helpGravity = Tooltip.Gravity.RIGHT;
                     helpWidth = 1500;
                 }
+                else if (f instanceof SpikeFragment) {
+                    helpText = "Press the button to activate the spike trap!";
+                    helpGravity = Tooltip.Gravity.RIGHT;
+                    helpWidth = 1500;
+                }
                 else if (f instanceof LevelEditorFragment) {
-                    helpText = "Click the tools to select them, and use them with the green action button.";
+                    helpText = "Click the tools and use them with the green action button!";
                     helpGravity = Tooltip.Gravity.RIGHT;
                     helpWidth = 1500;
                 }
