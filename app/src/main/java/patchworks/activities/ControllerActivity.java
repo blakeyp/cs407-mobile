@@ -98,7 +98,7 @@ public class ControllerActivity extends AppCompatActivity {
                     helpWidth = 850;
                 }
                 else if (f instanceof UFOFragment) {
-                    helpText = "Tilt your device left/right to move the UFO and press to fire!";
+                    helpText = "Tilt your device to move the UFO and tap anywhere to fire!";
                     helpGravity = Tooltip.Gravity.RIGHT;
                     helpWidth = 1500;
                 }
@@ -108,12 +108,12 @@ public class ControllerActivity extends AppCompatActivity {
                     helpWidth = 1500;
                 }
                 else if (f instanceof SpikeFragment) {
-                    helpText = "Press the button to activate the spike trap!";
+                    helpText = "Tap anywhere to activate the spike trap!";
                     helpGravity = Tooltip.Gravity.RIGHT;
                     helpWidth = 1500;
                 }
                 else if (f instanceof LevelEditorFragment) {
-                    helpText = "Click the tools and use them with the green action button!";
+                    helpText = "Choose a tile and tool, then draw using the green action button!";
                     helpGravity = Tooltip.Gravity.RIGHT;
                     helpWidth = 1500;
                 }
