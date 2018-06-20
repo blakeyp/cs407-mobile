@@ -22,21 +22,17 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-    <Button
-        android:id="@+id/captureButton"
-        android:layout_width="213dp"
-        android:layout_height="117dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/tx_capture"
-        android:enabled="false"
+    <ImageView
+        android:id="@+id/capture"
         android:alpha="0.2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        android:layout_width="231dp"
+        android:layout_height="134dp"
+        app:srcCompat="@drawable/tx_capture"
+        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/touchPad" />
+        app:layout_constraintRight_toLeftOf="@+id/touchPad"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp" />
 
 </android.support.constraint.ConstraintLayout>

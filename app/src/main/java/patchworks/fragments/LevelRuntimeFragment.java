@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import patchworks.R;
 import patchworks.activities.ControllerActivity;
@@ -24,7 +27,7 @@ public class LevelRuntimeFragment extends Fragment {
     private Connection connection;
     private TouchpadView touchpadView;
 
-    private static Button captureButton;
+    private static ImageView capture;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,11 +54,15 @@ public class LevelRuntimeFragment extends Fragment {
         touchpadView = (TouchpadView) view.findViewById(R.id.touchPad);
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new scrollListener(touchpadView)));
 
-        captureButton = (Button) view.findViewById(R.id.captureButton);
+        capture = view.findViewById(R.id.capture);
 
-        captureButton.setOnClickListener(new View.OnClickListener() {
+        capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                Animation pulse = AnimationUtils.loadAnimation(getActivity(), R.anim.pulse);
+//                capture.setAlpha(1.0f);
+//                capture.startAnimation(pulse);
 
                 if (!ControllerActivity.controllerDebug)
                     connection.sendMessage("capture");
@@ -75,6 +82,8 @@ public class LevelRuntimeFragment extends Fragment {
 
             }
         });
+
+        capture.setClickable(false);
 
         return view;
 

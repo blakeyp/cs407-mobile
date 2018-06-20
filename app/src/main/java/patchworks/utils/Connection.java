@@ -6,7 +6,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -22,6 +25,7 @@ import patchworks.fragments.LevelRuntimeFragment;
 import patchworks.fragments.SlimeFragment;
 import patchworks.fragments.UFOFragment;
 
+import static patchworks.R.id.imageView;
 import static patchworks.activities.LoginActivity.DEBUG_TAG;
 
 public class Connection {
@@ -79,8 +83,8 @@ public class Connection {
                 client.connect(new InetSocketAddress(ipAddr, 9000), 10000);   // set timeout for connection blocking
                 Log.d(DEBUG_TAG, "Connection made");
                 printwriter = new PrintWriter(client.getOutputStream(), true);
-                printwriter.println("connected");   // write message to output stream with EOL char
-                printwriter.flush();
+                //printwriter.println("connected");   // write message to output stream with EOL char
+                //printwriter.flush();
 
             } catch (IOException e) {
                 Log.d(DEBUG_TAG, "Connection refused!!!");
@@ -156,32 +160,36 @@ public class Connection {
             Log.d(DEBUG_TAG, message);
 
             try {
-                Button captureButton = (Button) controller.findViewById(R.id.captureButton);
-
+                ImageView capture = (ImageView) controller.findViewById(R.id.capture);
+                Animation pulse = AnimationUtils.loadAnimation(controller, R.anim.pulse);
                 switch (message) {
 
                     case "pobj_UFO":
-                        //captureButton.setBackgroundResource(R.drawable.tx_capture);
-                        captureButton.setAlpha(1.0f);
-                        captureButton.setEnabled(true);
+                        //capture.setBackgroundResource(R.drawable.tx_capture);
+                        capture.setAlpha(1.0f);
+                        capture.setClickable(true);
+                        capture.startAnimation(pulse);
                         LevelRuntimeFragment.captured = "ufo";
                         break;
                     case "pobj_Slime":
-                        //captureButton.setBackgroundResource(R.drawable.tx_capture);
-                        captureButton.setAlpha(1.0f);
-                        captureButton.setEnabled(true);
+                        //capture.setBackgroundResource(R.drawable.tx_capture);
+                        capture.setAlpha(1.0f);
+                        capture.setClickable(true);
+                        capture.startAnimation(pulse);
                         LevelRuntimeFragment.captured = "slime";
                         break;
                     case "pobj_SpikeTrap":
-                        //captureButton.setBackgroundResource(R.drawable.tx_capture);
-                        captureButton.setAlpha(1.0f);
-                        captureButton.setEnabled(true);
+                        //capture.setBackgroundResource(R.drawable.tx_capture);
+                        capture.setAlpha(1.0f);
+                        capture.setClickable(true);
+                        capture.startAnimation(pulse);
                         LevelRuntimeFragment.captured = "spike";
                         break;
                     case "capture_off":
-                        //captureButton.setBackgroundResource(R.drawable.tx_capture_off);
-                        captureButton.setAlpha(0.2f);
-                        captureButton.setEnabled(false);
+                        //capture.setBackgroundResource(R.drawable.tx_capture_off);
+                        capture.setAlpha(0.2f);
+                        capture.setClickable(false);
+                        capture.clearAnimation();
                         break;
 
                     case "leave":

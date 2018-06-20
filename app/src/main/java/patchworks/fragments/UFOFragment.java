@@ -124,33 +124,36 @@ public class UFOFragment extends Fragment {
 
                 float ang = orientations[2];
 
-                if (ang > 15 && ang <= 30) {
-                    Log.d("GYRO", "right");
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("right");
-                    //getWindow().getDecorView().setBackgroundColor(Color.YELLOW);   // right
-                    //ufoView.setRotation(30f);
-                } else if (ang > 30) {
-                    Log.d("GYRO", "right2");
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("right2");
-                } else if (ang < -15 && ang >= -30) {
-                    Log.d("GYRO", "left");
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("left");
-                    //getWindow().getDecorView().setBackgroundColor(Color.BLUE);   // left
-                    //ufoView.setRotation(-30f);
-                } else if (ang < -30) {
-                    Log.d("GYRO", "left2");
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("left2");
-                } else {
-                    Log.d("GYRO", "stop");
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("stop");
-                    //getWindow().getDecorView().setBackgroundColor(Color.WHITE);
-                    //ufoView.setRotation(0f);
-                }
+                Log.d("GYRO", "angle: "+ang);
+                connection.sendMessage("ufo_angle:"+ang);
+//
+//                if (ang > 15 && ang <= 30) {
+//                    Log.d("GYRO", "right");
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("right");
+//                    //getWindow().getDecorView().setBackgroundColor(Color.YELLOW);   // right
+//                    //ufoView.setRotation(30f);
+//                } else if (ang > 30) {
+//                    Log.d("GYRO", "right2");
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("right2");
+//                } else if (ang < -15 && ang >= -30) {
+//                    Log.d("GYRO", "left");
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("left");
+//                    //getWindow().getDecorView().setBackgroundColor(Color.BLUE);   // left
+//                    //ufoView.setRotation(-30f);
+//                } else if (ang < -30) {
+//                    Log.d("GYRO", "left2");
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("left2");
+//                } else {
+//                    Log.d("GYRO", "stop");
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("stop");
+//                    //getWindow().getDecorView().setBackgroundColor(Color.WHITE);
+//                    //ufoView.setRotation(0f);
+//                }
 
             }
 
