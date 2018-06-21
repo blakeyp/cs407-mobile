@@ -44,12 +44,12 @@ public class GameFinderFragment extends Fragment {
 
         try {
             InetAddress netAddress = InetAddress.getByName("127.0.0.1");
-            gameList.add(new Game(netAddress, "Game1", "Playing Level", 2, true));
-            gameList.add(new Game(netAddress, "Game2", "Building a Level", 3, false));
-            gameList.add(new Game(netAddress, "Game3", "GameState", 1, false));
-            gameList.add(new Game(netAddress, "Game4", "GameState", 0, true));
-            gameList.add(new Game(netAddress, "Game5", "GameState", 0, true));
-            gameList.add(new Game(netAddress, "Game6", "GameState", 1, false));
+//            gameList.add(new Game(netAddress, "Game1", "Playing Level", 2, true));
+//            gameList.add(new Game(netAddress, "Game2", "Building a Level", 3, false));
+//            gameList.add(new Game(netAddress, "Game3", "GameState", 1, false));
+//            gameList.add(new Game(netAddress, "Game4", "GameState", 0, true));
+//            gameList.add(new Game(netAddress, "Game5", "GameState", 0, true));
+//            gameList.add(new Game(netAddress, "Game6", "GameState", 1, false));
         } catch (java.net.UnknownHostException e) {
             Log.d("GameFinder", "something bad happened");
         }

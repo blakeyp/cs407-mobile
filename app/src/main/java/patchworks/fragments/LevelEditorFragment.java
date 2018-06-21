@@ -2,6 +2,7 @@ package patchworks.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -28,15 +29,17 @@ public class LevelEditorFragment extends Fragment {
 
     private Connection connection;
     private TouchpadView touchpadView;
-    private ToggleButton eraserButton;
-    private ToggleButton pencilButton;
-    private ToggleButton grabButton;
+    private Button paletteButton;
+    private Button eraserButton;
+    private Button grabButton;
     private ImageView actionButtonIndicator;
+    private ImageView paletteIndicator;
     private Button actionButton;
     private ScrollView tileDrawer;
-    private HashMap<String, Integer> paletteIcons;
+    private HashMap<Integer, Integer> paletteIcons;
     private ArrayList<Button> tilePalette;
-    private int mSelectedTile = 1;
+    private int selectedTool = -1;
+    private int mSelectedTile = 0;
 
     /****/
     // Can use this stuff if want to pass in parameters on creating fragment
@@ -103,165 +106,128 @@ public class LevelEditorFragment extends Fragment {
         //ControllerActivity.helpButton.setVisibility(View.GONE);
 
         paletteIcons = new HashMap();
-        paletteIcons.put("basic 0", R.drawable.tx_tile_solid);
-        paletteIcons.put("basic 1", R.drawable.tx_tile_semisolid);
-        paletteIcons.put("basic 2", R.drawable.tx_tile_ladder);
-        paletteIcons.put("basic 3", R.drawable.tx_tile_crate);
-        paletteIcons.put("bg 0", R.drawable.tx_tile_bush_01);
-        paletteIcons.put("bg 1", R.drawable.tx_tile_cloud_01);
-        paletteIcons.put("bg 2", R.drawable.tx_tile_flower);
-        paletteIcons.put("bg 3", R.drawable.tx_tile_mountain);
-        paletteIcons.put("tech 0", R.drawable.tx_tile_startpoint);
-        paletteIcons.put("tech 1", R.drawable.tx_tile_doughnut);
-        paletteIcons.put("tech 2", R.drawable.tx_tile_ufo);
-        paletteIcons.put("tech 3", R.drawable.tx_tile_spikes);
+        paletteIcons.put(0, R.drawable.tx_tile_solid);
+        paletteIcons.put(1, R.drawable.tx_tile_semisolid);
+        paletteIcons.put(2, R.drawable.tx_tile_ladder);
+        paletteIcons.put(3, R.drawable.tx_tile_crate);
+        paletteIcons.put(4, R.drawable.tx_tile_bush_01);
+        paletteIcons.put(5, R.drawable.tx_tile_cloud_01);
+        paletteIcons.put(6, R.drawable.tx_tile_flower);
+        paletteIcons.put(7, R.drawable.tx_tile_mountain);
+        paletteIcons.put(8, R.drawable.tx_tile_startpoint);
+        paletteIcons.put(9, R.drawable.tx_tile_doughnut);
+        paletteIcons.put(10, R.drawable.tx_tile_ufo);
+        paletteIcons.put(11, R.drawable.tx_tile_spikes);
 
         touchpadView = (TouchpadView) view.findViewById(R.id.touchPad);
         touchpadView.setDetector(new GestureDetector(touchpadView.getContext(), new ScrollListener(touchpadView, connection)));
 
-        eraserButton = (ToggleButton) view.findViewById(R.id.eraserButton);
-        pencilButton = (ToggleButton) view.findViewById(R.id.pencilButton);
-        pencilButton.setChecked(true);   // on by default
+        paletteButton = view.findViewById(R.id.paletteButton);
+        eraserButton = view.findViewById(R.id.eraserButton);
         actionButtonIndicator = (ImageView) view.findViewById(R.id.actionButtonIndicator);
-        grabButton = (ToggleButton) view.findViewById(R.id.grabButton);
+        paletteIndicator = (ImageView) view.findViewById(R.id.paletteIndicator);
+        grabButton = view.findViewById(R.id.grabButton);
 
         actionButton = view.findViewById(R.id.actionButton);
 
-        final ToggleButton paletteButton = (ToggleButton) view.findViewById(R.id.paletteButton);
         final Button undoButton = view.findViewById(R.id.undoButton);
         final Button redoButton = view.findViewById(R.id.redoButton);
 
         tileDrawer = view.findViewById(R.id.tileDrawer);
 
-        GridLayout paletteGridBasic = (GridLayout) view.findViewById(R.id.paletteGridBasic);
-        GridLayout paletteGridBackground = (GridLayout) view.findViewById(R.id.paletteGridBackground);
-        GridLayout paletteGridTech = (GridLayout) view.findViewById(R.id.paletteGridTech);
+        GridLayout paletteGrid = (GridLayout) view.findViewById(R.id.paletteGrid);
+        final int numTiles = paletteGrid.getChildCount();
 
-        tilePalette = new ArrayList(paletteGridBasic.getChildCount());
-        for (int i = 0; i < paletteGridBasic.getChildCount(); i++) {
-            tilePalette.add((Button) paletteGridBasic.getChildAt(i));
+        tilePalette = new ArrayList(numTiles);
+        for (int i = 0; i < numTiles; i++) {
+            tilePalette.add((Button) paletteGrid.getChildAt(i));
 
             final int tileId = i;
             tilePalette.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mSelectedTile = tileId;
-                    paletteButton.setChecked(false);
+                    //paletteButton.setChecked(false);
 
-                    paletteButton.setBackgroundResource(paletteIcons.get("basic "+tileId));
-                    Log.d(v.getClass().getName(), "Setting tile to basic "+tileId);
+                    paletteIndicator.setImageResource(paletteIcons.get(tileId));
+                    actionButtonIndicator.setImageResource(paletteIcons.get(tileId));
+                    //Log.d(v.getClass().getName(), "Setting tile to basic "+tileId);
                     if (!ControllerActivity.controllerDebug) {
                         Log.d("MYDEBUG", "sending message");
-                        connection.sendMessage("basic " + tileId);
+                        connection.sendMessage(Integer.toString(tileId));
                     }
-
-                }
-            });
-        }
-
-        tilePalette = new ArrayList(paletteGridBackground.getChildCount());
-        for (int i = 0; i < paletteGridBackground.getChildCount(); i++) {
-            tilePalette.add((Button) paletteGridBackground.getChildAt(i));
-
-            final int tileId = i;
-            tilePalette.get(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSelectedTile = tileId;
-                    paletteButton.setChecked(false);
-
-                    paletteButton.setBackgroundResource(paletteIcons.get("bg "+tileId));
-                    Log.d(v.getClass().getName(), "Setting tile to bg "+tileId);
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("bg "+tileId);
-
-                }
-            });
-        }
-
-        tilePalette = new ArrayList(paletteGridTech.getChildCount());
-        for (int i = 0; i < paletteGridTech.getChildCount(); i++) {
-            tilePalette.add((Button) paletteGridTech.getChildAt(i));
-
-            final int tileId = i;
-            tilePalette.get(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSelectedTile = tileId;
-                    paletteButton.setChecked(false);
-
-                    paletteButton.setBackgroundResource(paletteIcons.get("tech "+tileId));
-                    Log.d(v.getClass().getName(), "Setting tile to tech "+tileId);
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("tech "+tileId);
-
-                }
-            });
-        }
-
-        pencilButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
                     tileDrawer.setVisibility(View.INVISIBLE);
-                    Log.d("touch", "pencil");
+
+                }
+            });
+        }
+
+//        eraserButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    tileDrawer.setVisibility(View.INVISIBLE);
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("eraser");
+//                    grabButton.setChecked(false);
+//                    paletteButton.setChecked(false);
+//                    actionButtonIndicator.setImageResource(R.drawable.tx_ui_eraser2);
+//                } else {
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("eraser_end");
+//                }
+//            }
+//        });
+//
+//        grabButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    tileDrawer.setVisibility(View.INVISIBLE);
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("grab");
+//                    eraserButton.setChecked(false);
+//                    paletteButton.setChecked(false);
+//                    actionButtonIndicator.setImageResource(R.drawable.tx_ui_grab2);
+//                } else {
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("grab_end");
+//                }
+//            }
+//        });
+
+        paletteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (selectedTool == 0) { //already selected, bring up toolbox
+                    tileDrawer.setVisibility(View.VISIBLE);
+                    actionButtonIndicator.setImageResource(paletteIcons.get(mSelectedTile));
+                } else {
+                    selectedTool = 0;
                     if (!ControllerActivity.controllerDebug)
                         connection.sendMessage("pencil");
-                    eraserButton.setChecked(false);
-                    grabButton.setChecked(false);
-                    actionButtonIndicator.setImageResource(R.drawable.tx_ui_pencil2);
-                } else {
-                    Log.d("touch", "pencil_end");
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("pencil_end");
+                    actionButtonIndicator.setImageResource(paletteIcons.get(mSelectedTile));
                 }
             }
         });
 
-        eraserButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    tileDrawer.setVisibility(View.INVISIBLE);
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("eraser");
-                    pencilButton.setChecked(false);
-                    grabButton.setChecked(false);
-                    actionButtonIndicator.setImageResource(R.drawable.tx_ui_eraser2);
-                } else {
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("eraser_end");
-                }
-            }
-        });
-
-        grabButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    tileDrawer.setVisibility(View.INVISIBLE);
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("grab");
-                    pencilButton.setChecked(false);
-                    eraserButton.setChecked(false);
-                    actionButtonIndicator.setImageResource(R.drawable.tx_ui_grab2);
-                } else {
-                    if (!ControllerActivity.controllerDebug)
-                        connection.sendMessage("grab_end");
-                }
-            }
-        });
-
-        paletteButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    tileDrawer.setVisibility(View.VISIBLE);
-                } else {
-                    tileDrawer.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+//        paletteButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    tileDrawer.setVisibility(View.INVISIBLE);
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("pencil");
+//                    eraserButton.setChecked(false);
+//                    grabButton.setChecked(false);
+//                    actionButtonIndicator.setImageResource(paletteIcons.get(mSelectedTile));
+//                } else {
+//                    if (!ControllerActivity.controllerDebug)
+//                        connection.sendMessage("pencil_end");
+//                }
+//            }
+//        });
 
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
